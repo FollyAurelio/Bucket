@@ -3,6 +3,7 @@ class Sequence:
     def __init__(self, filepath):
         self.piece_table = PieceTable()
         self.add_buffer = ""
+        #File handling code should be decoupled from the sequence so it should be in its own file
         try:
             with open(filepath, "r") as rf:
                 self.file_buffer = rf.read()
@@ -15,7 +16,7 @@ class Sequence:
         f.next.prev = f
         
     
-    def insert(self, index, text, seq_length):
+    def insert(self, index, text):
         old_span = SpanRange()
         self.add_buffer += text
         offset = 0
@@ -49,20 +50,26 @@ class Sequence:
                 sptr = sptr.next
         return 0
 
-    def erase(self, index):
+    def erase(self, index, length):
         sptr = self.piece_table.head.next
         offset = 0
-        while sptr.next:
+        while sptr.next and length > 0:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
                     if sptr.length == 1:
                         sptr.prev.next = sptr.next
                         sptr.next.prev = sptr.prev
+                        sptr = sptr.next
+                        length -= 1
                     else:
                         sptr.start += 1
                         sptr.length -= 1
+                        length -= 1
                 elif offset + sptr.length - 1 == index:
                     sptr.length -= 1
+                    sptr = sptr.next
+                    length -= 1
+                    offset += index
                 else:
                     r_i = index-offset
                     l_span = Span(sptr.buffer, sptr.start, r_i)   
@@ -73,7 +80,10 @@ class Sequence:
                     r_span.prev = l_span
                     r_span.next = sptr.next
                     sptr.next.prev = r_span#split span in two
-                return 1
+                    sptr = r_span
+                    length -= 1
+                    offset += index
+                #return 1
             else:
                 offset += sptr.length
                 sptr = sptr.next
@@ -161,11 +171,12 @@ print(len(s.file_buffer))
 #s.insert(48,"xxxx",3)
 #s.insert(2,"yyyy",3)
 #s.insert(6,"?",3)
-s.insert(0,"?",3)
+#s.insert(0,"?",3)
 #s.erase(2)
 #s.erase(5)
 
-s.erase(0)
+s.erase(2,3)
+s.erase(1,2)
 #s.erase(5)
 #s.insert(2,"?",3)
 
