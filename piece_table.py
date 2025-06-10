@@ -16,7 +16,6 @@ class Sequence:
         
     
     def insert(self, index, text, seq_length):
-        new_span = Span(1, len(self.add_buffer), len(text))
         old_span = SpanRange()
         self.add_buffer += text
         offset = 0
@@ -24,30 +23,63 @@ class Sequence:
         while sptr:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
-                   #old_span.append(sptr.prev)
-                   #old_span.append(sptr)
-                   sptr.prev.next = new_span
-                   new_span.prev = sptr.prev
-                   new_span.next = sptr
-                   sptr.prev = new_span
+                    #old_span.append(sptr.prev)
+                    #old_span.append(sptr)
+                    new_span = Span(1, len(self.add_buffer) - len(text), len(text))
+                    sptr.prev.next = new_span
+                    new_span.prev = sptr.prev
+                    new_span.next = sptr
+                    sptr.prev = new_span
                 else:
-                    pass
+                    r_i = index-offset+sptr.start
+                    l_span = Span(sptr.buffer, sptr.start, r_i)   
+                    new_span = Span(1, len(self.add_buffer) - len(text), len(text))
+                    r_span = Span(sptr.buffer, r_i + sptr.start, sptr.length - r_i)
+                    sptr.prev.next = l_span
+                    l_span.prev = sptr.prev
+                    l_span.next = new_span
+                    new_span.prev = l_span
+                    new_span.next = r_span
+                    r_span.prev = new_span
+                    r_span.next = sptr.next
+                    sptr.next.prev = r_span
                 return 1
             else:
                 offset += sptr.length
                 sptr = sptr.next
         return 0
 
-        """ if offset == index:
-                    pass
+    def erase(self, index):
+        sptr = self.piece_table.head.next
+        offset = 0
+        while sptr.next:
+            if (offset <= index and index < offset + sptr.length):
+                if offset == index:
+                    if sptr.length == 1:
+                        sptr.prev.next = sptr.next
+                        sptr.next.prev = sptr.prev
+                    else:
+                        sptr.start += 1
+                        sptr.length -= 1
+                elif offset + sptr.length - 1 == index:
+                    sptr.length -= 1
                 else:
-                    pass"""
-            
+                    r_i = index-offset
+                    l_span = Span(sptr.buffer, sptr.start, r_i)   
+                    r_span = Span(sptr.buffer, r_i+sptr.start+1, sptr.length - r_i)
+                    sptr.prev.next = l_span
+                    l_span.prev = sptr.prev
+                    l_span.next = r_span
+                    r_span.prev = l_span
+                    r_span.next = sptr.next
+                    sptr.next.prev = r_span#split span in two
+                return 1
+            else:
+                offset += sptr.length
+                sptr = sptr.next
+        return 0
 
-        
 
-    def erase(self):
-        pass
 
     def __str__(self):
         output = ""
@@ -72,6 +104,15 @@ class PieceTable:
         self.head.next = self.tail
         self.tail.prev = self.head
 
+    def __str__(self):
+        sptr = self.head.next
+        output = ""
+        while sptr.next:
+            output += str(sptr) + "\n"
+            sptr = sptr.next
+        return output
+            
+
 
 class Span:
 
@@ -81,6 +122,17 @@ class Span:
         self.buffer = buffer
         self.start = start
         self.length = length
+
+    def copy(self):
+        new = Span(self.buffer. self.start, self.length)
+        new.next = self.next
+        new.prev = self.prev
+        return new
+
+    def __str__(self):
+       return f"({self.buffer},{self.start},{self.length})"
+
+
 
 class SpanRange:
 
@@ -106,5 +158,17 @@ class SpanRange:
 
 s = Sequence("test.txt")
 print(len(s.file_buffer))
-s.insert(45,"Or is it?",3)
+#s.insert(48,"xxxx",3)
+#s.insert(2,"yyyy",3)
+#s.insert(6,"?",3)
+s.insert(0,"?",3)
+#s.erase(2)
+#s.erase(5)
+
+s.erase(0)
+#s.erase(5)
+#s.insert(2,"?",3)
+
 print(s)
+print(s.piece_table)
+#print(s.add_buffer)
