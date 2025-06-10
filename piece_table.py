@@ -14,6 +14,8 @@ class Sequence:
         self.piece_table.head.next = f
         f.prev = f.next.prev
         f.next.prev = f
+        self.undo_stack = Stack()
+        self.redo_stack = Stack()
         
     
     def insert(self, index, text):
@@ -82,8 +84,7 @@ class Sequence:
                     sptr.next.prev = r_span#split span in two
                     sptr = r_span
                     length -= 1
-                    offset += index
-                #return 1
+                    offset += r_i
             else:
                 offset += sptr.length
                 sptr = sptr.next
@@ -142,6 +143,16 @@ class Span:
     def __str__(self):
        return f"({self.buffer},{self.start},{self.length})"
 
+class Stack:
+
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
 
 
 class SpanRange:
@@ -175,9 +186,9 @@ print(len(s.file_buffer))
 #s.erase(2)
 #s.erase(5)
 
-s.erase(2,3)
+s.erase(2,5)
 s.erase(1,2)
-#s.erase(5)
+s.erase(5,10)
 #s.insert(2,"?",3)
 
 print(s)
