@@ -26,15 +26,18 @@ class Sequence:
         while sptr:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
-                    #old_span.append(sptr.prev)
-                    #old_span.append(sptr)
+                    if not sptr == self.piece_table.head.next:
+                        old_span.append(sptr.prev.copy())
+                    if not sptr == self.piece_table.tail:
+                        old_span.append(sptr.copy())
                     new_span = Span(1, len(self.add_buffer) - len(text), len(text))
                     sptr.prev.next = new_span
                     new_span.prev = sptr.prev
                     new_span.next = sptr
                     sptr.prev = new_span
                 else:
-                    r_i = index-offset+sptr.start
+                    old_span.append(sptr.copy())
+                    r_i = index-offset
                     l_span = Span(sptr.buffer, sptr.start, r_i)   
                     new_span = Span(1, len(self.add_buffer) - len(text), len(text))
                     r_span = Span(sptr.buffer, r_i + sptr.start, sptr.length - r_i)
@@ -46,6 +49,7 @@ class Sequence:
                     r_span.prev = new_span
                     r_span.next = sptr.next
                     sptr.next.prev = r_span
+                self.undo_stack.push(old_span)
                 return 1
             else:
                 offset += sptr.length
@@ -53,6 +57,14 @@ class Sequence:
         return 0
 
     def erase(self, index, length):
+        sptr = self.piece_table.head.next
+        old_span = SpanRange()
+        offset = 0
+        while sptr.next:
+            if offset < length + index or offset >= index:
+                old_span.append(sptr.copy())
+            offset += sptr.length
+            sptr = sptr.next
         sptr = self.piece_table.head.next
         offset = 0
         while sptr.next and length > 0:
@@ -88,7 +100,16 @@ class Sequence:
             else:
                 offset += sptr.length
                 sptr = sptr.next
+        self.undo_stack.push(old_span)
         return 0
+
+    def undo(self):
+        
+        if not self.undo_stack.is_empty():
+            old_span = self.undo_stack.pop()
+            old_span.first.prev.next = old_span.first
+            old_span.last.next.prev = old_span.last
+            #add redo
 
 
 
@@ -135,7 +156,7 @@ class Span:
         self.length = length
 
     def copy(self):
-        new = Span(self.buffer. self.start, self.length)
+        new = Span(self.buffer, self.start, self.length)
         new.next = self.next
         new.prev = self.prev
         return new
@@ -153,6 +174,9 @@ class Stack:
 
     def pop(self):
         return self.items.pop()
+    
+    def is_empty(self):
+        return self.items == []
 
 
 class SpanRange:
@@ -160,37 +184,53 @@ class SpanRange:
     def __init__(self):
         self.first = None
         self.last = None
-        self.boundary = None
+        #self.boundary = None
         self.length = 0
 
     def append(self, span):
-        if not self.first and not self.last and not self.boundary:
+        if not self.first:
             self.first = span
             self.last = span
-            self.boundary = False
-        elif self.first == self.last and not self.boundary:
-            self.boundary = True
+        elif self.first:
+            self.last.next = span
+            span.prev = self.last
             self.last = span
-        else:
-            self.boundary = False
-            self.last = span
+
 
 
 
 s = Sequence("test.txt")
 print(len(s.file_buffer))
-#s.insert(48,"xxxx",3)
-#s.insert(2,"yyyy",3)
+s.insert(2,"!!")
+#s.undo()
+#s.insert(2,"yyyy")
 #s.insert(6,"?",3)
 #s.insert(0,"?",3)
 #s.erase(2)
 #s.erase(5)
 
-s.erase(2,5)
 s.erase(1,2)
 s.erase(5,10)
-#s.insert(2,"?",3)
+#s.undo()
+#s.insert(2,"?")
+#s.insert(2,"x")
+#s.insert(0,"oo")
+#s.erase(1,2)
+#s.erase(0,1)
+#s.insert(5,"x")
+def main():
+    while True:
+        command = input().split(" ")
+        if command[0] == "insert":
+            s.insert(int(command[1]), command[2])
+        if command[0] == "erase":
+            s.erase(int(command[1]), int(command[2]))
+        if command[0] == "undo":
+            s.undo()
+        
+        print(s)
 
-print(s)
-print(s.piece_table)
+main()
+#print(s)
+#print(s.piece_table)
 #print(s.add_buffer)
