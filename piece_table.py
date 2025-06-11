@@ -104,13 +104,32 @@ class Sequence:
         return 0
 
     def undo(self):
-        
         if not self.undo_stack.is_empty():
+            new_span = SpanRange()
             old_span = self.undo_stack.pop()
+            sptr = old_span.first.prev.next
+            while sptr != old_span.last.next:
+                new_span.append(sptr.copy())
+                sptr = sptr.next
+            self.redo_stack.push(new_span)
             old_span.first.prev.next = old_span.first
             old_span.last.next.prev = old_span.last
-            #add redo
 
+    def redo(self):
+        if not self.redo_stack.is_empty():
+            new_span = SpanRange()
+            old_span = self.redo_stack.pop()
+            sptr = old_span.first.prev.next
+            while sptr != old_span.last.next:
+                try:
+                    new_span.append(sptr.copy())
+                except:
+                    print(old_span.last.next)
+                sptr = sptr.next
+            self.undo_stack.push(new_span)
+            old_span.first.prev.next = old_span.first
+            old_span.last.next.prev = old_span.last
+         
 
 
     def __str__(self):
@@ -199,9 +218,9 @@ class SpanRange:
 
 
 
-s = Sequence("test.txt")
-print(len(s.file_buffer))
-s.insert(2,"!!")
+s = Sequence("tt.txt")
+#print(len(s.file_buffer))
+#s.insert(2,"!!")
 #s.undo()
 #s.insert(2,"yyyy")
 #s.insert(6,"?",3)
@@ -209,8 +228,8 @@ s.insert(2,"!!")
 #s.erase(2)
 #s.erase(5)
 
-s.erase(1,2)
-s.erase(5,10)
+#s.erase(1,2)
+#s.erase(5,10)
 #s.undo()
 #s.insert(2,"?")
 #s.insert(2,"x")
@@ -227,10 +246,13 @@ def main():
             s.erase(int(command[1]), int(command[2]))
         if command[0] == "undo":
             s.undo()
+        if command[0] == "redo":
+            s.redo()
         
+        print(s.piece_table)
         print(s)
-
-main()
+if __name__ == "__main__":
+    main()
 #print(s)
 #print(s.piece_table)
 #print(s.add_buffer)
