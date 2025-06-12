@@ -45,14 +45,18 @@ class Sequence:
         return self.buffer
 
 
+st = time.time()
 s = Sequence()
 rf = open("test.txt","r")
 a = rf.read()
 rf.close()
 s.buffer = a
 print(len(s.buffer))
-st = time.time()
-s.insert(33000420, "me and you")
+s.insert(5000, "me and you")
+s.insert(5000, "me and you")
+s.insert(5000, "me and you")
+s.insert(3, "me and you")
+s.undo_redo("undo")
 en = time.time()
 print(en-st)
 #print(s)

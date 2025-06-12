@@ -15,23 +15,29 @@ class Sequence:
         self.piece_table.head.next = f
         f.prev = f.next.prev
         f.next.prev = f
-        self.undo_stack = []
-        self.redo_stack = []
+        self.undo_stack = Stack()
+        self.redo_stack = Stack()
         
     
     def insert(self, index, text):
+        old_span = SpanRange()
         self.add_buffer += text
         offset = 0
         sptr = self.piece_table.head.next
         while sptr:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
+                    if not sptr == self.piece_table.head.next:
+                        old_span.append(sptr.prev.copy())
+                    if not sptr == self.piece_table.tail:
+                        old_span.append(sptr.copy())
                     new_span = Span(1, len(self.add_buffer) - len(text), len(text))
                     sptr.prev.next = new_span
                     new_span.prev = sptr.prev
                     new_span.next = sptr
                     sptr.prev = new_span
                 else:
+                    old_span.append(sptr.copy())
                     r_i = index-offset
                     l_span = Span(sptr.buffer, sptr.start, r_i)   
                     new_span = Span(1, len(self.add_buffer) - len(text), len(text))
@@ -44,28 +50,27 @@ class Sequence:
                     r_span.prev = new_span
                     r_span.next = sptr.next
                     sptr.next.prev = r_span
-                self.undo_stack.append(("erase", index, text, len(text)))
+                self.undo_stack.push(old_span)
                 return 1
             else:
                 offset += sptr.length
                 sptr = sptr.next
         return 0
 
-    def get_text(self, buffer, start):
-        if buffer == 0:
-            return self.file_buffer[start]
-        elif buffer == 1:
-            return self.add_buffer[start]
-
     def erase(self, index, length):
         sptr = self.piece_table.head.next
+        old_span = SpanRange()
         offset = 0
-        text = ""
-        l = length
+        while sptr.next:
+            if offset < length + index or offset >= index:
+                old_span.append(sptr.copy())
+            offset += sptr.length
+            sptr = sptr.next
+        sptr = self.piece_table.head.next
+        offset = 0
         while sptr.next and length > 0:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
-                    text += self.get_text(sptr.buffer, sptr.start)
                     if sptr.length == 1:
                         sptr.prev.next = sptr.next
                         sptr.next.prev = sptr.prev
@@ -76,7 +81,6 @@ class Sequence:
                         sptr.length -= 1
                         length -= 1
                 elif offset + sptr.length - 1 == index:
-                    text += self.get_text(sptr.buffer, sptr.length-1)
                     sptr.length -= 1
                     sptr = sptr.next
                     length -= 1
@@ -85,7 +89,6 @@ class Sequence:
                     r_i = index-offset
                     l_span = Span(sptr.buffer, sptr.start, r_i)   
                     r_span = Span(sptr.buffer, r_i+sptr.start+1, sptr.length - r_i)
-                    text += self.get_text(sptr.buffer, r_i + sptr.start)
                     sptr.prev.next = l_span
                     l_span.prev = sptr.prev
                     l_span.next = r_span
@@ -98,29 +101,35 @@ class Sequence:
             else:
                 offset += sptr.length
                 sptr = sptr.next
-        self.undo_stack.append(("insert", index, text, l))
+        self.undo_stack.push(old_span)
         return 0
 
-    def undo_redo(self, stack): #revert?
-        if stack == "undo":
-            pop_stack = self.undo_stack
-            push_stack = self.redo_stack
-        elif stack == "redo":
-            push_stack = self.undo_stack
-            pop_stack = self.redo_stack
-        else:
-            return 0
-        action = pop_stack.pop()
-        if action[0] == "insert":
-            self.insert(action[1], action[2])
-            push_stack.append(("erase", action[1], action[2], action[3]))
-        elif action[0] == "erase":
-            self.erase(action[1], action[3])
-            push_stack.append(("insert", action[1], action[2], action[3]))
-        else:
-            return 0
-        return 1
- 
+    def undo(self):
+        if not self.undo_stack.is_empty():
+            new_span = SpanRange()
+            old_span = self.undo_stack.pop()
+            sptr = old_span.first.prev.next
+            while sptr != old_span.last.next:
+                new_span.append(sptr.copy())
+                sptr = sptr.next
+            self.redo_stack.push(new_span)
+            old_span.first.prev.next = old_span.first
+            old_span.last.next.prev = old_span.last
+
+    def redo(self):
+        if not self.redo_stack.is_empty():
+            new_span = SpanRange()
+            old_span = self.redo_stack.pop()
+            sptr = old_span.first.prev.next
+            while sptr != old_span.last.next:
+                try:
+                    new_span.append(sptr.copy())
+                except:
+                    print(old_span.last.next)
+                sptr = sptr.next
+            self.undo_stack.push(new_span)
+            old_span.first.prev.next = old_span.first
+            old_span.last.next.prev = old_span.last
          
 
 
@@ -175,13 +184,42 @@ class Span:
     def __str__(self):
        return f"({self.buffer},{self.start},{self.length})"
 
+class Stack:
+
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
+    
+    def is_empty(self):
+        return self.items == []
+
+
+class SpanRange:
+
+    def __init__(self):
+        self.first = None
+        self.last = None
+        #self.boundary = None
+        self.length = 0
+
+    def append(self, span):
+        if not self.first:
+            self.first = span
+            self.last = span
+        elif self.first:
+            self.last.next = span
+            span.prev = self.last
+            self.last = span
 
 
 
 
-
-
-s = Sequence("test.tx")
+#s = Sequence("test.txt")
 #print(len(s.file_buffer))
 #s.insert(2,"!!")
 #s.undo()
@@ -210,14 +248,14 @@ def main():
         if command[0] == "erase":
             s.erase(int(command[1]), int(command[2]))
         if command[0] == "undo":
-            s.undo_redo("undo")
+            s.undo()
         if command[0] == "redo":
-            s.undo_redo("redo")
+            s.redo()
         
         print(s.piece_table)
         print(s)
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
 
 #print(s.piece_table)
 #print(s.add_buffer)

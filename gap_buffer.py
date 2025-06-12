@@ -7,12 +7,8 @@ class Sequence:
         self.gap_ptr = 0
         self.gap_length = 0
         self.buf_length = 0
-        self.resize_gap(100000000)
+        self.resize_gap(20)
 
-
-
-
-    
     def move_gap(self,index):
         if index <= self.gap_ptr:
             for i in range(self.gap_ptr-1, index-1, -1):
@@ -40,7 +36,7 @@ class Sequence:
             self.move_gap(index)
         for i in range(length):
             if self.gap_length <= 0:
-                self.resize_gap(100000000)
+                self.resize_gap(20)
             self.buffer[self.gap_ptr] = text[i]
             self.gap_ptr += 1
             self.gap_length -= 1
@@ -67,7 +63,10 @@ class Sequence:
 
 s = Sequence()
 s.insert(0,"asdfb")
-#s.insert(6,"asdfb")
+s.insert(5,"1111")
+#s.erase(3,6)
+print(s.gap_length)
+s.insert(9,"1111")
 """
 rf = open("test.txt","r")
 a = rf.read()
@@ -79,4 +78,21 @@ st = time.time()
 s.insert(33000, "me and you")
 en = time.time()
 print(en-st)
-#print(s)"""
+"""
+print(s)
+def main():
+    while True:
+        command = input().split(" ")
+        if command[0] == "insert":
+            s.insert(int(command[1]), command[2])
+        if command[0] == "erase":
+            s.erase(int(command[1]), int(command[2]))
+        if command[0] == "undo":
+            s.undo()
+        if command[0] == "redo":
+            s.redo()
+        
+        print(s)
+if __name__ == "__main__":
+    main()
+
