@@ -1,3 +1,4 @@
+import time
 class Sequence:
 
     def __init__(self):
@@ -50,6 +51,8 @@ a = rf.read()
 rf.close()
 s.buffer = a
 print(len(s.buffer))
-
-s.insert(1, "me and you")
+st = time.time()
+s.insert(33000420, "me and you")
+en = time.time()
+print(en-st)
 #print(s)
