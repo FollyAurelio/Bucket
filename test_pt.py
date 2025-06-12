@@ -1,7 +1,8 @@
 import piece_table
+import array1
 import pytest
 def setup():
-    sequence = piece_table.Sequence("")
+    sequence = array1.Sequence()
     return sequence
 
 def test_1():

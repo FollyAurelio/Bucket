@@ -218,22 +218,24 @@ class SpanRange:
 
 
 
-s = Sequence("tt.txt")
+s = Sequence("test.txt")
 #print(len(s.file_buffer))
 #s.insert(2,"!!")
 #s.undo()
 #s.insert(2,"yyyy")
 #s.insert(6,"?",3)
 #s.insert(0,"?",3)
-#s.erase(2)
-#s.erase(5)
 
 #s.erase(1,2)
 #s.erase(5,10)
 #s.undo()
-#s.insert(2,"?")
-#s.insert(2,"x")
-#s.insert(0,"oo")
+#s.insert(0,"xxxx")
+#s.insert(2,"4")
+#s.insert(0,"5")
+#s.undo()
+#s.undo()
+#s.redo()
+#s.redo()
 #s.erase(1,2)
 #s.erase(0,1)
 #s.insert(5,"x")
@@ -253,6 +255,6 @@ def main():
         print(s)
 if __name__ == "__main__":
     main()
-#print(s)
+#print(str(s)[0:1000])
 #print(s.piece_table)
 #print(s.add_buffer)
