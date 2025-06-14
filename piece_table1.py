@@ -9,7 +9,7 @@ class Sequence:
             with open(filepath, "r") as rf:
                 self.file_buffer = rf.read()
         except:
-            self.file_buffer = ""
+            self.file_buffer = "the quick brown"
         f = Span(0,0,len(self.file_buffer))
         f.next = self.piece_table.head.next
         self.piece_table.head.next = f
@@ -21,6 +21,7 @@ class Sequence:
     
     def insert(self, index, text):
         old_span = SpanRange()
+        new_span = SpanRange()
         self.add_buffer += text
         offset = 0
         sptr = self.piece_table.head.next
@@ -28,16 +29,17 @@ class Sequence:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
                     if not sptr == self.piece_table.head.next:
-                        old_span.append(sptr.prev.copy())
+                        old_span.append(sptr.prev)
                     if not sptr == self.piece_table.tail:
-                        old_span.append(sptr.copy())
+                        old_span.append(sptr)
                     new_span = Span(1, len(self.add_buffer) - len(text), len(text))
                     sptr.prev.next = new_span
                     new_span.prev = sptr.prev
                     new_span.next = sptr
                     sptr.prev = new_span
+                    break
                 else:
-                    old_span.append(sptr.copy())
+                    old_span.append(sptr)
                     r_i = index-offset
                     l_span = Span(sptr.buffer, sptr.start, r_i)   
                     new_span = Span(1, len(self.add_buffer) - len(text), len(text))
@@ -57,20 +59,43 @@ class Sequence:
                 sptr = sptr.next
         return 0
 
-    def erase(self, index, length):
+    def erase(self, index, length):#change erase
         sptr = self.piece_table.head.next
         old_span = SpanRange()
+        new_span = SpanRange()
         offset = 0
-        while sptr.next:
-            if offset < length + index or offset >= index:
-                old_span.append(sptr.copy())
+        """while sptr.next:
+            if offset + < length + index or offset >= index:
+                old_span.append(sptr)
             offset += sptr.length
             sptr = sptr.next
         sptr = self.piece_table.head.next
-        offset = 0
-        while sptr.next and length > 0:
+        offset = 0"""
+        while sptr.next:
             if (offset <= index and index < offset + sptr.length):
-                if offset == index:
+                r_i = index - offset
+                if r_i != 0:
+                    new_span.append(Span(sptr.buffer, sptr.start, r_i))
+                    if r_i + length < sptr.length:
+                        new_span.append(Span(sptr.buffer, sptr.start + r_i + length, sptr.length - r_i - length))
+                    length -= min(length, (sptr.length - r_i))
+                    old_span.append(sptr)
+                    sptr = sptr.next
+                break
+            offset += sptr.length
+            sptr = sptr.next
+        while sptr.next and length > 0:
+            if length < sptr.length:
+                new_span.append(Span(sptr.buffer, sptr.start + length, sptr.length - length))
+            length -= min(length, sptr.length)
+            old_span.append(sptr)
+            sptr = sptr.next
+        if new_span.first:
+            self.swaprange(old_span, new_span)
+        else:
+            old_span.first.prev.next = old_span.last.next
+            old_span.last.next.prev = old_span.first.prev
+        """
                     if sptr.length == 1:
                         sptr.prev.next = sptr.next
                         sptr.next.prev = sptr.prev
@@ -100,7 +125,7 @@ class Sequence:
                     offset += r_i
             else:
                 offset += sptr.length
-                sptr = sptr.next
+                sptr = sptr.next"""
         self.undo_stack.push(old_span)
         return 0
 
@@ -110,7 +135,7 @@ class Sequence:
             old_span = self.undo_stack.pop()
             sptr = old_span.first.prev.next
             while sptr != old_span.last.next:
-                new_span.append(sptr.copy())
+                new_span.append(sptr)
                 sptr = sptr.next
             self.redo_stack.push(new_span)
             old_span.first.prev.next = old_span.first
@@ -123,7 +148,7 @@ class Sequence:
             sptr = old_span.first.prev.next
             while sptr != old_span.last.next:
                 try:
-                    new_span.append(sptr.copy())
+                    new_span.append(sptr)
                 except:
                     print(old_span.last.next)
                 sptr = sptr.next
@@ -131,6 +156,18 @@ class Sequence:
             old_span.first.prev.next = old_span.first
             old_span.last.next.prev = old_span.last
          
+    
+    def swaprange(self,old, new):
+        if old.boundary:
+            old.first.next = new.first
+            new.first.prev = old.first
+            old.last.prev = new.first
+            new.first.next = old.last
+        else:
+            new.first.prev = old.first.prev
+            old.first.prev.next = new.first
+            old.last.next.prev = new.last
+            new.last.next = old.last.next
 
 
     def __str__(self):
@@ -204,7 +241,7 @@ class SpanRange:
     def __init__(self):
         self.first = None
         self.last = None
-        #self.boundary = None
+        self.boundary = False
         self.length = 0
 
     def append(self, span):
@@ -216,10 +253,25 @@ class SpanRange:
             span.prev = self.last
             self.last = span
 
+    def span_boundary(self, first, last):
+        self.first = first
+        self.last = last
+        self.boundary = True
+
+    def __str__(self):
+        sptr = self.first
+        output = ""
+        while sptr.next:
+            output += str(sptr) + "\n"
+            sptr = sptr.next
+        return output
+     
 
 
 
-#s = Sequence("test.txt")
+
+
+s = Sequence("tet.txt")
 #print(len(s.file_buffer))
 #s.insert(2,"!!")
 #s.undo()
@@ -227,7 +279,8 @@ class SpanRange:
 #s.insert(6,"?",3)
 #s.insert(0,"?",3)
 
-#s.erase(1,2)
+s.erase(1,2)
+s.erase(3,3)
 #s.erase(5,10)
 #s.undo()
 #s.insert(0,"xxxx")
@@ -254,23 +307,23 @@ def main():
         
         print(s.piece_table)
         print(s)
-#if __name__ == "__main__":
-#    main()
+if __name__ == "__main__":
+    main()
 
 #print(s.piece_table)
 #print(s.add_buffer)
-st = time.time()
-s = Sequence("test.txt")
+#st = time.time()
+#s = Sequence("test.txt")
 #rf = open("test.txt","r")
 #a = rf.read()
 #rf.close()
 #s.buffer = a
 #print(len(s.buffer))
-s.insert(5000, "me and you")
+"""s.insert(5000, "me and you")
 s.insert(5000, "me and you")
 s.insert(5000, "me and you")
 s.insert(3, "me and you")
 en = time.time()
 print(en-st)
-print(s.piece_table)
+print(s.piece_table)"""
 

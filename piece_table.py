@@ -110,16 +110,30 @@ class Sequence:
             pop_stack = self.redo_stack
         else:
             return 0
-        action = pop_stack.pop()
-        if action[0] == "insert":
-            self.insert(action[1], action[2])
-            push_stack.append(("erase", action[1], action[2], action[3]))
-        elif action[0] == "erase":
-            self.erase(action[1], action[3])
-            push_stack.append(("insert", action[1], action[2], action[3]))
-        else:
-            return 0
-        return 1
+        if len(pop_stack) > 0:
+            action = pop_stack.pop()
+            if action[0] == "insert":
+                self.insert(action[1], action[2]) 
+                self.undo_stack.pop()
+                #lock the linked list?
+                push_stack.append(("erase", action[1], action[2], action[3]))
+            elif action[0] == "erase":
+                self.erase(action[1], action[3])
+                self.undo_stack.pop()
+                push_stack.append(("insert", action[1], action[2], action[3]))
+            else:
+                return 0
+            return 1
+
+    def refresh(self):
+        self.file_buffer = str(self)
+        self.add_buffer = ""
+        f = Span(0,0,len(self.file_buffer))
+        f.next = self.piece_table.tail
+        self.piece_table.head.next = f
+        f.prev = self.piece_table.head
+        self.piece_table.tail.prev = f
+  
  
          
 
@@ -213,6 +227,8 @@ def main():
             s.undo_redo("undo")
         if command[0] == "redo":
             s.undo_redo("redo")
+        if command[0] == "refresh":
+            s.refresh()
         
         print(s.piece_table)
         print(s)
@@ -221,18 +237,18 @@ if __name__ == "__main__":
 
 #print(s.piece_table)
 #print(s.add_buffer)
-st = time.time()
-s = Sequence("test.txt")
+s = Sequence("tet.txt")
 #rf = open("test.txt","r")
 #a = rf.read()
 #rf.close()
 #s.buffer = a
 #print(len(s.buffer))
-s.insert(5000, "me and you")
-s.insert(5000, "me and you")
-s.insert(5000, "me and you")
-s.insert(3, "me and you")
+#s.insert(0,  "abcdefghigklmnopkrstuvwxyz")
+st = time.time()
+s.insert(22222,"1234")
+#s.refresh()
 en = time.time()
 print(en-st)
 print(s.piece_table)
+#print(s)
 
