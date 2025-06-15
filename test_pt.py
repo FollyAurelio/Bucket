@@ -1,9 +1,9 @@
-import piece_table
+import piece_table1
 #import array1
 #import gap_buffer
 import pytest
 def setup():
-    sequence = piece_table.Sequence()
+    sequence = piece_table1.Sequence("")
     return sequence
 
 def test_1():

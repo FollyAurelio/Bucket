@@ -9,7 +9,7 @@ class Sequence:
             with open(filepath, "r") as rf:
                 self.file_buffer = rf.read()
         except:
-            self.file_buffer = "the quick brown"
+            self.file_buffer = ""
         f = Span(0,0,len(self.file_buffer))
         f.next = self.piece_table.head.next
         self.piece_table.head.next = f
@@ -17,6 +17,7 @@ class Sequence:
         f.next.prev = f
         self.undo_stack = Stack()
         self.redo_stack = Stack()
+        self.length = len(self.file_buffer)
         
     
     def insert(self, index, text):
@@ -28,31 +29,18 @@ class Sequence:
         while sptr:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
-                    if not sptr == self.piece_table.head.next:
-                        old_span.append(sptr.prev)
-                    if not sptr == self.piece_table.tail:
-                        old_span.append(sptr)
-                    new_span = Span(1, len(self.add_buffer) - len(text), len(text))
-                    sptr.prev.next = new_span
-                    new_span.prev = sptr.prev
-                    new_span.next = sptr
-                    sptr.prev = new_span
-                    break
+                    old_span.span_boundary(sptr.prev, sptr)
+                    new_span.append(Span(1, len(self.add_buffer) - len(text), len(text)))
+                    
                 else:
-                    old_span.append(sptr)
                     r_i = index-offset
-                    l_span = Span(sptr.buffer, sptr.start, r_i)   
-                    new_span = Span(1, len(self.add_buffer) - len(text), len(text))
-                    r_span = Span(sptr.buffer, r_i + sptr.start, sptr.length - r_i)
-                    sptr.prev.next = l_span
-                    l_span.prev = sptr.prev
-                    l_span.next = new_span
-                    new_span.prev = l_span
-                    new_span.next = r_span
-                    r_span.prev = new_span
-                    r_span.next = sptr.next
-                    sptr.next.prev = r_span
+                    old_span.append(sptr)
+                    new_span.append(Span(sptr.buffer, sptr.start, r_i))
+                    new_span.append(Span(1, len(self.add_buffer) - len(text), len(text)))
+                    new_span.append(Span(sptr.buffer, r_i + sptr.start, sptr.length - r_i))
+                self.swaprange(old_span,new_span)
                 self.undo_stack.push(old_span)
+                self.length += len(text)
                 return 1
             else:
                 offset += sptr.length
@@ -64,13 +52,7 @@ class Sequence:
         old_span = SpanRange()
         new_span = SpanRange()
         offset = 0
-        """while sptr.next:
-            if offset + < length + index or offset >= index:
-                old_span.append(sptr)
-            offset += sptr.length
-            sptr = sptr.next
-        sptr = self.piece_table.head.next
-        offset = 0"""
+        a = length
         while sptr.next:
             if (offset <= index and index < offset + sptr.length):
                 r_i = index - offset
@@ -95,67 +77,58 @@ class Sequence:
         else:
             old_span.first.prev.next = old_span.last.next
             old_span.last.next.prev = old_span.first.prev
-        """
-                    if sptr.length == 1:
-                        sptr.prev.next = sptr.next
-                        sptr.next.prev = sptr.prev
-                        sptr = sptr.next
-                        length -= 1
-                    else:
-                        sptr.start += 1
-                        sptr.length -= 1
-                        length -= 1
-                elif offset + sptr.length - 1 == index:
-                    sptr.length -= 1
-                    sptr = sptr.next
-                    length -= 1
-                    offset += index
-                else:
-                    r_i = index-offset
-                    l_span = Span(sptr.buffer, sptr.start, r_i)   
-                    r_span = Span(sptr.buffer, r_i+sptr.start+1, sptr.length - r_i)
-                    sptr.prev.next = l_span
-                    l_span.prev = sptr.prev
-                    l_span.next = r_span
-                    r_span.prev = l_span
-                    r_span.next = sptr.next
-                    sptr.next.prev = r_span#split span in two
-                    sptr = r_span
-                    length -= 1
-                    offset += r_i
-            else:
-                offset += sptr.length
-                sptr = sptr.next"""
         self.undo_stack.push(old_span)
-        return 0
+        self.length -= a
+        return 1
 
     def undo(self):
-        if not self.undo_stack.is_empty():
-            new_span = SpanRange()
-            old_span = self.undo_stack.pop()
-            sptr = old_span.first.prev.next
-            while sptr != old_span.last.next:
-                new_span.append(sptr)
-                sptr = sptr.next
-            self.redo_stack.push(new_span)
-            old_span.first.prev.next = old_span.first
-            old_span.last.next.prev = old_span.last
+        self.undoredo("undo")
 
     def redo(self):
-        if not self.redo_stack.is_empty():
-            new_span = SpanRange()
-            old_span = self.redo_stack.pop()
-            sptr = old_span.first.prev.next
-            while sptr != old_span.last.next:
-                try:
-                    new_span.append(sptr)
-                except:
-                    print(old_span.last.next)
-                sptr = sptr.next
-            self.undo_stack.push(new_span)
-            old_span.first.prev.next = old_span.first
-            old_span.last.next.prev = old_span.last
-         
+        self.undoredo("redo")
+
+    def undoredo(self, action):
+        if action == "undo":
+            src_stack = self.undo_stack
+            dest_stack = self.redo_stack
+        elif action == "redo":
+            src_stack = self.redo_stack
+            dest_stack = self.undo_stack
+        else:
+            return 0
+        if src_stack.is_empty():
+            return 0
+        range = src_stack.pop()
+        dest_stack.push(range)
+        if range.boundary:
+
+            first = range.first.next
+            last = range.last.prev
+            #link the old range
+            range.first.next = range.last
+            range.last.prev = range.first
+            #Store the span range
+            range.first = first
+            range.last = last
+            range.boundary = False
+        else:
+            first = range.first.prev
+            last = range.last.next
+            if first.next == last:
+                first.next = range.first
+                last.prev = range.last
+                range.first = first
+                range.last = last
+                range.boundary = True
+            else:
+                first = first.next
+                last = last.prev
+                first.prev.next = range.first
+                last.next.prev = range.last
+                range.first = first
+                range.last = last
+                range.boundary = False
+
     
     def swaprange(self,old, new):
         if old.boundary:
@@ -273,14 +246,14 @@ class SpanRange:
 
 s = Sequence("tet.txt")
 #print(len(s.file_buffer))
-#s.insert(2,"!!")
+s.insert(0,"!!")
 #s.undo()
 #s.insert(2,"yyyy")
 #s.insert(6,"?",3)
-#s.insert(0,"?",3)
+s.insert(0,"?")
 
-s.erase(1,2)
-s.erase(3,3)
+#s.erase(1,2)
+#s.erase(3,3)
 #s.erase(5,10)
 #s.undo()
 #s.insert(0,"xxxx")
@@ -301,10 +274,10 @@ def main():
         if command[0] == "erase":
             s.erase(int(command[1]), int(command[2]))
         if command[0] == "undo":
-            s.undo()
+            s.undoredo("undo")
         if command[0] == "redo":
-            s.redo()
-        
+            s.undoredo("redo")
+        print(s.length) 
         print(s.piece_table)
         print(s)
 if __name__ == "__main__":
@@ -320,10 +293,10 @@ if __name__ == "__main__":
 #s.buffer = a
 #print(len(s.buffer))
 """s.insert(5000, "me and you")
+#s.insert(5000, "me and you")
 s.insert(5000, "me and you")
-s.insert(5000, "me and you")
-s.insert(3, "me and you")
-en = time.time()
-print(en-st)
+#s.insert(3, "me and you")
+#en = time.time()
+#print(en-st)
 print(s.piece_table)"""
 
