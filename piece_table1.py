@@ -240,32 +240,6 @@ class SpanRange:
         return output
      
 
-
-
-
-
-s = Sequence("tet.txt")
-#print(len(s.file_buffer))
-s.insert(0,"!!")
-#s.undo()
-#s.insert(2,"yyyy")
-#s.insert(6,"?",3)
-s.insert(0,"?")
-
-#s.erase(1,2)
-#s.erase(3,3)
-#s.erase(5,10)
-#s.undo()
-#s.insert(0,"xxxx")
-#s.insert(2,"4")
-#s.insert(0,"5")
-#s.undo()
-#s.undo()
-#s.redo()
-#s.redo()
-#s.erase(1,2)
-#s.erase(0,1)
-#s.insert(5,"x")
 def main():
     while True:
         command = input().split(" ")
@@ -283,20 +257,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-#print(s.piece_table)
-#print(s.add_buffer)
-#st = time.time()
-#s = Sequence("test.txt")
-#rf = open("test.txt","r")
-#a = rf.read()
-#rf.close()
-#s.buffer = a
-#print(len(s.buffer))
-"""s.insert(5000, "me and you")
-#s.insert(5000, "me and you")
-s.insert(5000, "me and you")
-#s.insert(3, "me and you")
-#en = time.time()
-#print(en-st)
-print(s.piece_table)"""
 
