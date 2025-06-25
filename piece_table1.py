@@ -1,3 +1,4 @@
+#Piece table implementation in python
 import time
 class Sequence:
 
