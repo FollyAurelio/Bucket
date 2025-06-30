@@ -19,7 +19,7 @@ program:$(OBJ)
 	$(CXX) -o $(BIN)/bucket $^ $(LDFLAGS)
 %.o:%.c
 	$(CXX) -o $@ -c $< $(CXXFLAGS)
-run:all
+run:program
 	$(BIN)/bucket
 
 clean:
