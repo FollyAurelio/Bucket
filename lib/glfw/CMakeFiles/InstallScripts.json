@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/pancake/Documents/Bucket/lib/glfw/cmake_install.cmake",
+		"/home/pancake/Documents/Bucket/lib/glfw/src/cmake_install.cmake",
+		"/home/pancake/Documents/Bucket/lib/glfw/examples/cmake_install.cmake",
+		"/home/pancake/Documents/Bucket/lib/glfw/tests/cmake_install.cmake",
+		"/home/pancake/Documents/Bucket/lib/glfw/docs/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

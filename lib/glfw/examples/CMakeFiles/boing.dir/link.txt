@@ -1,0 +1,1 @@
+/sbin/cc -Wl,--dependency-file=CMakeFiles/boing.dir/link.d CMakeFiles/boing.dir/boing.c.o -o boing  ../src/libglfw3.a -lm /usr/lib/librt.a -lm -ldl
