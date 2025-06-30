@@ -239,7 +239,8 @@ class SpanRange:
             output += str(sptr) + "\n"
             sptr = sptr.next
         return output
-     
+
+s = Sequence("")
 
 def main():
     while True:

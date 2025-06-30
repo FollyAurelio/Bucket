@@ -1,18 +1,27 @@
-CPC = g++
+CXX = g++
 CC = gcc
-CFLAGS = -g -Iinclude 
-LDFLAGS = -Llib -lglfw3dll lib/libglfw3dll.a
+CXXFLAGS = -g
+CXXFLAGS += -Ilib/glfw/include -Ilib/glad/include
+LDFLAGS = lib/glad/src/glad.o lib/glfw/src/libglfw3.a
 
-SRC = $(wildcard src/*.cpp) src/glad.c
+SRC = $(wildcard src/*.cpp)
+OBJ = $(SRC:.cpp=.o)
 BIN = bin
 
-all:
-	$(CPC) -o $(BIN)/bucket $(CFLAGS) $(SRC) $(LDFLAGS)
+all:dirs libs program
+
+libs:
+	cd lib/glfw && cmake . && make
+	cd lib/glad && $(CC) -o src/glad.o -Iinclude -c src/glad.c
 dirs:
-	mkdir bin
+	mkdir -p ./$(BIN)
+program:$(OBJ)
+	$(CXX) -o $(BIN)/bucket $^ $(LDFLAGS)
+%.o:%.c
+	$(CXX) -o $@ -c $< $(CXXFLAGS)
 run:all
-	.\$(BIN)/bucket.exe
+	$(BIN)/bucket
 
 clean:
-	rmdir $(BIN)
+	rm -rf $(BIN) $(OBJ)
 
