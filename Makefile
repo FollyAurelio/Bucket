@@ -4,7 +4,7 @@ CXXFLAGS = -g
 CXXFLAGS += -Ilib/glfw/include -Ilib/glad/include
 LDFLAGS = lib/glad/src/glad.o lib/glfw/src/libglfw3.a
 
-SRC = $(wildcard src/*.cpp)
+SRC = $(wildcard src/**/*.cpp) $(wildcard src/*.cpp) 
 OBJ = $(SRC:.cpp=.o)
 BIN = bin
 
