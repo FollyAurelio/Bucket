@@ -3,6 +3,7 @@
 #include "gfx/shader.h"
 #include "gfx/vbo.h"
 #include "gfx/vao.h"
+#include "gfx/texture.h"
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -36,10 +37,10 @@ int main()
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	float vertices[] = {
-				0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-				0.5f, -0.5f, 0.0f,0.0f, 1.0f, 0.0f,
-				-0.5f, -0.5f, 0.0f,0.0f, 0.0f, 1.0f,
-				-0.5f, 0.5f, 0.0f,1.0f, 0.0f, 0.0f,
+				0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+				0.5f, -0.5f, 0.0f,0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+				-0.5f, -0.5f, 0.0f,0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+				-0.5f, 0.5f, 0.0f,1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 				};
 	unsigned int indices[] = { // note that we start from 0!
 		0, 1, 3, // first triangle
@@ -50,12 +51,18 @@ int main()
 	VBO vbo(GL_ARRAY_BUFFER, false);
 	VAO vao;
 	vbo.buffer(vertices, sizeof(vertices));
-	vao.attr(vbo, 0, 3, GL_FLOAT, 6*sizeof(float), 0);
-	vao.attr(vbo, 1, 3, GL_FLOAT, 6*sizeof(float), 3 * sizeof(float));
+	vao.attr(vbo, 0, 3, GL_FLOAT, 8*sizeof(float), 0);
+	vao.attr(vbo, 1, 3, GL_FLOAT, 8*sizeof(float), 3 * sizeof(float));
+	vao.attr(vbo, 2, 2, GL_FLOAT, 8*sizeof(float), 6 * sizeof(float));
 	ebo.buffer(indices, sizeof(indices));
+	Texture texture("res/images/container.jpg", GL_RGB, GL_RGB);
+	shader.use();
+	shader.setInt("tex", 0);
+
 	while(!glfwWindowShouldClose(window))
 	{
 		processInput(window);
+		texture.activate(0);
 		shader.use();
 		vao.bind();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
