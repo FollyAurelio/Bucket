@@ -57,15 +57,15 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath){
 		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 	}
-	ID = glCreateProgram();
-	glAttachShader(ID, vertex);
-	glAttachShader(ID, fragment);
-	glLinkProgram(ID);
+	handle = glCreateProgram();
+	glAttachShader(handle, vertex);
+	glAttachShader(handle, fragment);
+	glLinkProgram(handle);
 	// print linking errors if any
-	glGetProgramiv(ID, GL_LINK_STATUS, &success);
+	glGetProgramiv(handle, GL_LINK_STATUS, &success);
 	if(!success)
 	{
-		glGetProgramInfoLog(ID, 512, NULL, infoLog);
+		glGetProgramInfoLog(handle, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 	}
 	// delete shaders; they’re linked into our program and no longer necessary
@@ -75,5 +75,20 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath){
 
 void Shader::use()
 {
-	glUseProgram(ID);
+	glUseProgram(handle);
+}
+
+void Shader::setBool(const std::string &name, bool value) const
+{
+	glUniform1i(glGetUniformLocation(handle, name.c_str()), (int)value);
+}
+
+void Shader::setInt(const std::string &name, int value) const
+{
+	glUniform1i(glGetUniformLocation(handle, name.c_str()), value);
+}
+
+void Shader::setFloat(const std::string &name, float value) const
+{
+	glUniform1f(glGetUniformLocation(handle, name.c_str()), value);
 }
