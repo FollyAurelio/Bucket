@@ -4,6 +4,8 @@
 #include "gfx/vbo.h"
 #include "gfx/vao.h"
 #include "gfx/texture.h"
+#include "gfx/gmath.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -56,8 +58,12 @@ int main()
 	vao.attr(vbo, 2, 2, GL_FLOAT, 8*sizeof(float), 6 * sizeof(float));
 	ebo.buffer(indices, sizeof(indices));
 	Texture texture("res/images/container.jpg", GL_RGB, GL_RGB);
+	glm::mat4 trans = glm::mat4(1.0f);
+	trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
 	shader.use();
 	shader.setInt("tex", 0);
+	shader.setMatrix4f("transform", trans);
 
 	while(!glfwWindowShouldClose(window))
 	{
