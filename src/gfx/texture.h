@@ -7,7 +7,7 @@ class Texture
 {
 public:
 	unsigned int handle;
-	Texture(const char* path, GLint outputFormat, GLint sourceFormat);
+	Texture(unsigned char *data, GLint outputFormat, int width, int height, GLint sourceFormat, GLint wrap, GLint filter);
 	void bind();
 	void activate(GLint unit);
 	void destory();

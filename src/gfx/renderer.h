@@ -6,6 +6,7 @@
 #include "vao.h"
 #include "texture.h"
 #include "gmath.h"
+#include "../data/loader.h"
 
 class Renderer
 {
@@ -16,7 +17,7 @@ public:
 				0.0f, 1.0f,
 				};
 	unsigned int rect_indices[6] = {0,1,3,1,2,3};
-	Shader rect_shader = Shader("res/shaders/basic.vs", "res/shaders/basic.fs");
+	Shader rect_shader = Loader::loadShader("res/shaders/basic.vs", "res/shaders/basic.fs");
 	VBO vbo = VBO(GL_ARRAY_BUFFER, false);
 	VBO ebo = VBO(GL_ELEMENT_ARRAY_BUFFER, false);
 	VAO vao = VAO();

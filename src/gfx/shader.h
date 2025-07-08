@@ -2,15 +2,13 @@
 #define SHADER_H
 #include "gfx.h"
 #include <string>
-#include <fstream>
-#include <sstream>
 #include <iostream>
 #include "gmath.h"
 class Shader
 {
 public:
 	unsigned int handle;
-	Shader(const char* vertexPath, const char* fragmentPath);
+	Shader(std::string vertexCode, std::string fragmentCode);
 	void use();
 	void setBool(const std::string &name, bool value) const;
 	void setInt(const std::string &name, int value) const;

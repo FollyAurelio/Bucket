@@ -7,4 +7,4 @@ Renderer::Renderer()
 	ebo.buffer(rect_indices, sizeof(rect_indices));
 }
 
-void Renderer::drawRectangle(
+//void Renderer::drawRectangle(){}

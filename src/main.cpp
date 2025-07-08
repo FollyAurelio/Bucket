@@ -6,6 +6,7 @@
 #include "gfx/texture.h"
 #include "gfx/gmath.h"
 #include "gfx/renderer.h"
+#include "data/loader.h"
 
 int w = 800;
 int h = 600;
@@ -56,7 +57,7 @@ int main()
 		0, 1, 3, // first triangle
 		1, 2, 3 // second triangle
 		};
-	Shader shader("res/shaders/basic.vs",  "res/shaders/basic.fs");
+	Shader shader = Loader::loadShader("res/shaders/basic.vs",  "res/shaders/basic.fs");
 	VBO ebo(GL_ELEMENT_ARRAY_BUFFER, false);
 	VBO vbo(GL_ARRAY_BUFFER, false);
 	VAO vao;
