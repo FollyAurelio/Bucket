@@ -4,10 +4,10 @@ Texture::Texture(unsigned char *data, GLint outputFormat, int width, int height,
 {
 	glGenTextures(1 , &handle);
 	glBindTexture(GL_TEXTURE_2D, handle);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 	// load and generate the texture
 	glTexImage2D(GL_TEXTURE_2D, 0, outputFormat, width, height, 0, sourceFormat, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -20,7 +20,6 @@ void Texture::bind()
 void Texture::activate(GLint unit)
 {
 	glActiveTexture(GL_TEXTURE0 + unit);
-	bind();
 }
 
 void Texture::destory()

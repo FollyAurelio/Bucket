@@ -10,7 +10,9 @@
 namespace Loader
 {
 	std::string loadFile(const char *filePath);
+
 	Shader loadShader(const char *vertexPath, const char *fragmentPath);
+
 	Texture loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter);
 }
 #endif

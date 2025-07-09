@@ -65,6 +65,7 @@ int main()
 	vao.attr(vbo, 0, 2, GL_FLOAT, 2*sizeof(float), 0);
 	ebo.buffer(indices, sizeof(indices));
 	//Texture texture("res/images/container.jpg", GL_RGB, GL_RGB);
+	Texture texture = Loader::loadImage("res/images/container.jpg", GL_RGB, GL_RGB,GL_REPEAT, GL_NEAREST);
 	glm::mat4 trans = glm::mat4(1.0f);
 	trans = glm::translate(trans, glm::vec3(250.0f, 0.0f,0.0f));
 	//trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
