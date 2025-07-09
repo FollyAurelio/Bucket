@@ -47,7 +47,7 @@ int main()
 	}
 	glViewport(0, 0, w, h);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	float vertices[] = {
+	/*float vertices[] = {
 				1.0f, 1.0f,  
 				1.0f, 0.0f,
 				0.0f, 0.0f,
@@ -70,20 +70,24 @@ int main()
 	trans = glm::translate(trans, glm::vec3(250.0f, 0.0f,0.0f));
 	//trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 	trans = glm::scale(trans, glm::vec3(300.0f,200.0f, 0));
-	Renderer renderer;
+	Renderer renderer((float)w, (float)h);
 	shader.use();
 	shader.setMatrix4("model", trans);
-	shader.setVector3("ourColor", glm::vec3(1.0f, 0.0f, 0.7f));
+	shader.setVector3("ourColor", glm::vec3(1.0f, 0.0f, 0.7f));*/
+	Renderer renderer((float)w, (float)h);
 
 	while(!glfwWindowShouldClose(window))
 	{
 		processInput(window);
+
+		renderer.drawRectangle(glm::vec2(250.0f, 10.0f), glm::vec2(300.0f, 200.0f), glm::vec3(1.0f, 0.0f, 0.7f), true);
 		//texture.activate(0);
-		shader.use();
+		/*shader.use();
 		glm::mat4 projection = glm::ortho(0.0f, (float)w, (float)h, 0.0f, -1.0f, 1.0f);
 		shader.setMatrix4("projection", projection);
 		vao.bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
