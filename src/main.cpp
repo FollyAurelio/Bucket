@@ -7,27 +7,19 @@
 #include "gfx/gmath.h"
 #include "gfx/renderer.h"
 #include "data/loader.h"
-
-int w = 800;
-int h = 600;
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+#include "gfx/window.h"
+int window_width = 800;
+int window_height = 600;
+void sizeCallback(GLFWwindow* handle, int width, int height)
 {
 	glViewport(0, 0, width, height);
-	w = width;
-	h = height;
-}
-void processInput(GLFWwindow *window)
-{
-	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-	double xpos, ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-	//std::cout << xpos << " " << ypos << std::endl;
+	window_width = width;
+	window_height = height;
 }
 
 int main()
 {
-	glfwInit();
+	/*glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -47,53 +39,23 @@ int main()
 	}
 	glViewport(0, 0, w, h);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	/*float vertices[] = {
-				1.0f, 1.0f,  
-				1.0f, 0.0f,
-				0.0f, 0.0f,
-				0.0f, 1.0f,
-				};
-	unsigned int indices[] = { // note that we start from 0!
-		0, 1, 3, // first triangle
-		1, 2, 3 // second triangle
-		};
-	Shader shader = Loader::loadShader("res/shaders/basic.vs",  "res/shaders/basic.fs");
-	VBO ebo(GL_ELEMENT_ARRAY_BUFFER, false);
-	VBO vbo(GL_ARRAY_BUFFER, false);
-	VAO vao;
-	vbo.buffer(vertices, sizeof(vertices));
-	vao.attr(vbo, 0, 2, GL_FLOAT, 2*sizeof(float), 0);
-	ebo.buffer(indices, sizeof(indices));
-	//Texture texture("res/images/container.jpg", GL_RGB, GL_RGB);
-	Texture texture = Loader::loadImage("res/images/container.jpg", GL_RGB, GL_RGB,GL_REPEAT, GL_NEAREST);
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::translate(trans, glm::vec3(250.0f, 0.0f,0.0f));
-	//trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-	trans = glm::scale(trans, glm::vec3(300.0f,200.0f, 0));
-	Renderer renderer((float)w, (float)h);
-	shader.use();
-	shader.setMatrix4("model", trans);
-	shader.setVector3("ourColor", glm::vec3(1.0f, 0.0f, 0.7f));*/
-	Renderer renderer((float)w, (float)h);
+		Renderer renderer((float)w, (float)h);
 
 	while(!glfwWindowShouldClose(window))
 	{
 		processInput(window);
 
 		renderer.drawRectangle(glm::vec2(250.0f, 10.0f), glm::vec2(300.0f, 200.0f), glm::vec3(1.0f, 0.0f, 0.7f), true);
-		//texture.activate(0);
-		/*shader.use();
-		glm::mat4 projection = glm::ortho(0.0f, (float)w, (float)h, 0.0f, -1.0f, 1.0f);
-		shader.setMatrix4("projection", projection);
-		vao.bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-	}
-	glfwTerminate();
+	}*/
+	Window window;
+	glfwSetFramebufferSizeCallback(window.handle, sizeCallback);
+	window.loop();
+	window.destroy();
 	return 0;
 
 }
