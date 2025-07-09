@@ -1,6 +1,5 @@
 #include "window.h"
 
-//Window window;
 
 
 Window::Window()
@@ -25,6 +24,7 @@ Window::Window()
 	}
 	glViewport(0, 0, 800, 600);
 	*renderer = Renderer(800.0f, 600.0f);
+	//glfwSetFramebufferSizeCallback(handle, sizeCallback);
 }
 
 
@@ -35,6 +35,7 @@ void Window::processInput()
 	double xpos, ypos;
 	glfwGetCursorPos(handle, &xpos, &ypos);
 	//std::cout << xpos << " " << ypos << std::endl;
+	//std::cout << width << " " << height << std::endl;
 }
 
 void Window::loop()
@@ -42,6 +43,7 @@ void Window::loop()
 	while(!glfwWindowShouldClose(handle))
 	{
 		processInput();
+		resize();
 		renderer->drawRectangle(glm::vec2(250.0f, 10.0f), glm::vec2(300.0f, 200.0f), glm::vec3(1.0f, 0.0f, 0.7f), true);
 		glfwSwapBuffers(handle);
 		glfwPollEvents();
@@ -53,4 +55,14 @@ void Window::loop()
 void Window::destroy()
 {
 	glfwTerminate();
+}
+
+void Window::resize()
+{
+	glfwGetFramebufferSize(handle,&size[0], &size[1]);
+	glViewport(0, 0, size[0], size[1]);
+	renderer->projection = glm::ortho(0.0f, (float)size[0], (float)size[1], 0.0f, -1.0f, 1.0f);
+
+
+	
 }

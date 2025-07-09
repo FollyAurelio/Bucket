@@ -10,16 +10,17 @@ class Window
 {
 public:
 	GLFWwindow *handle;
-	glm::vec2 size = {800, 600};
+	int size[2] = {800, 600};
 	Renderer *renderer;
 	
 	Window();
 	void processInput();
 	void loop();
 	void destroy();
+	void resize();
 	
 };
+void sizeCallback(GLFWwindow* handle, int width, int height);
 
 //global window
-//extern Window window;
 #endif
