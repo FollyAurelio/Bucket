@@ -24,7 +24,6 @@ Window::Window()
 	}
 	glViewport(0, 0, 800, 600);
 	*renderer = Renderer(800.0f, 600.0f);
-	//glfwSetFramebufferSizeCallback(handle, sizeCallback);
 }
 
 
@@ -40,11 +39,13 @@ void Window::processInput()
 
 void Window::loop()
 {
+	renderer->camera = glm::translate(renderer->camera, glm::vec3(150.0f, 0.0f, 0.0f));
 	while(!glfwWindowShouldClose(handle))
 	{
 		processInput();
 		resize();
-		renderer->drawRectangle(glm::vec2(250.0f, 10.0f), glm::vec2(300.0f, 200.0f), glm::vec3(1.0f, 0.0f, 0.7f), true);
+		renderer->drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
+		renderer->drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		glfwSwapBuffers(handle);
 		glfwPollEvents();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -62,7 +63,4 @@ void Window::resize()
 	glfwGetFramebufferSize(handle,&size[0], &size[1]);
 	glViewport(0, 0, size[0], size[1]);
 	renderer->projection = glm::ortho(0.0f, (float)size[0], (float)size[1], 0.0f, -1.0f, 1.0f);
-
-
-	
 }

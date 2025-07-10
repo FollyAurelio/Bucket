@@ -20,7 +20,5 @@ public:
 	void resize();
 	
 };
-void sizeCallback(GLFWwindow* handle, int width, int height);
 
-//global window
 #endif

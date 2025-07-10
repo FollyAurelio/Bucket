@@ -27,6 +27,7 @@ public:
 	Renderer(float windowWidth, float windowHeight);
 	void drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
 	void drawText();
+	
 
 };
 

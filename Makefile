@@ -17,7 +17,7 @@ dirs:
 	mkdir -p ./$(BIN)
 program:$(OBJ)
 	$(CXX) -o $(BIN)/bucket $^ $(LDFLAGS)
-%.o:%.c
+%.o:%.cpp
 	$(CXX) -o $@ -c $< $(CXXFLAGS)
 run:program
 	$(BIN)/bucket
