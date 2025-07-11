@@ -1,0 +1,9 @@
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/freetype.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/package.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/package_source.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/edit_cache.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/rebuild_cache.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/list_install_components.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/install.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/install/local.dir
+/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/install/strip.dir
