@@ -21,4 +21,6 @@ public:
 	
 };
 
+static void sizeCallback(GLFWwindow *handle, int width, int height);
+
 #endif
