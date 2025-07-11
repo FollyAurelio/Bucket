@@ -26,6 +26,8 @@ Window::Window()
 	*renderer = Renderer(800.0f, 600.0f);
 	glfwSetWindowUserPointer(handle, this);
 	glfwSetFramebufferSizeCallback(handle, sizeCallback);
+	glfwSetCharCallback(handle, characterCallback);
+	glfwSetScrollCallback(handle, scrollCallback);
 }
 
 
@@ -80,4 +82,13 @@ static void sizeCallback(GLFWwindow *handle, int width, int height)
 	
 }
 
+void characterCallback(GLFWwindow* handle, unsigned int codepoint)
+{
+	//std::cout << (char)codepoint <<std::endl;
+}
 
+static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)
+{
+	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
+	pWindow->renderer->camera = glm::translate(pWindow->renderer->camera, glm::vec3(0.0f, 3.0f * yoffset, 0.0f));
+}

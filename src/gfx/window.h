@@ -22,5 +22,7 @@ public:
 };
 
 static void sizeCallback(GLFWwindow *handle, int width, int height);
-
+static void characterCallback(GLFWwindow* handle, unsigned int codepoint);
+static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset);
+static void mouseCallback(GLFWwindow* handle, int button, int action, int mods);
 #endif
