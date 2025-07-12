@@ -9,7 +9,7 @@ Window::Window()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);//For OS X
-	handle = glfwCreateWindow(800, 600, "Bucket", NULL, NULL);
+	handle = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Bucket", NULL, NULL);
 	if (handle == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -22,12 +22,14 @@ Window::Window()
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		exit(1);
 	}
-	glViewport(0, 0, 800, 600);
-	*renderer = Renderer(800.0f, 600.0f);
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	*renderer = Renderer((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
 	glfwSetWindowUserPointer(handle, this);
 	glfwSetFramebufferSizeCallback(handle, sizeCallback);
-	glfwSetCharCallback(handle, characterCallback);
+	glfwSetCharModsCallback(handle, characterCallback);
 	glfwSetScrollCallback(handle, scrollCallback);
+	glfwSetCursorPosCallback(handle, cursorCallback);
+	
 }
 
 
@@ -53,14 +55,17 @@ void Window::processInput()
 
 void Window::loop()
 {
-	renderer->camera = glm::translate(renderer->camera, glm::vec3(150.0f, 0.0f, 0.0f));
 	while(!glfwWindowShouldClose(handle))
-	{
+	{	
+		//float currentFrame = glfwGetTime();
+		//std::cout << glfwGetTime() << std::endl;
+        	//dt = (currentFrame - lastFrame) * TARGET_FPS;
+        	//lastFrame = currentFrame;
+		glfwPollEvents();
 		processInput();
 		renderer->drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
-		renderer->drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
+		renderer->drawRectangle(glm::vec2(0.0f, 40.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		glfwSwapBuffers(handle);
-		glfwPollEvents();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
@@ -82,13 +87,21 @@ static void sizeCallback(GLFWwindow *handle, int width, int height)
 	
 }
 
-void characterCallback(GLFWwindow* handle, unsigned int codepoint)
+void characterCallback(GLFWwindow* handle, unsigned int keyCode, int modifierCode)
 {
-	//std::cout << (char)codepoint <<std::endl;
+	//std::cout << (char)keyCode <<std::endl;
+	//std::cout << modifierCode <<std::endl;
 }
 
 static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)
 {
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
-	pWindow->renderer->camera = glm::translate(pWindow->renderer->camera, glm::vec3(0.0f, 3.0f * yoffset, 0.0f));
+	pWindow->renderer->camera = glm::translate(pWindow->renderer->camera, glm::vec3(0.0f, 100.0f * yoffset, 0.0f));
+}
+
+static void cursorCallback(GLFWwindow* handle, double xpos, double ypos)
+{
+	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
+	glm::mat4 inverseCamera = glm::inverse(pWindow->renderer->camera);
+	glm::vec4 b = a * glm::vec4(xpos, ypos, 0.0f,1.0f) ;
 }
