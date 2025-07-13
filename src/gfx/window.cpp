@@ -29,6 +29,7 @@ Window::Window()
 	glfwSetCharModsCallback(handle, characterCallback);
 	glfwSetScrollCallback(handle, scrollCallback);
 	glfwSetCursorPosCallback(handle, cursorCallback);
+	glfwSetMouseButtonCallback(handle, mouseCallback);
 	
 }
 
@@ -53,6 +54,19 @@ void Window::processInput()
 	//std::cout << width << " " << height << std::endl;
 }
 
+void Window::processMouse()
+{
+	if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].pressed)
+	{
+		std::cout << "pressed" << std::endl;
+	}
+	else if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released)
+	{
+		std::cout << "released" << std::endl;
+		mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released = false;
+	}
+}
+
 void Window::loop()
 {
 	while(!glfwWindowShouldClose(handle))
@@ -62,7 +76,7 @@ void Window::loop()
         	//dt = (currentFrame - lastFrame) * TARGET_FPS;
         	//lastFrame = currentFrame;
 		glfwPollEvents();
-		processInput();
+		processMouse();
 		renderer->drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer->drawRectangle(glm::vec2(0.0f, 40.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		glfwSwapBuffers(handle);
@@ -103,5 +117,23 @@ static void cursorCallback(GLFWwindow* handle, double xpos, double ypos)
 {
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	glm::mat4 inverseCamera = glm::inverse(pWindow->renderer->camera);
-	glm::vec4 b = a * glm::vec4(xpos, ypos, 0.0f,1.0f) ;
+	glm::vec4 b = inverseCamera * glm::vec4(xpos, ypos, 0.0f,1.0f) ;
+}
+
+static void mouseCallback(GLFWwindow* handle, int button, int action, int mods)
+{
+	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
+	if (button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_RIGHT)
+	{
+		if(!pWindow->mouse.buttons[button].pressed && action == GLFW_PRESS)
+		{
+			pWindow->mouse.buttons[button].pressed = true;
+		}
+		else if(pWindow->mouse.buttons[button].pressed && action == GLFW_RELEASE)
+		{
+			pWindow->mouse.buttons[button].pressed = false;
+			pWindow->mouse.buttons[button].released = true;
+		}
+	}
+
 }

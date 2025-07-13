@@ -7,6 +7,23 @@
 #define WINDOW_HEIGHT 600
 #define TARGET_FPS 60
 
+struct Button
+{
+	bool pressed, released;
+};
+
+struct Mouse
+{
+	glm::vec2 position;
+	Button buttons[GLFW_MOUSE_BUTTON_LAST];
+};
+
+struct Keyboard
+{
+	Button buttons[GLFW_KEY_LAST];
+};
+
+
 class Window
 {
 public:
@@ -14,10 +31,13 @@ public:
 	int size[2] = {800, 600};
 	Renderer *renderer;
 	float dt;
-    	float lastFrame;
+	float lastFrame;
+	Mouse mouse;
+	Keyboard keyboard;
 	
 	Window();
 	void processInput();
+	void processMouse();
 	void loop();
 	void destroy();
 	void resize();
@@ -29,4 +49,5 @@ static void characterCallback(GLFWwindow* handle, unsigned int keyCode, int modi
 static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset);
 static void mouseCallback(GLFWwindow* handle, int button, int action, int mods);
 static void cursorCallback(GLFWwindow* handle, double xpos, double ypos);
+static void mouseCallback(GLFWwindow* handle, int button, int action, int mods);
 #endif
