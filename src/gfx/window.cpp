@@ -71,10 +71,9 @@ void Window::loop()
 {
 	while(!glfwWindowShouldClose(handle))
 	{	
-		//float currentFrame = glfwGetTime();
-		//std::cout << glfwGetTime() << std::endl;
-        	//dt = (currentFrame - lastFrame) * TARGET_FPS;
-        	//lastFrame = currentFrame;
+		float currentFrame = glfwGetTime();
+        	dt = (currentFrame - lastFrame) * TARGET_FPS;
+        	lastFrame = currentFrame;
 		glfwPollEvents();
 		processMouse();
 		renderer->drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
@@ -88,6 +87,7 @@ void Window::loop()
 void Window::destroy()
 {
 	glfwTerminate();
+	exit(0);
 }
 
 static void sizeCallback(GLFWwindow *handle, int width, int height)
@@ -109,8 +109,9 @@ void characterCallback(GLFWwindow* handle, unsigned int keyCode, int modifierCod
 
 static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)
 {
+	std::cout << xoffset << std::endl;
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
-	pWindow->renderer->camera = glm::translate(pWindow->renderer->camera, glm::vec3(0.0f, 100.0f * yoffset, 0.0f));
+	pWindow->renderer->camera = glm::translate(pWindow->renderer->camera, glm::vec3(0.0f, 100.0f * yoffset * pWindow->dt, 0.0f));
 }
 
 static void cursorCallback(GLFWwindow* handle, double xpos, double ypos)

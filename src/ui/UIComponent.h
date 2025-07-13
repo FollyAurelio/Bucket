@@ -12,9 +12,8 @@ public:
 	glm::vec3 color;
 	bool fixed;
 
-	virtual void onHover();
-	virtual void onClick();
-	virtual void render(Renderer *renderer);
+	virtual void update() = 0;
+	virtual void render(Renderer *renderer) = 0;
 };
 
 #endif
