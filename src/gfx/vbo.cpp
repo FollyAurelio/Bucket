@@ -4,8 +4,13 @@ VBO::VBO(GLint t, bool d)
 {
 	type = t;
 	dynamic = d;
+}
+
+void VBO::init()
+{
 	glGenBuffers(1, &handle);
 }
+
 
 void VBO::destroy()
 {

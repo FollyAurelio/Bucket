@@ -46,6 +46,7 @@ Texture Loader::loadImage(const char *texturePath, GLint outputFormat, GLint sou
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	Texture texture(data, outputFormat, width, height, sourceFormat, wrap, filter);
+	texture.init();
 	stbi_image_free(data);
 	return texture;
 }

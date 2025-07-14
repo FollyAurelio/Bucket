@@ -25,6 +25,7 @@ public:
 	glm::mat4 no_camera;
 	glm::mat4 projection;
 	Renderer(float windowWidth, float windowHeight);
+	void init();
 	void drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
 	void drawText();
 	

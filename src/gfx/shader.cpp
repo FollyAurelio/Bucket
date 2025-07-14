@@ -1,10 +1,17 @@
 #include "shader.h"
 
-Shader::Shader(std::string vertexCode, std::string fragmentCode){
-	
+Shader::Shader(std::string vertexCode, std::string fragmentCode)
+{
+	this->vertexCode = vertexCode;
+	this->fragmentCode = fragmentCode;
+}
+
+
+
+void Shader::init()
+{
 	const char* vShaderCode = vertexCode.c_str();
 	const char* fShaderCode = fragmentCode.c_str();
-
 	unsigned int vertex, fragment;
 	int success;
 	char infoLog[512];
@@ -48,6 +55,11 @@ Shader::Shader(std::string vertexCode, std::string fragmentCode){
 void Shader::use()
 {
 	glUseProgram(handle);
+}
+
+void Shader::destroy()
+{
+	glDeleteProgram(handle);
 }
 
 void Shader::setBool(const std::string &name, bool value) const

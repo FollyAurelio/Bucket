@@ -10,6 +10,7 @@ public:
 	bool dynamic;
 
 	VBO(GLint type, bool dynamic);
+	void init();
 	void destroy();
 	void bind();
 	void buffer(void *data, size_t size);

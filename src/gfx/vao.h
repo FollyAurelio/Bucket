@@ -7,7 +7,7 @@ class VAO
 {
 public:
 	GLuint handle;
-	VAO();
+	void init();
 	void bind();
 	void destroy();
 	void attr(VBO vbo, GLuint index, GLint size, GLenum type, GLsizei stride, size_t offset);

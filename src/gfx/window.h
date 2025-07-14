@@ -3,13 +3,15 @@
 #include "gfx.h"
 #include "gmath.h"
 #include "renderer.h"
+#include "gfx.h"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define TARGET_FPS 60
 
 struct Button
 {
-	bool pressed, released;
+	bool pressed = false;
+	bool released = false;
 };
 
 struct Mouse
@@ -29,7 +31,7 @@ class Window
 public:
 	GLFWwindow *handle;
 	int size[2] = {800, 600};
-	Renderer *renderer;
+	Renderer renderer = Renderer((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
 	float dt;
 	float lastFrame;
 	Mouse mouse;

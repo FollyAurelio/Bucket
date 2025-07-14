@@ -2,6 +2,17 @@
 
 Texture::Texture(unsigned char *data, GLint outputFormat, int width, int height, GLint sourceFormat, GLint wrap, GLint filter)
 {
+	this->data = data;
+	this->outputFormat = outputFormat;
+	this->width = width;
+	this->height = height;
+	this->sourceFormat = sourceFormat;
+	this->wrap = wrap;
+	this->filter = filter;
+}
+
+void Texture::init()
+{
 	glGenTextures(1 , &handle);
 	glBindTexture(GL_TEXTURE_2D, handle);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
