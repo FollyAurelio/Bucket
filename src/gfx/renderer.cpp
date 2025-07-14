@@ -2,6 +2,7 @@
 
 Renderer::Renderer(float windowWidth, float windowHeight)
 {	
+	projection = glm::ortho(0.0f, windowWidth, windowHeight, 0.0f, -1.0f, 1.0f);
 		
 }	
 
@@ -17,7 +18,6 @@ void Renderer::init()
 	//setting up camera and projection matrices
 	camera = glm::mat4(1.0f);
 	no_camera = glm::mat4(1.0f);
-	projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 
 }
 

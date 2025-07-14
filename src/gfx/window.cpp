@@ -1,7 +1,6 @@
 #include "window.h"
 
 
-
 Window::Window()
 {
 	glfwInit();
@@ -57,15 +56,24 @@ void Window::processInput()
 
 void Window::processMouse()
 {
-	if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].pressed)
+	if(box.collideMouse(mouse.offposition))
 	{
-		std::cout << "pressed" << std::endl;
+		if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].pressed)
+		{box.state = STATE_CLICK;}
+		else
+		{box.state = STATE_HOVER;}
 	}
 	else if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released)
 	{
-		std::cout << "released" << std::endl;
+		box.state = STATE_RELEASE;
 		mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released = false;
 	}
+	else
+	{
+		box.state = STATE_DEFAULT;
+	}
+
+	
 }
 
 void Window::loop()
@@ -79,6 +87,8 @@ void Window::loop()
 		processMouse();
 		renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer.drawRectangle(glm::vec2(0.0f, 40.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
+		box.update();
+		box.render(renderer);
 		glfwSwapBuffers(handle);
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -119,7 +129,9 @@ static void cursorCallback(GLFWwindow* handle, double xpos, double ypos)
 {
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	glm::mat4 inverseCamera = glm::inverse(pWindow->renderer.camera);
-	glm::vec4 b = inverseCamera * glm::vec4(xpos, ypos, 0.0f,1.0f) ;
+	glm::vec4 offsetMouse = inverseCamera * glm::vec4(xpos, ypos, 0.0f,1.0f) ;
+	pWindow->mouse.position = glm::vec2(xpos, ypos);
+	pWindow->mouse.offposition = glm::vec2(offsetMouse.x, offsetMouse.y);
 }
 
 static void mouseCallback(GLFWwindow* handle, int button, int action, int mods)

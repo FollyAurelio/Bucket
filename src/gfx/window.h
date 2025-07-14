@@ -4,19 +4,19 @@
 #include "gmath.h"
 #include "renderer.h"
 #include "gfx.h"
+#include "../ui/box.h"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define TARGET_FPS 60
 
 struct Button
 {
-	bool pressed = false;
-	bool released = false;
+	bool pressed, released;
 };
 
 struct Mouse
 {
-	glm::vec2 position;
+	glm::vec2 position, offposition;
 	Button buttons[GLFW_MOUSE_BUTTON_LAST];
 };
 
@@ -36,6 +36,7 @@ public:
 	float lastFrame;
 	Mouse mouse;
 	Keyboard keyboard;
+	Box box = Box(glm::vec2(140, 3), glm::vec2(200, 100), glm::vec3(0.1f, 0.7f, 0.0f), false);
 	
 	Window();
 	void processInput();
