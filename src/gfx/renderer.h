@@ -21,11 +21,15 @@ public:
 	VBO vbo = VBO(GL_ARRAY_BUFFER, false);
 	VBO ebo = VBO(GL_ELEMENT_ARRAY_BUFFER, false);
 	VAO vao = VAO();
+	glm::vec2 cameraPosition = glm::vec2(0.0f, 0.0f);
+	float cameraZoom = 1.0f;
 	glm::mat4 camera;
+	glm::mat4 inverseCamera;
 	glm::mat4 no_camera;
 	glm::mat4 projection;
 	Renderer(float windowWidth, float windowHeight);
 	void init();
+	void setCamera();
 	void drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
 	void drawText();
 	

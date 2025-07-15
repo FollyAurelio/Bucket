@@ -17,8 +17,17 @@ void Renderer::init()
 	ebo.buffer(rect_indices, sizeof(rect_indices));
 	//setting up camera and projection matrices
 	camera = glm::mat4(1.0f);
+	inverseCamera = glm::mat4(1.0f);
 	no_camera = glm::mat4(1.0f);
 
+}
+
+void Renderer::setCamera()
+{
+	camera = glm::mat4(1.0f);
+	camera = glm::translate(camera, glm::vec3(cameraPosition.x * 100.0f, cameraPosition.y * 100.0f, 0.0f));
+	camera = glm::scale(camera, glm::vec3(cameraZoom, cameraZoom, 1.0f));
+	inverseCamera = glm::inverse(camera);
 }
 
 void Renderer::drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed)

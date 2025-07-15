@@ -8,6 +8,7 @@ Window::Window()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);//For OS X
+	//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 	handle = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Bucket", NULL, NULL);
 	if (handle == NULL)
 	{
@@ -38,14 +39,14 @@ void Window::processInput()
 {
 	if(glfwGetKey(handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(handle, true);
-	if(glfwGetKey(handle, GLFW_KEY_UP) == GLFW_PRESS)
-		renderer.camera = glm::translate(renderer.camera, glm::vec3(0.0f, 3.0f, 0.0f));
-	if(glfwGetKey(handle, GLFW_KEY_DOWN) == GLFW_REPEAT)
-		renderer.camera = glm::translate(renderer.camera, glm::vec3(0.0f, -3.0f, 0.0f));
-	if (glfwGetKey(handle, GLFW_KEY_KP_ADD) == GLFW_REPEAT)
-		renderer.camera = glm::scale(renderer.camera, glm::vec3(1.1f, 1.1f, 0.0f));
-	if (glfwGetKey(handle, GLFW_KEY_KP_SUBTRACT) == GLFW_REPEAT)
-		renderer.camera = glm::scale(renderer.camera, glm::vec3(0.9f, 0.9f, 0.0f));
+//	if(glfwGetKey(handle, GLFW_KEY_UP) == GLFW_PRESS)
+		//renderer.cameraPosition.y += glm::translate(renderer.camera, glm::vec3(0.0f, 3.0f, 0.0f));
+	//if(glfwGetKey(handle, GLFW_KEY_DOWN) == GLFW_REPEAT)
+		//renderer.camera = glm::translate(renderer.camera, glm::vec3(0.0f, -3.0f, 0.0f));
+	if (glfwGetKey(handle, GLFW_KEY_P) == GLFW_PRESS)
+		renderer.cameraZoom += 0.1f; 
+	if (glfwGetKey(handle, GLFW_KEY_L) == GLFW_PRESS)
+		renderer.cameraZoom -= 0.1f; 
 
 
 	double xpos, ypos;
@@ -56,7 +57,9 @@ void Window::processInput()
 
 void Window::processMouse()
 {
+
 	if(box.collideMouse(mouse.offposition))
+
 	{
 		if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].pressed)
 		{box.state = STATE_CLICK;}
@@ -84,6 +87,8 @@ void Window::loop()
         	dt = (currentFrame - lastFrame) * TARGET_FPS;
         	lastFrame = currentFrame;
 		glfwPollEvents();
+		renderer.setCamera();
+		processInput();
 		processMouse();
 		renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer.drawRectangle(glm::vec2(0.0f, 40.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
@@ -122,15 +127,14 @@ static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)
 {
 	//std::cout << xoffset << std::endl;
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
-	pWindow->renderer.camera = glm::translate(pWindow->renderer.camera, glm::vec3(0.0f, 100.0f * yoffset * pWindow->dt, 0.0f));
+	pWindow->renderer.cameraPosition.y += yoffset;
 }
 
 static void cursorCallback(GLFWwindow* handle, double xpos, double ypos)
 {
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
-	glm::mat4 inverseCamera = glm::inverse(pWindow->renderer.camera);
-	glm::vec4 offsetMouse = inverseCamera * glm::vec4(xpos, ypos, 0.0f,1.0f) ;
 	pWindow->mouse.position = glm::vec2(xpos, ypos);
+	glm::vec4 offsetMouse = pWindow->renderer.inverseCamera * glm::vec4(pWindow->mouse.position, 0.0f,1.0f);
 	pWindow->mouse.offposition = glm::vec2(offsetMouse.x, offsetMouse.y);
 }
 
