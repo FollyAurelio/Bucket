@@ -1,6 +1,7 @@
 #ifndef BOX_H
 #define BOX_H
 #include "UIComponent.h"
+#include <iostream>
 
 class Box : public UIComponent
 {

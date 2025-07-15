@@ -16,6 +16,7 @@ void Box::update()
 			color = glm::vec3(0.7f, 0.0f, 0.0f);
 			break;
 		case STATE_RELEASE:
+			std::cout << "Hello World" << std::endl;
 			state = STATE_DEFAULT; 
 			break;
 		default:

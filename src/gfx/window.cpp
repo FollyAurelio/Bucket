@@ -59,17 +59,17 @@ void Window::processMouse()
 {
 
 	if(box.collideMouse(mouse.offposition))
-
 	{
 		if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].pressed)
 		{box.state = STATE_CLICK;}
+	
+		else if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released)
+		{
+			box.state = STATE_RELEASE;
+			mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released = false;
+		}
 		else
 		{box.state = STATE_HOVER;}
-	}
-	else if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released)
-	{
-		box.state = STATE_RELEASE;
-		mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released = false;
 	}
 	else
 	{
