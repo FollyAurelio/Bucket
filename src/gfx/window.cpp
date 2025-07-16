@@ -57,16 +57,15 @@ void Window::processInput()
 
 void Window::processMouse()
 {
-
 	if(box.collideMouse(mouse.offposition))
 	{
 		if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].pressed)
-		{box.state = STATE_CLICK;}
+		{box.state = STATE_CLICK;
+		}
 	
 		else if(mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released)
 		{
 			box.state = STATE_RELEASE;
-			mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released = false;
 		}
 		else
 		{box.state = STATE_HOVER;}
@@ -75,6 +74,7 @@ void Window::processMouse()
 	{
 		box.state = STATE_DEFAULT;
 	}
+	mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released = false;
 
 	
 }
@@ -91,9 +91,11 @@ void Window::loop()
 		processInput();
 		processMouse();
 		renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
-		renderer.drawRectangle(glm::vec2(0.0f, 40.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
+		renderer.drawRectangle(glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
 		box.update();
+		bo.update();
 		box.render(renderer);
+		bo.render(renderer);
 		glfwSwapBuffers(handle);
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -125,7 +127,6 @@ void characterCallback(GLFWwindow* handle, unsigned int keyCode, int modifierCod
 
 static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)
 {
-	//std::cout << xoffset << std::endl;
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	pWindow->renderer.cameraPosition.y += yoffset;
 }

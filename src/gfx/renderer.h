@@ -18,9 +18,11 @@ public:
 				};
 	unsigned int rect_indices[6] = {0,1,3,1,2,3};
 	Shader rect_shader = Loader::loadShader("res/shaders/basic.vs", "res/shaders/basic.fs");
-	VBO vbo = VBO(GL_ARRAY_BUFFER, false);
-	VBO ebo = VBO(GL_ELEMENT_ARRAY_BUFFER, false);
-	VAO vao = VAO();
+	VBO rect_vbo = VBO(GL_ARRAY_BUFFER, false);
+	VBO rect_ebo = VBO(GL_ELEMENT_ARRAY_BUFFER, false);
+	VAO rect_vao = VAO();
+	VBO text_vbo = VBO(GL_ARRAY_BUFFER, true);
+	VBO text_vbo = VBO(GL_ARRAY_BUFFER, true);
 	glm::vec2 cameraPosition = glm::vec2(0.0f, 0.0f);
 	float cameraZoom = 1.0f;
 	glm::mat4 camera;
