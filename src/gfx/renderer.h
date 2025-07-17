@@ -22,7 +22,7 @@ public:
 	VBO rect_ebo = VBO(GL_ELEMENT_ARRAY_BUFFER, false);
 	VAO rect_vao = VAO();
 	VBO text_vbo = VBO(GL_ARRAY_BUFFER, true);
-	VBO text_vbo = VBO(GL_ARRAY_BUFFER, true);
+	//VBO text_vbo = VBO(GL_ARRAY_BUFFER, true);
 	glm::vec2 cameraPosition = glm::vec2(0.0f, 0.0f);
 	float cameraZoom = 1.0f;
 	glm::mat4 camera;

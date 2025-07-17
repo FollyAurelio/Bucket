@@ -7,7 +7,7 @@ struct Character {
 	Texture texture;
 	glm::ivec2 size;
 	glm::ivec2 bearing;
-	unsigned int advance;
+	long int advance;
 };
 
 #endif

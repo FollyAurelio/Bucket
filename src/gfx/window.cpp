@@ -24,6 +24,7 @@ Window::Window()
 		exit(1);
 	}
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 0);
 	renderer.init();
 	glfwSetWindowUserPointer(handle, this);
 	glfwSetFramebufferSizeCallback(handle, sizeCallback);
