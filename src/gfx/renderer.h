@@ -7,6 +7,7 @@
 #include "texture.h"
 #include "gmath.h"
 #include "../data/loader.h"
+#include <map>
 
 class Renderer
 {
@@ -18,11 +19,13 @@ public:
 				};
 	unsigned int rect_indices[6] = {0,1,3,1,2,3};
 	Shader rect_shader = Loader::loadShader("res/shaders/basic.vs", "res/shaders/basic.fs");
+	Shader text_shader = Loader::loadShader("res/shaders/text.vs", "res/shaders/text.fs");
 	VBO rect_vbo = VBO(GL_ARRAY_BUFFER, false);
 	VBO rect_ebo = VBO(GL_ELEMENT_ARRAY_BUFFER, false);
 	VAO rect_vao = VAO();
 	VBO text_vbo = VBO(GL_ARRAY_BUFFER, true);
-	//VBO text_vbo = VBO(GL_ARRAY_BUFFER, true);
+	VAO text_vao = VAO();
+	std::map <char, Character> characters;
 	glm::vec2 cameraPosition = glm::vec2(0.0f, 0.0f);
 	float cameraZoom = 1.0f;
 	glm::mat4 camera;
@@ -33,7 +36,7 @@ public:
 	void init();
 	void setCamera();
 	void drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
-	void drawText();
+	void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
 	
 
 };

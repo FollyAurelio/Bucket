@@ -199,6 +199,7 @@ CMakeFiles/freetype.dir/src/autofit/autofit.c.o
  /home/pancake/Documents/Bucket/lib/freetype/src/autofit/afws-decl.h
  /home/pancake/Documents/Bucket/lib/freetype/src/autofit/afws-iter.h
  /home/pancake/Documents/Bucket/lib/freetype/src/autofit/ft-hb.c
+ /home/pancake/Documents/Bucket/lib/freetype/src/autofit/ft-hb.h
  /usr/include/alloca.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -218,6 +219,8 @@ CMakeFiles/freetype.dir/src/autofit/autofit.c.o
  /usr/include/bits/select.h
  /usr/include/bits/setjmp.h
  /usr/include/bits/stdint-intn.h
+ /usr/include/bits/stdint-least.h
+ /usr/include/bits/stdint-uintn.h
  /usr/include/bits/stdio_lim.h
  /usr/include/bits/stdlib-float.h
  /usr/include/bits/struct_mutex.h
@@ -248,16 +251,47 @@ CMakeFiles/freetype.dir/src/autofit/autofit.c.o
  /usr/include/bits/uintn-identity.h
  /usr/include/bits/waitflags.h
  /usr/include/bits/waitstatus.h
+ /usr/include/bits/wchar.h
  /usr/include/bits/wordsize.h
  /usr/include/endian.h
  /usr/include/features-time64.h
  /usr/include/features.h
  /usr/include/gnu/stubs-64.h
  /usr/include/gnu/stubs.h
+ /usr/include/harfbuzz/hb-blob.h
+ /usr/include/harfbuzz/hb-buffer.h
+ /usr/include/harfbuzz/hb-common.h
+ /usr/include/harfbuzz/hb-deprecated.h
+ /usr/include/harfbuzz/hb-draw.h
+ /usr/include/harfbuzz/hb-face.h
+ /usr/include/harfbuzz/hb-font.h
+ /usr/include/harfbuzz/hb-map.h
+ /usr/include/harfbuzz/hb-ot-color.h
+ /usr/include/harfbuzz/hb-ot-deprecated.h
+ /usr/include/harfbuzz/hb-ot-font.h
+ /usr/include/harfbuzz/hb-ot-layout.h
+ /usr/include/harfbuzz/hb-ot-math.h
+ /usr/include/harfbuzz/hb-ot-meta.h
+ /usr/include/harfbuzz/hb-ot-metrics.h
+ /usr/include/harfbuzz/hb-ot-name.h
+ /usr/include/harfbuzz/hb-ot-shape.h
+ /usr/include/harfbuzz/hb-ot-var.h
+ /usr/include/harfbuzz/hb-ot.h
+ /usr/include/harfbuzz/hb-paint.h
+ /usr/include/harfbuzz/hb-script-list.h
+ /usr/include/harfbuzz/hb-set.h
+ /usr/include/harfbuzz/hb-shape-plan.h
+ /usr/include/harfbuzz/hb-shape.h
+ /usr/include/harfbuzz/hb-style.h
+ /usr/include/harfbuzz/hb-unicode.h
+ /usr/include/harfbuzz/hb-version.h
+ /usr/include/harfbuzz/hb.h
+ /usr/include/inttypes.h
  /usr/include/limits.h
  /usr/include/linux/limits.h
  /usr/include/setjmp.h
  /usr/include/stdc-predef.h
+ /usr/include/stdint.h
  /usr/include/stdio.h
  /usr/include/stdlib.h
  /usr/include/string.h
@@ -268,6 +302,7 @@ CMakeFiles/freetype.dir/src/autofit/autofit.c.o
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/limits.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdarg.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stddef.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdint.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/syslimits.h
 
 CMakeFiles/freetype.dir/src/base/ftbase.c.o
@@ -2559,6 +2594,7 @@ CMakeFiles/freetype.dir/src/bzip2/ftbzip2.c.o
  /usr/include/bits/waitflags.h
  /usr/include/bits/waitstatus.h
  /usr/include/bits/wordsize.h
+ /usr/include/bzlib.h
  /usr/include/endian.h
  /usr/include/features-time64.h
  /usr/include/features.h
@@ -3023,32 +3059,23 @@ CMakeFiles/freetype.dir/src/gzip/ftgzip.c.o
  /home/pancake/Documents/Bucket/lib/freetype/include/freetype/internal/ftserv.h
  /home/pancake/Documents/Bucket/lib/freetype/include/freetype/internal/ftstream.h
  /home/pancake/Documents/Bucket/lib/freetype/include/ft2build.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/adler32.c
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/crc32.c
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/crc32.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/ftzconf.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/inffast.c
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/inffast.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/inffixed.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/inflate.c
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/inflate.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/inftrees.c
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/inftrees.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/zlib.h
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/zutil.c
- /home/pancake/Documents/Bucket/lib/freetype/src/gzip/zutil.h
  /usr/include/alloca.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
+ /usr/include/bits/confname.h
  /usr/include/bits/endian.h
  /usr/include/bits/endianness.h
+ /usr/include/bits/environments.h
  /usr/include/bits/floatn-common.h
  /usr/include/bits/floatn.h
+ /usr/include/bits/getopt_core.h
+ /usr/include/bits/getopt_posix.h
  /usr/include/bits/libc-header-start.h
  /usr/include/bits/local_lim.h
  /usr/include/bits/long-double.h
  /usr/include/bits/posix1_lim.h
  /usr/include/bits/posix2_lim.h
+ /usr/include/bits/posix_opt.h
  /usr/include/bits/pthread_stack_min-dynamic.h
  /usr/include/bits/pthread_stack_min.h
  /usr/include/bits/pthreadtypes-arch.h
@@ -3084,6 +3111,7 @@ CMakeFiles/freetype.dir/src/gzip/ftgzip.c.o
  /usr/include/bits/types/timer_t.h
  /usr/include/bits/typesizes.h
  /usr/include/bits/uintn-identity.h
+ /usr/include/bits/unistd_ext.h
  /usr/include/bits/waitflags.h
  /usr/include/bits/waitstatus.h
  /usr/include/bits/wordsize.h
@@ -3103,6 +3131,9 @@ CMakeFiles/freetype.dir/src/gzip/ftgzip.c.o
  /usr/include/sys/cdefs.h
  /usr/include/sys/select.h
  /usr/include/sys/types.h
+ /usr/include/unistd.h
+ /usr/include/zconf.h
+ /usr/include/zlib.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/limits.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdarg.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stddef.h
@@ -4182,11 +4213,14 @@ CMakeFiles/freetype.dir/src/sfnt/sfnt.c.o
  /usr/include/bits/select.h
  /usr/include/bits/setjmp.h
  /usr/include/bits/stdint-intn.h
+ /usr/include/bits/stdint-least.h
+ /usr/include/bits/stdint-uintn.h
  /usr/include/bits/stdio_lim.h
  /usr/include/bits/stdlib-float.h
  /usr/include/bits/struct_mutex.h
  /usr/include/bits/struct_rwlock.h
  /usr/include/bits/thread-shared-types.h
+ /usr/include/bits/time.h
  /usr/include/bits/time64.h
  /usr/include/bits/timesize.h
  /usr/include/bits/types.h
@@ -4204,24 +4238,35 @@ CMakeFiles/freetype.dir/src/sfnt/sfnt.c.o
  /usr/include/bits/types/sigset_t.h
  /usr/include/bits/types/struct_FILE.h
  /usr/include/bits/types/struct___jmp_buf_tag.h
+ /usr/include/bits/types/struct_itimerspec.h
  /usr/include/bits/types/struct_timespec.h
  /usr/include/bits/types/struct_timeval.h
+ /usr/include/bits/types/struct_tm.h
  /usr/include/bits/types/time_t.h
  /usr/include/bits/types/timer_t.h
  /usr/include/bits/typesizes.h
  /usr/include/bits/uintn-identity.h
  /usr/include/bits/waitflags.h
  /usr/include/bits/waitstatus.h
+ /usr/include/bits/wchar.h
  /usr/include/bits/wordsize.h
+ /usr/include/brotli/decode.h
+ /usr/include/brotli/port.h
+ /usr/include/brotli/shared_dictionary.h
+ /usr/include/brotli/types.h
  /usr/include/endian.h
  /usr/include/features-time64.h
  /usr/include/features.h
  /usr/include/gnu/stubs-64.h
  /usr/include/gnu/stubs.h
+ /usr/include/libpng16/png.h
+ /usr/include/libpng16/pngconf.h
+ /usr/include/libpng16/pnglibconf.h
  /usr/include/limits.h
  /usr/include/linux/limits.h
  /usr/include/setjmp.h
  /usr/include/stdc-predef.h
+ /usr/include/stdint.h
  /usr/include/stdio.h
  /usr/include/stdlib.h
  /usr/include/string.h
@@ -4229,9 +4274,11 @@ CMakeFiles/freetype.dir/src/sfnt/sfnt.c.o
  /usr/include/sys/cdefs.h
  /usr/include/sys/select.h
  /usr/include/sys/types.h
+ /usr/include/time.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/limits.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdarg.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stddef.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdint.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/syslimits.h
 
 CMakeFiles/freetype.dir/src/smooth/smooth.c.o

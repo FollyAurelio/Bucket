@@ -24,7 +24,12 @@ Window::Window()
 		exit(1);
 	}
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 0);
+	//glPixe//lStorei(GL_PACK_ALIGNMENT, 1);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	//glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_CULL_FACE);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	renderer.init();
 	glfwSetWindowUserPointer(handle, this);
 	glfwSetFramebufferSizeCallback(handle, sizeCallback);
@@ -91,15 +96,17 @@ void Window::loop()
 		renderer.setCamera();
 		processInput();
 		processMouse();
-		renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer.drawRectangle(glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
+		renderer.drawText("abcdefghijklmnopqrstuvwxyz.", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+
 		box.update();
 		bo.update();
 		box.render(renderer);
-		bo.render(renderer);
+		//bo.render(renderer);
 		glfwSwapBuffers(handle);
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
 	}
 }
 	

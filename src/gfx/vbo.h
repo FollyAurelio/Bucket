@@ -14,6 +14,7 @@ public:
 	void destroy();
 	void bind();
 	void buffer(void *data, size_t size);
+	void subbuffer(void *data, size_t size);
 };
 
 #endif

@@ -15,6 +15,7 @@ public:
 	GLint wrap; 
 	GLint filter;
 	bool isText;
+	Texture();
 	Texture(unsigned char *data, GLint outputFormat, int width, int height, GLint sourceFormat, GLint wrap, GLint filter, bool isText);
 	void init();
 	void bind();

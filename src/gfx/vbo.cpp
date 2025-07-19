@@ -27,3 +27,9 @@ void VBO::buffer(void *data, size_t size)
 	bind();
 	glBufferData(type, size, data, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
 }
+
+void VBO::subbuffer(void *data, size_t size)
+{
+	bind();
+	glBufferSubData(type, 0, size, data);
+}

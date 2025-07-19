@@ -64,22 +64,26 @@ std::map<char, Character> Loader::loadFont(const char *fontPath)
 	FT_Face face;
 	if (FT_New_Face(ft, fontPath, 0, &face))
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-	for (unsigned char c = 0; c < 128; c++)
+	FT_Set_Pixel_Sizes(face, 0, 48);
+	for (unsigned char c = 1; c < 128; c++)
 	{
 		// load character glyph
+		//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
 		{
 			std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
 			continue;
 		}
 	// generate texture
+		//std::cout << (char)c << " " << FT_Get_Char_Index(face, c)<< " " << face->glyph->glyph_index << std::endl;
+
 		Texture texture(face->glyph->bitmap.buffer, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
 	// now store character for later use
 		Character character = {
 		texture,
 		glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 		glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-		face->glyph->advance.x
+		(unsigned int)face->glyph->advance.x
 		};
 		Characters.insert(std::pair<char, Character>(c, character));
 	}

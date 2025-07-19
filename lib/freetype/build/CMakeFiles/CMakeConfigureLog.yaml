@@ -330,3 +330,42 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckSymbolExists.cmake:160 (try_compile)"
+      - "/usr/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "/usr/share/cmake/Modules/FindBZip2.cmake:100 (check_symbol_exists)"
+      - "CMakeLists.txt:288 (find_package)"
+    checks:
+      - "Looking for BZ2_bzCompressInit"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d"
+      binary: "/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/freetype/builds/cmake"
+    buildResult:
+      variable: "BZIP2_NEED_PREFIX"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_c1374/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d'
+        /sbin/make  -f CMakeFiles/cmTC_c1374.dir/build.make CMakeFiles/cmTC_c1374.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d'
+        Building C object CMakeFiles/cmTC_c1374.dir/CheckSymbolExists.c.o
+        /sbin/cc    -o CMakeFiles/cmTC_c1374.dir/CheckSymbolExists.c.o -c /home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d/CheckSymbolExists.c
+        Linking C executable cmTC_c1374
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_c1374.dir/link.txt --verbose=1
+        /sbin/cc CMakeFiles/cmTC_c1374.dir/CheckSymbolExists.c.o -o cmTC_c1374  /usr/lib/libbz2.so
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/freetype/build/CMakeFiles/CMakeScratch/TryCompile-muvQ4d'
+        
+      exitCode: 0
+...
