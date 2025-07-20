@@ -96,7 +96,7 @@ void Window::loop()
 		renderer.setCamera();
 		processInput();
 		processMouse();
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer.drawRectangle(glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
@@ -106,6 +106,7 @@ void Window::loop()
 		bo.update();
 		box.render(renderer);
 		//bo.render(renderer);
+		renderer.drawGlyph();
 		glfwSwapBuffers(handle);
 	}
 }
@@ -129,8 +130,9 @@ static void sizeCallback(GLFWwindow *handle, int width, int height)
 
 void characterCallback(GLFWwindow* handle, unsigned int keyCode, int modifierCode)
 {
-	//std::cout << (char)keyCode <<std::endl;
-	//std::cout << modifierCode <<std::endl;
+	std::cout << (char)keyCode <<std::endl;
+	std::cout << keyCode <<std::endl;
+	std::cout << modifierCode <<std::endl;
 }
 
 static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)

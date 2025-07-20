@@ -22,9 +22,19 @@ void Renderer::init()
 	text_shader.init();
 	text_vbo.buffer(NULL, sizeof(float) * 6 * 4);
 	text_vao.attr(text_vbo, 0, 4, GL_FLOAT, 4*sizeof(float), 0);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glPixelStorei(GL_PACK_ALIGNMENT, 1);
-	characters = Loader::loadFont("res/fonts/Antonio-Regular.ttf");
+	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	//glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	characters = Loader::loadFont("res/fonts/AdwaitaSans-Regular.ttf");
+
+	glyph.init();
+	vaoglyph.init();
+	eboglyph.init();
+	glyphS.init();
+	t.init();
+	glyph.buffer(vertices, sizeof(vertices));
+	vaoglyph.attr(glyph, 0, 4, GL_FLOAT, 4*sizeof(float), 0);
+	eboglyph.buffer(elements, sizeof(elements));
+
 
 	for(unsigned char c = 0; c < 128; c++)
 	{
@@ -110,4 +120,12 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 	}
 //glBindVertexArray(0);
 //glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Renderer::drawGlyph()
+{
+	glyphS.use();
+	t.bind();
+	vaoglyph.bind();
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

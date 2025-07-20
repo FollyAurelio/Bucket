@@ -41,8 +41,8 @@ Shader Loader::loadShader(const char *vertexPath, const char *fragmentPath)
 Texture Loader::loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter)
 {
 	int width, height, nrChannels;
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char *data= stbi_load(texturePath, &width, &height, &nrChannels, 0);
-	//stbi_set_flip_vertically_on_load(true);
 	if(!data)
 	{
 		std::cout << "Failed to load texture" << std::endl;
@@ -64,7 +64,9 @@ std::map<char, Character> Loader::loadFont(const char *fontPath)
 	FT_Face face;
 	if (FT_New_Face(ft, fontPath, 0, &face))
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-	FT_Set_Pixel_Sizes(face, 0, 48);
+	//FT_Set_Char_Size(face,0, 48, 1920, 1080);
+	FT_Set_Pixel_Sizes(face, 0, 47);
+	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 	for (unsigned char c = 1; c < 128; c++)
 	{
 		// load character glyph
