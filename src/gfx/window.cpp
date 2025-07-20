@@ -24,11 +24,9 @@ Window::Window()
 		exit(1);
 	}
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-	//glPixe//lStorei(GL_PACK_ALIGNMENT, 1);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-	//glDisable(GL_DEPTH_TEST);
-	//glDisable(GL_CULL_FACE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	renderer.init();
 	glfwSetWindowUserPointer(handle, this);
@@ -96,7 +94,7 @@ void Window::loop()
 		renderer.setCamera();
 		processInput();
 		processMouse();
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer.drawRectangle(glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
@@ -106,7 +104,7 @@ void Window::loop()
 		bo.update();
 		box.render(renderer);
 		//bo.render(renderer);
-		renderer.drawGlyph();
+		//renderer.drawGlyph();
 		glfwSwapBuffers(handle);
 	}
 }
@@ -122,7 +120,7 @@ static void sizeCallback(GLFWwindow *handle, int width, int height)
 
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	glViewport(0, 0, width, height);
-	pWindow->renderer.projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
+	pWindow->renderer.projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
 	pWindow->size[0] = width;
 	pWindow->size[1] = height;
 	
@@ -130,9 +128,9 @@ static void sizeCallback(GLFWwindow *handle, int width, int height)
 
 void characterCallback(GLFWwindow* handle, unsigned int keyCode, int modifierCode)
 {
-	std::cout << (char)keyCode <<std::endl;
-	std::cout << keyCode <<std::endl;
-	std::cout << modifierCode <<std::endl;
+	//std::cout << (char)keyCode <<std::endl;
+	//std::cout << keyCode <<std::endl;
+	//std::cout << modifierCode <<std::endl;
 }
 
 static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)

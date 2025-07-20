@@ -5,6 +5,6 @@ uniform sampler2D text;
 
 void main()
 {
-	color = vec4(texture(text, texCoords).xyz, 1.0);
+	color = vec4(texture(text, texCoords).xyz, 1.0) * sin(vec4(1.0, 1.0, 1.0, 1.0));
 }
 	

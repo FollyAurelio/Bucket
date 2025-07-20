@@ -65,9 +65,8 @@ std::map<char, Character> Loader::loadFont(const char *fontPath)
 	if (FT_New_Face(ft, fontPath, 0, &face))
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 	//FT_Set_Char_Size(face,0, 48, 1920, 1080);
-	FT_Set_Pixel_Sizes(face, 0, 47);
-	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-	for (unsigned char c = 1; c < 128; c++)
+	FT_Set_Pixel_Sizes(face, 0, 48);
+	for (unsigned char c = 0; c < 128; c++)
 	{
 		// load character glyph
 		//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -79,7 +78,13 @@ std::map<char, Character> Loader::loadFont(const char *fontPath)
 	// generate texture
 		//std::cout << (char)c << " " << FT_Get_Char_Index(face, c)<< " " << face->glyph->glyph_index << std::endl;
 
-		Texture texture(face->glyph->bitmap.buffer, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
+		//Texture texture(face->glyph->bitmap.buffer, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
+		FT_Bitmap& bitmap = face->glyph->bitmap;
+		int size = bitmap.width * bitmap.rows;
+		unsigned char* bufferCopy = new unsigned char[size];
+		memcpy(bufferCopy, bitmap.buffer, size);
+
+		Texture texture(bufferCopy, GL_RED, bitmap.width, bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
 	// now store character for later use
 		Character character = {
 		texture,

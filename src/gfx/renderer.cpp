@@ -24,7 +24,7 @@ void Renderer::init()
 	text_vao.attr(text_vbo, 0, 4, GL_FLOAT, 4*sizeof(float), 0);
 	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	//glPixelStorei(GL_PACK_ALIGNMENT, 1);
-	characters = Loader::loadFont("res/fonts/AdwaitaSans-Regular.ttf");
+	characters = Loader::loadFont("res/fonts/Antonio-Regular.ttf");
 
 	glyph.init();
 	vaoglyph.init();
@@ -95,12 +95,12 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 		float h = ch.size.y * scale;
 		// update VBO for each character
 		float vertices[6][4] = {
-		{ xpos, ypos + h, 0.0f, 1.0f },
-		{ xpos, ypos, 0.0f, 0.0f },
-		{ xpos + w, ypos, 1.0f, 0.0f },
-		{ xpos, ypos + h, 0.0f, 1.0f },
-		{ xpos + w, ypos, 1.0f, 0.0f },
-		{ xpos + w, ypos + h, 1.0f, 1.0f }
+		{ xpos, ypos + h, 0.0f, 0.0f },
+		{ xpos, ypos, 0.0f, 1.0f },
+		{ xpos + w, ypos, 1.0f, 1.0f },
+		{ xpos, ypos + h, 0.0f, 0.0f },
+		{ xpos + w, ypos, 1.0f, 1.0f },
+		{ xpos + w, ypos + h, 1.0f, 0.0f }
 		};
 // render glyph texture over quad
 		//glBindTexture(GL_TEXTURE_2D, ch.textureID);
