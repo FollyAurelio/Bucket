@@ -120,7 +120,7 @@ static void sizeCallback(GLFWwindow *handle, int width, int height)
 
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	glViewport(0, 0, width, height);
-	pWindow->renderer.projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
+	pWindow->renderer.projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
 	pWindow->size[0] = width;
 	pWindow->size[1] = height;
 	
