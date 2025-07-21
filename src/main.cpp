@@ -147,7 +147,6 @@ void processMouse()
 		box.state = STATE_DEFAULT;
 	}
 	mouse.buttons[GLFW_MOUSE_BUTTON_LEFT].released = false;
-
 }
 
 static void sizeCallback(GLFWwindow *window, int width, int height)

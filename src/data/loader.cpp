@@ -38,7 +38,8 @@ Shader Loader::loadShader(const char *vertexPath, const char *fragmentPath)
 	return shader;
 }
 
-Texture Loader::loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter)
+
+unsigned int Loader::loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter)
 {
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(true);
@@ -47,9 +48,18 @@ Texture Loader::loadImage(const char *texturePath, GLint outputFormat, GLint sou
 	{
 		std::cout << "Failed to load texture" << std::endl;
 	}
-	Texture texture(data, outputFormat, width, height, sourceFormat, wrap, filter, false);
-	//texture.init();
-	//stbi_image_free(data);
+	//Texture texture(data, outputFormat, width, height, sourceFormat, wrap, filter, false);
+	unsigned int texture;
+	glGenTextures(1 , &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
+	// load and generate the texture
+	glTexImage2D(GL_TEXTURE_2D, 0, outputFormat, width, height, 0, sourceFormat, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(data);
 	return texture;
 }
 
@@ -75,17 +85,24 @@ std::map<char, Character> Loader::loadFont(const char *fontPath)
 			std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
 			continue;
 		}
-	// generate texture
-		//std::cout << (char)c << " " << FT_Get_Char_Index(face, c)<< " " << face->glyph->glyph_index << std::endl;
+		// generate texture
 
-		//Texture texture(face->glyph->bitmap.buffer, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
-		FT_Bitmap& bitmap = face->glyph->bitmap;
-		int size = bitmap.width * bitmap.rows;
-		unsigned char* bufferCopy = new unsigned char[size];
-		memcpy(bufferCopy, bitmap.buffer, size);
+		unsigned int texture;
+		glGenTextures(1 , &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RED,face->glyph->bitmap.width,face->glyph->bitmap.rows,0,GL_RED,GL_UNSIGNED_BYTE,face->glyph->bitmap.buffer);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		//FT_Bitmap& bitmap = face->glyph->bitmap;
+		//int size = bitmap.width * bitmap.rows;
+		//unsigned char* bufferCopy = new unsigned char[size];
+		//memcpy(bufferCopy, bitmap.buffer, size);
 
-		Texture texture(bufferCopy, GL_RED, bitmap.width, bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
-	// now store character for later use
+		//Texture texture(bufferCopy, GL_RED, bitmap.width, bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
+		// now store character for later use
 		Character character = {
 		texture,
 		glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),

@@ -4,8 +4,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include "../gfx/character.h"
 #include <map>
+#include "../gfx/character.h"
 #include "../gfx/shader.h"
 #include "../gfx/texture.h"
 
@@ -15,7 +15,7 @@ namespace Loader
 
 	Shader loadShader(const char *vertexPath, const char *fragmentPath);
 
-	Texture loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter);
+	unsigned int loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter);
 
 	std::map<char, Character> loadFont(const char *fontPath);
 }

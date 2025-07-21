@@ -28,11 +28,6 @@ void Renderer::init()
 	glEnableVertexAttribArray(0);
 	characters = Loader::loadFont("res/fonts/times.ttf");
 
-	for(unsigned char c = 0; c < 128; c++)
-	{
-		characters[c].texture.init();
-	}
-
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
 	no_camera = glm::mat4(1.0f);
@@ -101,7 +96,7 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 		};
 // render glyph texture over quad
 		//glBindTexture(GL_TEXTURE_2D, ch.textureID);
-		ch.texture.bind();
+		glBindTexture(GL_TEXTURE_2D, ch.texture);
 // update content of VBO memory
 		glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
