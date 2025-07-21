@@ -98,7 +98,7 @@ void Window::loop()
 		glClear(GL_COLOR_BUFFER_BIT);
 		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer.drawRectangle(glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
-		renderer.drawText("abcdefghijklmnopqrstuvwxyz.", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+		renderer.drawText(text, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
 
 		box.update();
 		bo.update();
@@ -128,9 +128,11 @@ static void sizeCallback(GLFWwindow *handle, int width, int height)
 
 void characterCallback(GLFWwindow* handle, unsigned int keyCode, int modifierCode)
 {
-	//std::cout << (char)keyCode <<std::endl;
-	//std::cout << keyCode <<std::endl;
-	//std::cout << modifierCode <<std::endl;
+	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
+	pWindow->text += (char)keyCode;
+	std::cout << (char)keyCode <<std::endl;
+	std::cout << keyCode <<std::endl;
+	std::cout << modifierCode <<std::endl;
 }
 
 static void scrollCallback(GLFWwindow* handle, double xoffset, double yoffset)
@@ -150,17 +152,14 @@ static void cursorCallback(GLFWwindow* handle, double xpos, double ypos)
 static void mouseCallback(GLFWwindow* handle, int button, int action, int mods)
 {
 	Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
-	if (button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_RIGHT)
+	if(!pWindow->mouse.buttons[button].pressed && action == GLFW_PRESS)
 	{
-		if(!pWindow->mouse.buttons[button].pressed && action == GLFW_PRESS)
-		{
-			pWindow->mouse.buttons[button].pressed = true;
-		}
-		else if(pWindow->mouse.buttons[button].pressed && action == GLFW_RELEASE)
-		{
-			pWindow->mouse.buttons[button].pressed = false;
-			pWindow->mouse.buttons[button].released = true;
-		}
+		pWindow->mouse.buttons[button].pressed = true;
+	}
+	else if(pWindow->mouse.buttons[button].pressed && action == GLFW_RELEASE)
+	{
+		pWindow->mouse.buttons[button].pressed = false;
+		pWindow->mouse.buttons[button].released = true;
 	}
 
 }

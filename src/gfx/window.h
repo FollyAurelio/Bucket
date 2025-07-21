@@ -33,6 +33,7 @@ public:
 	GLFWwindow *handle;
 	int size[2] = {800, 600};
 	Renderer renderer = Renderer((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
+	std::string text;
 	float dt;
 	float lastFrame;
 	Mouse mouse;

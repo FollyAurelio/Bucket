@@ -24,7 +24,7 @@ void Renderer::init()
 	text_vao.attr(text_vbo, 0, 4, GL_FLOAT, 4*sizeof(float), 0);
 	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	//glPixelStorei(GL_PACK_ALIGNMENT, 1);
-	characters = Loader::loadFont("res/fonts/JetBrainsMono-Regular.ttf");
+	characters = Loader::loadFont("res/fonts/times.ttf");
 
 	glyph.init();
 	vaoglyph.init();
@@ -80,6 +80,7 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 	text_shader.use();
 	text_shader.setInt("text", 0);
 	text_shader.setVector3("textColor", color);
+	text_shader.setMatrix4("view", camera);
 	text_shader.setMatrix4("projection", projection);
 	glActiveTexture(GL_TEXTURE0);
 	text_vao.bind();
