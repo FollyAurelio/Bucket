@@ -26,7 +26,7 @@ void Renderer::init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), 0);
 	glEnableVertexAttribArray(0);
-	characters = Loader::loadFont("res/fonts/times.ttf");
+	characters = loadFont("res/fonts/times.ttf");
 
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
@@ -67,7 +67,6 @@ void Renderer::drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color
 
 void Renderer::drawText(std::string text, float x, float y, float scale, glm::vec3 color)
 {
-// activate corresponding render state
 	text_shader.use();
 	text_shader.setInt("text", 0);
 	text_shader.setVector3("textColor", color);
@@ -75,17 +74,14 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 	text_shader.setMatrix4("projection", projection);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(text_vao);
-	// iterate through all characters
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); c++)
 	{
-		//std::cout << (char)*c << std::endl;
 		Character ch = characters[*c];
 		float xpos = x + ch.bearing.x * scale;
 		float ypos = y + (characters['H'].bearing.y - ch.bearing.y) * scale;
 		float w = ch.size.x * scale;
 		float h = ch.size.y * scale;
-		// update VBO for each character
 		float vertices[6][4] = {
 		{ xpos, ypos + h, 0.0f, 1.0f },
 		{ xpos, ypos, 0.0f, 0.0f },
@@ -94,21 +90,11 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 		{ xpos + w, ypos, 1.0f, 0.0f },
 		{ xpos + w, ypos + h, 1.0f, 1.0f }
 		};
-// render glyph texture over quad
-		//glBindTexture(GL_TEXTURE_2D, ch.textureID);
 		glBindTexture(GL_TEXTURE_2D, ch.texture);
-// update content of VBO memory
 		glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-//glBindBuffer(GL_ARRAY_BUFFER, 0);
-// render quad
-		//glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
-		//std::cout << *c << std::endl;
-	// advance cursors for next glyph (advance is 1/64 pixels)
 		x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
 	}
-//glBindVertexArray(0);
-//glBindTexture(GL_TEXTURE_2D, 0);
 }
 

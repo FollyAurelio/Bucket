@@ -6,12 +6,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-/*struct Character {
+struct Character {
 	unsigned int texture;
 	glm::ivec2 size;
 	glm::ivec2 bearing;
 	unsigned int advance;
-};*/
+};
 
 
 #define GLFW_INCLUDE_NONE

@@ -1,13 +1,10 @@
 #include <iostream>
 #include "util.h"
-#include "gfx/renderer.h"
-#include "gfx/renderer.h"
-#include "ui/UIComponent.h"
-#include "ui/box.h"
+#include "renderer.h"
+#include "ui.h"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define TARGET_FPS 60
-//#include "gfx/window.h"
 
 struct Button
 {

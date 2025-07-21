@@ -1,12 +1,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
-#include "gfx.h"
+#include "util.h"
 #include "shader.h"
-#include "vbo.h"
-#include "vao.h"
-#include "texture.h"
-#include "gmath.h"
-#include "../data/loader.h"
+#include "resource_manager.h"
 
 #include <map>
 
@@ -20,8 +16,8 @@ public:
 				0.0f, 1.0f,
 				};
 	unsigned int rect_indices[6] = {0,1,3,1,2,3};
-	Shader rect_shader = Loader::loadShader("res/shaders/basic.vs", "res/shaders/basic.fs");
-	Shader text_shader = Loader::loadShader("res/shaders/text.vs", "res/shaders/text.fs");
+	Shader rect_shader = loadShader("res/shaders/basic.vs", "res/shaders/basic.fs");
+	Shader text_shader = loadShader("res/shaders/text.vs", "res/shaders/text.fs");
 	unsigned int rect_vbo;
 	unsigned int rect_ebo;
 	unsigned int rect_vao;

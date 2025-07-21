@@ -1,9 +1,8 @@
 #ifndef SHADER_H
 #define SHADER_H
-#include "gfx.h"
+#include "util.h"
 #include <string>
 #include <iostream>
-#include "gmath.h"
 class Shader
 {
 public:

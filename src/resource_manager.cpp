@@ -2,11 +2,9 @@
 #include <stb/stb_image.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include "loader.h"
+#include "resource_manager.h"
 
-
-
-std::string Loader::loadFile(const char *filePath)
+std::string loadFile(const char *filePath)
 {
 	std::string content;
 	std::ifstream file;
@@ -32,14 +30,14 @@ std::string Loader::loadFile(const char *filePath)
 	return content;
 }
 
-Shader Loader::loadShader(const char *vertexPath, const char *fragmentPath)
+Shader loadShader(const char *vertexPath, const char *fragmentPath)
 {
 	Shader shader(loadFile(vertexPath), loadFile(fragmentPath));
 	return shader;
 }
 
 
-unsigned int Loader::loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter)
+unsigned int loadImage(const char *texturePath, GLint outputFormat, GLint sourceFormat, GLint wrap, GLint filter)
 {
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(true);
@@ -48,7 +46,6 @@ unsigned int Loader::loadImage(const char *texturePath, GLint outputFormat, GLin
 	{
 		std::cout << "Failed to load texture" << std::endl;
 	}
-	//Texture texture(data, outputFormat, width, height, sourceFormat, wrap, filter, false);
 	unsigned int texture;
 	glGenTextures(1 , &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -56,14 +53,13 @@ unsigned int Loader::loadImage(const char *texturePath, GLint outputFormat, GLin
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
-	// load and generate the texture
 	glTexImage2D(GL_TEXTURE_2D, 0, outputFormat, width, height, 0, sourceFormat, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(data);
 	return texture;
 }
 
-std::map<char, Character> Loader::loadFont(const char *fontPath)
+std::map<char, Character> loadFont(const char *fontPath)
 {
 	std::map<char, Character> Characters;
 	FT_Library ft;
@@ -74,19 +70,15 @@ std::map<char, Character> Loader::loadFont(const char *fontPath)
 	FT_Face face;
 	if (FT_New_Face(ft, fontPath, 0, &face))
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-	//FT_Set_Char_Size(face,0, 48, 1920, 1080);
 	FT_Set_Pixel_Sizes(face, 0, 48);
 	for (unsigned char c = 0; c < 128; c++)
 	{
 		// load character glyph
-		//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
 		{
 			std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
 			continue;
 		}
-		// generate texture
-
 		unsigned int texture;
 		glGenTextures(1 , &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
@@ -96,13 +88,6 @@ std::map<char, Character> Loader::loadFont(const char *fontPath)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D,0,GL_RED,face->glyph->bitmap.width,face->glyph->bitmap.rows,0,GL_RED,GL_UNSIGNED_BYTE,face->glyph->bitmap.buffer);
 		glGenerateMipmap(GL_TEXTURE_2D);
-		//FT_Bitmap& bitmap = face->glyph->bitmap;
-		//int size = bitmap.width * bitmap.rows;
-		//unsigned char* bufferCopy = new unsigned char[size];
-		//memcpy(bufferCopy, bitmap.buffer, size);
-
-		//Texture texture(bufferCopy, GL_RED, bitmap.width, bitmap.rows, GL_RED, GL_CLAMP_TO_EDGE, GL_LINEAR, true);
-		// now store character for later use
 		Character character = {
 		texture,
 		glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),

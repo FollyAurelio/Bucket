@@ -1,7 +1,7 @@
 #ifndef UICOMPONENT_H
 #define UICOMPONENT_H
-#include "../gfx/gmath.h"
-#include "../gfx/renderer.h"
+#include "util.h"
+#include "renderer.h"
 
 enum UIState
 {
@@ -25,5 +25,14 @@ public:
 	virtual void update() = 0;
 	virtual void render(Renderer renderer) = 0;
 };
+
+class Box : public UIComponent
+{
+public:
+	Box(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
+	void update();
+	void render(Renderer renderer);
+};
+
 
 #endif
