@@ -8,41 +8,37 @@ Renderer::Renderer(float windowWidth, float windowHeight)
 
 void Renderer::init()
 {
-	rect_vbo.init();
-	rect_vao.init();
-	rect_ebo.init();
-	rect_shader.init();
-	rect_vbo.buffer(rect_vertices, sizeof(rect_vertices));
-	rect_vao.attr(rect_vbo, 0, 2, GL_FLOAT, 2*sizeof(float), 0);
-	rect_ebo.buffer(rect_indices, sizeof(rect_indices));
+	glGenBuffers(1, &rect_vbo);
+	glGenVertexArrays(1, &rect_vao);
+	glGenBuffers(1, &rect_ebo);
+	glBindVertexArray(rect_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, rect_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(rect_vertices), rect_vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rect_ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(rect_indices), rect_indices, GL_STATIC_DRAW);
 
-	text_vbo.init();
-	text_vao.init();
-	text_vao.bind();
-	text_shader.init();
-	text_vbo.buffer(NULL, sizeof(float) * 6 * 4);
-	text_vao.attr(text_vbo, 0, 4, GL_FLOAT, 4*sizeof(float), 0);
-	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	//glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	glGenBuffers(1, &text_vbo);
+	glGenVertexArrays(1, &text_vao);
+	glBindVertexArray(text_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, text_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), 0);
+	glEnableVertexAttribArray(0);
 	characters = Loader::loadFont("res/fonts/times.ttf");
-
-	glyph.init();
-	vaoglyph.init();
-	eboglyph.init();
-	glyphS.init();
-	t.init();
-	glyph.buffer(vertices, sizeof(vertices));
-	vaoglyph.attr(glyph, 0, 4, GL_FLOAT, 4*sizeof(float), 0);
-	eboglyph.buffer(elements, sizeof(elements));
-
 
 	for(unsigned char c = 0; c < 128; c++)
 	{
 		characters[c].texture.init();
 	}
+
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
 	no_camera = glm::mat4(1.0f);
+	
+	rect_shader.init();
+	text_shader.init();
 }
 
 void Renderer::setCamera()
@@ -70,7 +66,7 @@ void Renderer::drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color
 	}
 	rect_shader.setMatrix4("projection", projection);
 	rect_shader.setVector3("color", color);
-	rect_vao.bind();
+	glBindVertexArray(rect_vao);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
@@ -83,7 +79,7 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 	text_shader.setMatrix4("view", camera);
 	text_shader.setMatrix4("projection", projection);
 	glActiveTexture(GL_TEXTURE0);
-	text_vao.bind();
+	glBindVertexArray(text_vao);
 	// iterate through all characters
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); c++)
@@ -107,10 +103,8 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 		//glBindTexture(GL_TEXTURE_2D, ch.textureID);
 		ch.texture.bind();
 // update content of VBO memory
-		//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		text_vbo.bind();
-//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-		text_vbo.subbuffer(vertices, sizeof(vertices));
+		glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 //glBindBuffer(GL_ARRAY_BUFFER, 0);
 // render quad
 		//glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -123,10 +117,3 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 //glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Renderer::drawGlyph()
-{
-	glyphS.use();
-	t.bind();
-	vaoglyph.bind();
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-}

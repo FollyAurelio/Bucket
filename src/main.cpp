@@ -41,6 +41,7 @@ float dt, lastFrame;
 Mouse mouse;
 Keyboard keyboard;
 Box box = Box(glm::vec2(140, 3), glm::vec2(200, 100), glm::vec3(0.1f, 0.7f, 0.0f), false);
+std::string text;
 
 int main()
 {
@@ -70,14 +71,13 @@ int main()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	renderer.init();
-	//glfwSetWindowUserPointer(window, this);
 	glfwSetFramebufferSizeCallback(window, sizeCallback);
 	glfwSetCharModsCallback(window, characterCallback);
 	glfwSetScrollCallback(window, scrollCallback);
 	glfwSetCursorPosCallback(window, cursorCallback);
 	glfwSetMouseButtonCallback(window, mouseCallback);
 	glfwSetKeyCallback(window, keyboardCallback);
-
+	
 	while(!glfwWindowShouldClose(window))
 	{	
 		float currentFrame = glfwGetTime();
@@ -91,7 +91,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
 		renderer.drawRectangle(glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
-		//renderer.drawText(text, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+		renderer.drawText(text, 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
 
 		box.update();
 		//bo.update();
@@ -153,7 +153,6 @@ void processMouse()
 static void sizeCallback(GLFWwindow *window, int width, int height)
 {
 
-	//Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	glViewport(0, 0, width, height);
 	renderer.projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
 	//pWindow->size[0] = width;
@@ -163,8 +162,7 @@ static void sizeCallback(GLFWwindow *window, int width, int height)
 
 void characterCallback(GLFWwindow* window, unsigned int keyCode, int modifierCode)
 {
-	//Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
-	//pWindow->text += (char)keyCode;
+	text += (char)keyCode;
 	std::cout << (char)keyCode <<std::endl;
 	std::cout << keyCode <<std::endl;
 	std::cout << modifierCode <<std::endl;
@@ -172,13 +170,11 @@ void characterCallback(GLFWwindow* window, unsigned int keyCode, int modifierCod
 
 static void scrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	//Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	renderer.cameraPosition.y += yoffset;
 }
 
 static void cursorCallback(GLFWwindow* window, double xpos, double ypos)
 {
-	//Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	mouse.position = glm::vec2(xpos, ypos);
 	glm::vec4 offsetMouse = renderer.inverseCamera * glm::vec4(mouse.position, 0.0f,1.0f);
 	mouse.offposition = glm::vec2(offsetMouse.x, offsetMouse.y);
@@ -186,7 +182,6 @@ static void cursorCallback(GLFWwindow* window, double xpos, double ypos)
 
 static void mouseCallback(GLFWwindow* window, int button, int action, int mods)
 {
-	//Window *pWindow = (Window*)glfwGetWindowUserPointer(handle);
 	if(!mouse.buttons[button].pressed && action == GLFW_PRESS)
 	{
 		mouse.buttons[button].pressed = true;
