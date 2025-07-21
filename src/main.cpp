@@ -1,6 +1,5 @@
 #include <iostream>
-#include "gfx/gfx.h"
-#include "gfx/gmath.h"
+#include "util.h"
 #include "gfx/renderer.h"
 #include "gfx/renderer.h"
 #include "ui/UIComponent.h"
@@ -38,8 +37,7 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 void processMouse();
 
 Renderer renderer((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
-float dt;
-float lastFrame;
+float dt, lastFrame;
 Mouse mouse;
 Keyboard keyboard;
 Box box = Box(glm::vec2(140, 3), glm::vec2(200, 100), glm::vec3(0.1f, 0.7f, 0.0f), false);
