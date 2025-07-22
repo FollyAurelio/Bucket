@@ -43,6 +43,6 @@ void Box::update()
 }
 void Box::render(Renderer renderer)
 {
-	renderer.drawRectangle(position, size, color, fixed);
+	renderer.drawRectangle(renderer.rect_shader, position, size, color, fixed);
 }
 

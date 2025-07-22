@@ -1,7 +1,7 @@
 CXX = g++
 CC = gcc
 CXXFLAGS = -g
-CXXFLAGS += -Ilib/glfw/include -Ilib/glad/include -Ilib -Ilib/freetype/include 
+CXXFLAGS += -Ilib/glfw/include -Ilib/glad/include -Ilib -Ilib/freetype/include -Wall
 LDFLAGS = lib/glad/src/glad.o lib/glfw/src/libglfw3.a lib/freetype/build/libfreetype.a
 
 SRC = $(wildcard src/**/*.cpp) $(wildcard src/*.cpp) 

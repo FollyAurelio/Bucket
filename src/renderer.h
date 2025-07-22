@@ -33,8 +33,8 @@ public:
 	Renderer(float windowWidth, float windowHeight);
 	void init();
 	void setCamera();
-	void drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
-	void drawText(std::string text, float x, float y, float scale, glm::vec3 color);
+	void drawRectangle(Shader shader, glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
+	void drawText(Shader shader, std::string text, glm::vec2 position, float scale, glm::vec3 color, bool fixed);
 	
 
 };

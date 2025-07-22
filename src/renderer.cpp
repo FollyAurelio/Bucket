@@ -44,42 +44,45 @@ void Renderer::setCamera()
 	inverseCamera = glm::inverse(camera);
 }
 
-void Renderer::drawRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed)
+void Renderer::drawRectangle(Shader shader, glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed)
 {
-	rect_shader.use();
+	shader.use();
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(position, 0.0f));
 	model = glm::scale(model, glm::vec3(size, 0.0f));
-	rect_shader.setMatrix4("model", model);
+	shader.setMatrix4("model", model);
 	if (fixed)
 	{
-		rect_shader.setMatrix4("view", no_camera);
+		shader.setMatrix4("view", no_camera);
 	}
 	else
 	{
-		rect_shader.setMatrix4("view", camera);
+		shader.setMatrix4("view", camera);
 	}
-	rect_shader.setMatrix4("projection", projection);
-	rect_shader.setVector3("color", color);
+	shader.setMatrix4("projection", projection);
+	shader.setVector3("color", color);
 	glBindVertexArray(rect_vao);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::drawText(std::string text, float x, float y, float scale, glm::vec3 color)
+void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, float scale, glm::vec3 color, bool fixed)
 {
-	text_shader.use();
-	text_shader.setInt("text", 0);
-	text_shader.setVector3("textColor", color);
-	text_shader.setMatrix4("view", camera);
-	text_shader.setMatrix4("projection", projection);
+	shader.use();
+	shader.setInt("text", 0);
+	shader.setVector3("textColor", color);
+	if (fixed)
+		shader.setMatrix4("view", no_camera);
+	else
+		shader.setMatrix4("view", camera);
+	shader.setMatrix4("projection", projection);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(text_vao);
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); c++)
 	{
 		Character ch = characters[*c];
-		float xpos = x + ch.bearing.x * scale;
-		float ypos = y + (characters['H'].bearing.y - ch.bearing.y) * scale;
+		float xpos = position.x + ch.bearing.x * scale;
+		float ypos = position.y + (characters['H'].bearing.y - ch.bearing.y) * scale;
 		float w = ch.size.x * scale;
 		float h = ch.size.y * scale;
 		float vertices[6][4] = {
@@ -94,7 +97,7 @@ void Renderer::drawText(std::string text, float x, float y, float scale, glm::ve
 		glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
-		x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
+		position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
 	}
 }
 
