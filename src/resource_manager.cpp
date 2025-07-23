@@ -66,10 +66,14 @@ std::map<char, Character> loadFont(const char *fontPath)
 	if (FT_Init_FreeType(&ft))
 	{
 		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+		exit(1);
 	}
 	FT_Face face;
 	if (FT_New_Face(ft, fontPath, 0, &face))
+	{
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+		exit(1);
+	}
 	FT_Set_Pixel_Sizes(face, 0, 48);
 	for (unsigned char c = 0; c < 128; c++)
 	{
