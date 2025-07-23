@@ -20,6 +20,13 @@ class Editor
 public:
 	std::vector<Line> lines;
 	EditorMode mode;
+	size_t cursor;
+	std::string data;
+	size_t select_begin;
+	std::string file_path;
+	std::clipboard;
 
-	render(Renderer renderer);
+	void render(Renderer renderer);
 };
+
+#endif
