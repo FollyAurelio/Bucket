@@ -18,6 +18,7 @@ public:
 	void setFloat(const std::string &name, float value) const;
 	void setMatrix4(const std::string &name, glm::mat4 m) const;
 	void setVector3(const std::string &name, glm::vec3 v) const;
+	void setVector4(const std::string &name, glm::vec4 v) const;
 
 };
 #endif

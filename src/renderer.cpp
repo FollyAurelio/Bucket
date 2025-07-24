@@ -39,7 +39,7 @@ void Renderer::init()
 void Renderer::setCamera()
 {
 	camera = glm::mat4(1.0f);
-	camera = glm::translate(camera, glm::vec3(cameraPosition.x * 100.0f, cameraPosition.y * 100.0f, 0.0f));
+	camera = glm::translate(camera, glm::vec3(cameraPosition.x * 100.0f, cameraPosition.y * font.lineoffset, 0.0f));
 	camera = glm::scale(camera, glm::vec3(cameraZoom, cameraZoom, 1.0f));
 	inverseCamera = glm::inverse(camera);
 }
@@ -65,11 +65,11 @@ void Renderer::drawRectangle(Shader shader, glm::vec2 position, glm::vec2 size, 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, float scale, glm::vec3 color, bool fixed)
+void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, float scale, glm::vec4 color, bool fixed)
 {
 	shader.use();
 	shader.setInt("text", 0);
-	shader.setVector3("textColor", color);
+	shader.setVector4("textColor", color);
 	if (fixed)
 		shader.setMatrix4("view", no_camera);
 	else

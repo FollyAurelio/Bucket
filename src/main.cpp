@@ -88,7 +88,7 @@ int main()
 		processMouse();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
+		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(30.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
 		//renderer.drawRectangle(renderer.rect_shader, glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
 		//renderer.drawText(renderer.text_shader,"abc\n123/[}\niwfjoewij" , glm::vec2(25.0f, 25.0f), 1.0f, glm::vec3(0.5, 0.8f, 0.2f), false);
 		editor.render(renderer);
