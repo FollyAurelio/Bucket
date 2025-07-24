@@ -1,6 +1,7 @@
 #include <iostream>
 #include "util.h"
 #include "renderer.h"
+#include "editor.h"
 #include "ui.h"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
@@ -34,6 +35,7 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 void processMouse();
 
 Renderer renderer((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
+Editor editor;
 float dt, lastFrame;
 Mouse mouse;
 Keyboard keyboard;
@@ -87,12 +89,13 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(50.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), false);
-		renderer.drawRectangle(renderer.rect_shader, glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
-		renderer.drawText(renderer.text_shader, text, glm::vec2(25.0f, 25.0f), 1.0f, glm::vec3(0.5, 0.8f, 0.2f), true);
+		//renderer.drawRectangle(renderer.rect_shader, glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
+		//renderer.drawText(renderer.text_shader,"abc\n123/[}\niwfjoewij" , glm::vec2(25.0f, 25.0f), 1.0f, glm::vec3(0.5, 0.8f, 0.2f), false);
+		editor.render(renderer);
 
-		box.update();
+		//box.update();
 		//bo.update();
-		box.render(renderer);
+		//box.render(renderer);
 		//bo.render(renderer);
 		glfwSwapBuffers(window);
 	}

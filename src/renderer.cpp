@@ -26,7 +26,7 @@ void Renderer::init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), 0);
 	glEnableVertexAttribArray(0);
-	characters = loadFont("res/fonts/JetBrainsMono-Regular.ttf");
+	font = loadFont("res/fonts/JetBrainsMono-Regular.ttf");
 
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
@@ -78,11 +78,18 @@ void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, flo
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(text_vao);
 	std::string::const_iterator c;
+	float copyX = position.x;
 	for (c = text.begin(); c != text.end(); c++)
 	{
-		Character ch = characters[*c];
+		if(*c == '\n')
+		{
+			position.y += font.lineoffset * scale;
+			position.x = copyX;
+			continue;
+		}
+		Character ch = font.characters[*c];
 		float xpos = position.x + ch.bearing.x * scale;
-		float ypos = position.y + (characters['H'].bearing.y - ch.bearing.y) * scale;
+		float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
 		float w = ch.size.x * scale;
 		float h = ch.size.y * scale;
 		float vertices[6][4] = {

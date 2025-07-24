@@ -22,7 +22,7 @@ std::string loadFile(const char *filePath)
 		// convert stream into string
 		content = fileStream.str();
 	}
-	catch(std::ifstream::failure e)
+	catch(std::ifstream::failure *e)
 	{
 		std::cout << "ERROR::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 
@@ -59,9 +59,9 @@ unsigned int loadImage(const char *texturePath, GLint outputFormat, GLint source
 	return texture;
 }
 
-std::map<char, Character> loadFont(const char *fontPath)
+Font loadFont(const char *fontPath)
 {
-	std::map<char, Character> Characters;
+	Font font;
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft))
 	{
@@ -75,6 +75,7 @@ std::map<char, Character> loadFont(const char *fontPath)
 		exit(1);
 	}
 	FT_Set_Pixel_Sizes(face, 0, 48);
+	font.lineoffset = face->size->metrics.height >> 6;
 	for (unsigned char c = 0; c < 128; c++)
 	{
 		// load character glyph
@@ -98,11 +99,11 @@ std::map<char, Character> loadFont(const char *fontPath)
 		glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 		(unsigned int)face->glyph->advance.x
 		};
-		Characters.insert(std::pair<char, Character>(c, character));
+		font.characters.insert(std::pair<char, Character>(c, character));
 	}
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
-	return Characters;
+	return font;
 }
 
 

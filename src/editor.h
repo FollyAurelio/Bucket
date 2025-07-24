@@ -1,6 +1,8 @@
 #ifndef EDITOR_H
 #define EDITOR_H
-#include <vector>
+#include "util.h"
+#include "renderer.h"
+
 
 enum EditorMode
 {
@@ -24,8 +26,13 @@ public:
 	std::string data;
 	size_t select_begin;
 	std::string file_path;
-	std::clipboard;
+	std::string clipboard;
 
+	Editor();
+	void insert(char character);
+	void backspace();
+	void enter();
+	void remove();
 	void render(Renderer renderer);
 };
 

@@ -5,6 +5,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
+#include <map>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+
 
 struct Character {
 	unsigned int texture;
@@ -13,7 +20,10 @@ struct Character {
 	unsigned int advance;
 };
 
-
+struct Font{
+	float lineoffset;
+	std::map<char, Character> characters;
+};
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
