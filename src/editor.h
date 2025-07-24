@@ -2,6 +2,7 @@
 #define EDITOR_H
 #include "util.h"
 #include "renderer.h"
+#include "piece_table.h"
 
 
 enum EditorMode
@@ -24,6 +25,7 @@ public:
 	EditorMode mode;
 	size_t cursor;
 	std::string data;
+	PieceTable sequence;
 	size_t select_begin;
 	std::string file_path;
 	std::string clipboard;
