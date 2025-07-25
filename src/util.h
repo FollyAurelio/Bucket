@@ -12,6 +12,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 
 struct Character {

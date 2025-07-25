@@ -39,8 +39,8 @@ public:
 	PieceTable(std::string s);
 	~PieceTable();
 	void clearstack(std::stack<SpanRange*> &s);
-	void insert(size_t index, const char *text, size_t length);
-	void erase(size_t index, size_t length);
+	void insert(size_t index, const char *text, size_t size);
+	void erase(size_t index, size_t size);
 	void swaprange(SpanRange *src, SpanRange *dest);
 	std::string toString();
 

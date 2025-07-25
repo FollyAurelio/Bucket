@@ -5,8 +5,9 @@ Editor::Editor()
 	cursor = 0;
 	data = "  177 this is the base data\n    2 inside of the editor";
 	mode = MODE_NORMAL;
-	sequence = new PieceTable("me and you\nforever\n\n\n\n\n\n\n\n\n\na");
+	sequence = new PieceTable("me and you\nforever\na");
 	sequence->insert(19, "asd", 3);
+	sequence->erase(19,3);
 }
 
 Editor::~Editor()

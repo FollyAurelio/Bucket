@@ -128,6 +128,48 @@ void PieceTable::insert(size_t index, const char *text, size_t size)
 }
 
 
+void PieceTable::erase(size_t index, size_t size)
+{
+	Span *sptr;
+	SpanRange *old_span = new SpanRange();
+	SpanRange new_span;
+	size_t offset = 0;
+	size_t temp_size = size;
+	for(sptr = head->next;sptr->next; sptr = sptr->next){
+		if(offset <= index && index < offset + sptr->length){
+			size_t r_i = index - offset;
+			if(r_i != 0){
+				new_span.append(new Span(sptr->buffer, sptr->start, r_i));
+				if(r_i + size < sptr->length){
+					new_span.append(new Span(sptr->buffer, sptr->start + r_i + size, sptr->length - r_i - size));
+				}
+				size -= std::min(size, sptr->length - r_i);
+				old_span->append(sptr);
+				sptr = sptr->next;
+			}
+			break;
+		}
+		offset += sptr->length;
+	}
+	for(; sptr->next && size > 0; sptr = sptr->next){
+		if(size < sptr->length){
+			new_span.append(new Span(sptr->buffer, sptr->start + size, sptr->length - size));
+		}
+		size -= std::min(size, sptr->length);
+		old_span->append(sptr);
+	}
+	if(new_span.first){
+		swaprange(old_span, &new_span);
+	}
+	else{
+		old_span->first->prev->next = old_span->last->next;
+		old_span->last->next->prev = old_span->first->prev;
+	}
+	undostack.push(old_span);
+	length -= temp_size;
+}
+
+
 std::string PieceTable::toString()
 {
 	std::string output;
