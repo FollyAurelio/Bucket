@@ -25,12 +25,13 @@ public:
 	EditorMode mode;
 	size_t cursor;
 	std::string data;
-	PieceTable sequence;
+	PieceTable *sequence;
 	size_t select_begin;
 	std::string file_path;
 	std::string clipboard;
 
 	Editor();
+	~Editor();
 	void insert(char character);
 	void backspace();
 	void enter();

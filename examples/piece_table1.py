@@ -154,7 +154,7 @@ class Sequence:
                 output += self.add_buffer[sptr.start:sptr.start+sptr.length]
             sptr = sptr.next
         return output
-            
+
 
 
 
@@ -221,11 +221,10 @@ class SpanRange:
     def append(self, span):
         if not self.first:
             self.first = span
-            self.last = span
         elif self.first:
             self.last.next = span
             span.prev = self.last
-            self.last = span
+        self.last = span
 
     def span_boundary(self, first, last):
         self.first = first

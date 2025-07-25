@@ -5,8 +5,14 @@ Editor::Editor()
 	cursor = 0;
 	data = "  177 this is the base data\n    2 inside of the editor";
 	mode = MODE_NORMAL;
-	sequence = PieceTable("me and you\nforever");
-	std::cout << sequence.toString() << std::endl;
+	sequence = new PieceTable("me and you\nforever");
+	sequence->insert(3, "asd", 3);
+	std::cout << sequence->toString() << std::endl;
+}
+
+Editor::~Editor()
+{
+	delete sequence;
 }
 
 void Editor::render(Renderer renderer)

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <stack>
 #include <string>
 #include <fstream>
 #include <sstream>
