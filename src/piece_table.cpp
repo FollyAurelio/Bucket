@@ -93,6 +93,7 @@ void PieceTable::swaprange(SpanRange *src, SpanRange *dest)
 		dest->last->next = src->last->next;
 	}
 }
+
 void PieceTable::insert(size_t index, const char *text, size_t size)
 {
 	SpanRange *old_span = new SpanRange();

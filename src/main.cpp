@@ -36,12 +36,11 @@ void processMouse();
 
 Renderer renderer((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
 Editor editor;
-float dt, lastFrame;
+float dt, lastFrame, previous = 0;
+int frames;
 Mouse mouse;
 Keyboard keyboard;
 Box box = Box(glm::vec2(140, 3), glm::vec2(200, 100), glm::vec3(0.1f, 0.7f, 0.0f), false);
-std::string text;
-
 int main()
 {
 	glfwInit();
@@ -58,6 +57,7 @@ int main()
 		exit(1);
 	}
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(0);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
@@ -80,17 +80,24 @@ int main()
 	while(!glfwWindowShouldClose(window))
 	{	
 		float currentFrame = glfwGetTime();
-        	dt = (currentFrame - lastFrame) * TARGET_FPS;
+        	//dt = (currentFrame - lastFrame) * TARGET_FPS;
         	lastFrame = currentFrame;
+		frames++;
+		if(currentFrame - previous >= 1){
+			std::cout << frames << std::endl;
+			frames = 0;
+			previous = currentFrame;
+		}
 		glfwPollEvents();
 		renderer.setCamera();
 		//processInput();
 		processMouse();
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//renderer.drawRectangle(glm::vec2(60.0f, 40.0f), glm::vec2(30.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
 		//renderer.drawRectangle(renderer.rect_shader, glm::vec2(0.0f, 150.0f), glm::vec2(800.0f, 30.0f), glm::vec3(0.7f, 0.2f, 0.5f), true);
 		//renderer.drawText(renderer.text_shader,"abc\n123/[}\niwfjoewij" , glm::vec2(25.0f, 25.0f), 1.0f, glm::vec3(0.5, 0.8f, 0.2f), false);
+		
 		editor.render(renderer);
 
 		//box.update();
@@ -159,7 +166,7 @@ static void sizeCallback(GLFWwindow *window, int width, int height)
 
 void characterCallback(GLFWwindow* window, unsigned int keyCode, int modifierCode)
 {
-	text += (char)keyCode;
+	//text += (char)keyCode;
 	std::cout << (char)keyCode <<std::endl;
 	std::cout << keyCode <<std::endl;
 	std::cout << modifierCode <<std::endl;

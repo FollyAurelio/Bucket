@@ -81,30 +81,91 @@ void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, flo
 	float copyX = position.x;
 	for (c = text.begin(); c != text.end(); c++)
 	{
+		Character ch = font.characters[*c];
 		if(*c == '\n')
 		{
 			position.y += font.lineoffset * scale;
 			position.x = copyX;
-			continue;
 		}
-		Character ch = font.characters[*c];
-		float xpos = position.x + ch.bearing.x * scale;
-		float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
-		float w = ch.size.x * scale;
-		float h = ch.size.y * scale;
-		float vertices[6][4] = {
-		{ xpos, ypos + h, 0.0f, 1.0f },
-		{ xpos, ypos, 0.0f, 0.0f },
-		{ xpos + w, ypos, 1.0f, 0.0f },
-		{ xpos, ypos + h, 0.0f, 1.0f },
-		{ xpos + w, ypos, 1.0f, 0.0f },
-		{ xpos + w, ypos + h, 1.0f, 1.0f }
-		};
-		glBindTexture(GL_TEXTURE_2D, ch.texture);
-		glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
+		else if(*c == ' '){
+			position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64
+		}
+		else{
+			float xpos = position.x + ch.bearing.x * scale;
+			float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
+			float w = ch.size.x * scale;
+			float h = ch.size.y * scale;
+			float vertices[6][4] = {
+			{ xpos, ypos + h, 0.0f, 1.0f },
+			{ xpos, ypos, 0.0f, 0.0f },
+			{ xpos + w, ypos, 1.0f, 0.0f },
+			{ xpos, ypos + h, 0.0f, 1.0f },
+			{ xpos + w, ypos, 1.0f, 0.0f },
+			{ xpos + w, ypos + h, 1.0f, 1.0f }
+			};
+			glBindTexture(GL_TEXTURE_2D, ch.texture);
+			glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+			position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
+		}
 	}
 }
+
+void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 position, float scale, glm::vec4 color, bool fixed)
+{
+	shader.use();
+	shader.setInt("text", 0);
+	shader.setVector4("textColor", color);
+	if (fixed)
+		shader.setMatrix4("view", no_camera);
+	else
+		shader.setMatrix4("view", camera);
+	shader.setMatrix4("projection", projection);
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(text_vao);
+	Span *sptr;
+	float copyX = position.x;
+	char c;
+	for(sptr = sequence->head->next; sptr->next; sptr = sptr->next){
+		for(size_t i = sptr->start; i < sptr->start + sptr->length; i++){
+			if(!sptr->buffer){
+				c = sequence->file_buffer[i];
+			}
+			else{
+				c = sequence->add_buffer[i];
+			}
+			Character ch = font.characters[c];
+			if(c == '\n')
+			{
+				position.y += font.lineoffset * scale;
+				position.x = copyX;
+			}
+			else if(c == ' '){
+				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64
+			}
+			else{
+				float xpos = position.x + ch.bearing.x * scale;
+				float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
+				float w = ch.size.x * scale;
+				float h = ch.size.y * scale;
+				float vertices[6][4] = {
+				{ xpos, ypos + h, 0.0f, 1.0f },
+				{ xpos, ypos, 0.0f, 0.0f },
+				{ xpos + w, ypos, 1.0f, 0.0f },
+				{ xpos, ypos + h, 0.0f, 1.0f },
+				{ xpos + w, ypos, 1.0f, 0.0f },
+				{ xpos + w, ypos + h, 1.0f, 1.0f }
+				};
+				glBindTexture(GL_TEXTURE_2D, ch.texture);
+				glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
+				glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
+			}
+		}
+	}
+}
+
+
 
