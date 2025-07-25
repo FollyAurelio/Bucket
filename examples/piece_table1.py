@@ -19,6 +19,7 @@ class Sequence:
         self.undo_stack = Stack()
         self.redo_stack = Stack()
         self.length = len(self.file_buffer)
+        self.last_insert = None
         
     
     def insert(self, index, text):
@@ -30,8 +31,13 @@ class Sequence:
         while sptr:
             if (offset <= index and index < offset + sptr.length):
                 if offset == index:
-                    old_span.span_boundary(sptr.prev, sptr)
-                    new_span.append(Span(1, len(self.add_buffer) - len(text), len(text)))
+                    if self.last_insert == index:
+                        sptr.prev.length += len(text)
+                    else:
+                        old_span.span_boundary(sptr.prev, sptr)
+                        new_span.append(Span(1, len(self.add_buffer) - len(text), len(text)))
+                        self.swaprange(old_span,new_span)
+                        self.undo_stack.push(old_span)
                     
                 else:
                     r_i = index-offset
@@ -39,9 +45,10 @@ class Sequence:
                     new_span.append(Span(sptr.buffer, sptr.start, r_i))
                     new_span.append(Span(1, len(self.add_buffer) - len(text), len(text)))
                     new_span.append(Span(sptr.buffer, r_i + sptr.start, sptr.length - r_i))
-                self.swaprange(old_span,new_span)
-                self.undo_stack.push(old_span)
+                    self.swaprange(old_span,new_span)
+                    self.undo_stack.push(old_span)
                 self.length += len(text)
+                self.last_insert = index + len(text)
                 return 1
             else:
                 offset += sptr.length
@@ -80,6 +87,7 @@ class Sequence:
             old_span.last.next.prev = old_span.first.prev
         self.undo_stack.push(old_span)
         self.length -= a
+        self.last_insert = None
         return 1
 
     def undo(self):

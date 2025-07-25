@@ -6,8 +6,11 @@ Editor::Editor()
 	data = "  177 this is the base data\n    2 inside of the editor";
 	mode = MODE_NORMAL;
 	sequence = new PieceTable("me and you\nforever\na");
-	sequence->insert(19, "asd", 3);
-	sequence->erase(19,3);
+	sequence->insert(20, "c", 1);
+	sequence->insert(21, "asd", 3);
+	//sequence->insert(
+	//sequence->erase(19,3);
+	std::cout << sequence->toString() << std::endl;
 }
 
 Editor::~Editor()

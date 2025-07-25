@@ -35,6 +35,7 @@ public:
 	Span *tail;
 	std::stack<SpanRange*> undostack;
 	std::stack<SpanRange*> redostack;
+	size_t last_insert;
 	PieceTable();
 	PieceTable(std::string s);
 	~PieceTable();

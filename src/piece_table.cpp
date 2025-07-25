@@ -9,6 +9,7 @@ Span::Span(bool buffer, size_t start, size_t length)
 	this->prev = nullptr;
 }
 
+//We don't want a destructor for spanranges, as some of them are stack allocated to help with some functions, and thus the destructor would free the spans inside of them when they went out of scope (memory management is complicated)
 void SpanRange::free()
 {
 	if(!boundary){
@@ -42,6 +43,7 @@ void SpanRange::span_boundary(Span *before, Span *after)
 
 PieceTable::PieceTable(std::string s)
 {
+	last_insert = -1;
 	head = new Span(0, 0, 0);
 	tail = new Span(0, 0, 1);
 	head->next = tail;
@@ -71,6 +73,7 @@ PieceTable::~PieceTable()
 void PieceTable::clearstack(std::stack<SpanRange*> &s)
 {
 	while(!s.empty()){
+		//pop doesn't return the value for whatever reason (shit language)
 		SpanRange *range = s.top();
 		s.pop();
 		range->free();
@@ -106,8 +109,16 @@ void PieceTable::insert(size_t index, const char *text, size_t size)
 	for(sptr = head->next; sptr; sptr = sptr->next){
 		if(offset <= index && index < offset + sptr->length){
 			if(offset == index){
-				old_span->span_boundary(sptr->prev, sptr);
-				new_span.append(new Span(true, add_buffer.size() - size, size));
+				if(last_insert == index){
+					sptr->prev->length += size;
+				}
+				else{
+					old_span->span_boundary(sptr->prev, sptr);
+					new_span.append(new Span(true, add_buffer.size() - size, size));
+					swaprange(old_span, &new_span);
+					undostack.push(old_span);
+
+				}
 			}
 			else{
 				size_t r_i = index - offset;
@@ -115,10 +126,11 @@ void PieceTable::insert(size_t index, const char *text, size_t size)
 				new_span.append(new Span(sptr->buffer, sptr->start, r_i));
 				new_span.append(new Span(true, add_buffer.size() - size, size));
 				new_span.append(new Span(sptr->buffer, r_i + sptr->start, sptr->length - r_i));
+				swaprange(old_span, &new_span);
+				undostack.push(old_span);
 			}
-			swaprange(old_span, &new_span);
-			undostack.push(old_span);
 			length += size;
+			last_insert = index + size;
 			return;
 		}
 		else{
@@ -167,6 +179,7 @@ void PieceTable::erase(size_t index, size_t size)
 	}
 	undostack.push(old_span);
 	length -= temp_size;
+	last_insert = -1;
 }
 
 
