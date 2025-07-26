@@ -208,13 +208,24 @@ static void mouseCallback(GLFWwindow* window, int button, int action, int mods)
 static void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
+		editor.mode = MODE_NORMAL;
+	if(key == GLFW_KEY_I && action == GLFW_PRESS)
+		editor.mode = MODE_INSERT;
+		//glfwSetWindowShouldClose(window, true);
 	/*if(key == GLFW_KEY_UP && action == GLFW_PRESS)
 		renderer.cameraPosition.y += glm::translate(renderer.camera, glm::vec3(0.0f, 3.0f, 0.0f));
 	if(key == GLFW_KEY_DOWN && action == GLFW_PRESS)
 		renderer.camera = glm::translate(renderer.camera, glm::vec3(0.0f, -3.0f, 0.0f));*/
 	if (key == GLFW_KEY_P && ((action == GLFW_REPEAT) || (action == GLFW_PRESS)))
 		renderer.cameraZoom += 0.1f; 
-	if (key == GLFW_KEY_L && action == GLFW_REPEAT)
+	if (key == GLFW_KEY_A && action == GLFW_REPEAT)
 		renderer.cameraZoom -= 0.1f; 
+	if(key == GLFW_KEY_H && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
+		editor.move_char_left();
+	if(key == GLFW_KEY_L && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
+		editor.move_char_right();
+	if(key == GLFW_KEY_J && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
+		editor.move_line_down();
+	if(key == GLFW_KEY_K && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
+		editor.move_line_up();
 }

@@ -2,16 +2,65 @@
 
 Editor::Editor()
 {
-	cursor = 1;
+	cursor = 4;
 	mode = MODE_NORMAL;
 }
 
 void Editor::init(std::string text)
 {
 	sequence = new PieceTable(text);
-	sequence->insert(20, "c", 1);
-	sequence->insert(21, "asd", 3);
 	reline();
+}
+
+void Editor::backspace()
+{
+	if(cursor == 0) return;
+	if(cursor > sequence->length){
+		cursor = sequence->length;
+	}
+	sequence->erase(cursor - 1, 1);
+	cursor -= 1;
+	reline();
+}
+
+void Editor::remove()
+{
+	if(cursor >= sequence->length) return;
+	sequence->erase(cursor, 1);
+	reline();
+}
+
+void Editor::move_char_left()
+{
+	if(cursor > 0) cursor -= 1;
+}
+
+void Editor::move_line_up()
+{
+	size_t row = cursor_row();
+	size_t col = cursor - lines[row].begin;
+	if(row > 0){
+		Line next_line = lines[row - 1];
+		size_t next_line_size = next_line.end - next_line.begin;
+		if(col > next_line_size) col = next_line_size;
+		cursor = next_line.begin + col;
+	}
+}
+void Editor::move_line_down()
+{
+	size_t row = cursor_row();
+	size_t col = cursor - lines[row].begin;
+	if(row < lines.size() - 1){
+		Line next_line = lines[row + 1];
+		size_t next_line_size = next_line.end - next_line.begin;
+		if(col > next_line_size) col = next_line_size;
+		cursor = next_line.begin + col;
+	}
+}
+
+void Editor::move_char_right()
+{
+	if(cursor < sequence->length) cursor += 1;
 }
 
 Editor::~Editor()
@@ -71,7 +120,7 @@ void Editor::render(Renderer renderer)
 	}
 	float horizontal_offset = advance;
 	float vertical_offset = renderer.font.lineoffset * row;
-	float cursor_width = mode == MODE_INSERT ?renderer.font.characters[char_at_pos].bearing.x : renderer.font.characters[char_at_pos].size.x;
+	float cursor_width = mode == MODE_INSERT ?renderer.font.characters[char_at_pos].bearing.x : renderer.font.characters[char_at_pos].size.x + renderer.font.characters[char_at_pos].bearing.x;
 
 	if(cursor_width == 0)
 		cursor_width = 1.0f;
