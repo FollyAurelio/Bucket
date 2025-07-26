@@ -1,5 +1,6 @@
 #include <iostream>
 #include "util.h"
+#include "resource_manager.h"
 #include "renderer.h"
 #include "editor.h"
 #include "ui.h"
@@ -41,7 +42,7 @@ int frames;
 Mouse mouse;
 Keyboard keyboard;
 Box box = Box(glm::vec2(140, 3), glm::vec2(200, 100), glm::vec3(0.1f, 0.7f, 0.0f), false);
-int main()
+int main(int argc, char *argv[])
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -76,6 +77,12 @@ int main()
 	glfwSetCursorPosCallback(window, cursorCallback);
 	glfwSetMouseButtonCallback(window, mouseCallback);
 	glfwSetKeyCallback(window, keyboardCallback);
+	if(argc != 2){
+		std::cout << "ERROR::MUST PROVIDE EXACTLY ONE ARGUMENT" << std::endl;
+		return 1;
+	}
+	editor.file_path = argv[1];
+	editor.init(loadFile(argv[1]));
 	
 	while(!glfwWindowShouldClose(window))
 	{	
@@ -107,7 +114,7 @@ int main()
 		glfwSwapBuffers(window);
 	}
 	glfwTerminate();
-	exit(0);
+	return 0;
 	
 
 

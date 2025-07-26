@@ -3,13 +3,14 @@
 Editor::Editor()
 {
 	cursor = 0;
-	data = "  177 this is the base data\n    2 inside of the editor";
 	mode = MODE_NORMAL;
-	sequence = new PieceTable("me and you\nforever\na");
+}
+
+void Editor::init(std::string text)
+{
+	sequence = new PieceTable(text);
 	sequence->insert(20, "c", 1);
 	sequence->insert(21, "asd", 3);
-	//sequence->insert(
-	//sequence->erase(19,3);
 	std::cout << sequence->toString() << std::endl;
 }
 

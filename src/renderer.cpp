@@ -144,6 +144,9 @@ void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 pos
 			else if(c == ' '){
 				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64
 			}
+			else if(c == '	'){
+				position.x += (ch.advance >> 6) * scale * 4;
+			}
 			else{
 				float xpos = position.x + ch.bearing.x * scale;
 				float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
