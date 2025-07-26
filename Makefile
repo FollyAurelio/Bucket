@@ -21,7 +21,7 @@ program:$(OBJ)
 %.o:%.cpp %.h
 	$(CXX) -o $@ -c $< $(CXXFLAGS)
 run:program
-	$(BIN)/bucket
+	$(BIN)/bucket examples/dummy
 
 clean:
 	rm -rf $(BIN) $(OBJ)

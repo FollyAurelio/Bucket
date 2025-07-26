@@ -29,12 +29,14 @@ public:
 	size_t select_begin;
 	std::string file_path;
 	std::string clipboard;
+
 	Editor();
 	~Editor();
 	void init(std::string text);
 	void insert(char character);
 	void backspace();
 	void enter();
+	void reline();
 	void remove();
 	void render(Renderer renderer);
 };
