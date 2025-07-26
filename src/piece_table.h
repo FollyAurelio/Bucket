@@ -40,6 +40,7 @@ public:
 	PieceTable(std::string s);
 	~PieceTable();
 	void clearstack(std::stack<SpanRange*> &s);
+	char get_char_at(size_t index);
 	void insert(size_t index, const char *text, size_t size);
 	void erase(size_t index, size_t size);
 	void swaprange(SpanRange *src, SpanRange *dest);

@@ -41,7 +41,7 @@ float dt, lastFrame, previous = 0;
 int frames;
 Mouse mouse;
 Keyboard keyboard;
-Box box = Box(glm::vec2(140, 3), glm::vec2(200, 100), glm::vec3(0.1f, 0.7f, 0.0f), false);
+Box box = Box(glm::vec2(140, 3), glm::vec2(200, 100), glm::vec4(0.1f, 0.7f, 0.0f, 1.0f), false);
 int main(int argc, char *argv[])
 {
 	glfwInit();

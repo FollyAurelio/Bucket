@@ -13,10 +13,10 @@ enum UIState
 class UIComponent
 {
 public:
-	UIComponent(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
+	UIComponent(glm::vec2 position, glm::vec2 size, glm::vec4 color, bool fixed);
 	glm::vec2 position;
 	glm::vec2 size;
-	glm::vec3 color;
+	glm::vec4 color;
 	bool fixed;
 	UIState state = STATE_DEFAULT;
 
@@ -29,7 +29,7 @@ public:
 class Box : public UIComponent
 {
 public:
-	Box(glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed);
+	Box(glm::vec2 position, glm::vec2 size, glm::vec4 color, bool fixed);
 	void update();
 	void render(Renderer renderer);
 };

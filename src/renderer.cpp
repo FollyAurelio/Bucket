@@ -26,7 +26,7 @@ void Renderer::init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), 0);
 	glEnableVertexAttribArray(0);
-	font = loadFont("res/fonts/JetBrainsMono-Regular.ttf");
+	font = loadFont("res/fonts/times.ttf");
 
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
@@ -44,7 +44,7 @@ void Renderer::setCamera()
 	inverseCamera = glm::inverse(camera);
 }
 
-void Renderer::drawRectangle(Shader shader, glm::vec2 position, glm::vec2 size, glm::vec3 color, bool fixed)
+void Renderer::drawRectangle(Shader shader, glm::vec2 position, glm::vec2 size, glm::vec4 color, bool fixed)
 {
 	shader.use();
 	glm::mat4 model = glm::mat4(1.0f);
@@ -60,12 +60,13 @@ void Renderer::drawRectangle(Shader shader, glm::vec2 position, glm::vec2 size, 
 		shader.setMatrix4("view", camera);
 	}
 	shader.setMatrix4("projection", projection);
-	shader.setVector3("color", color);
+	shader.setVector4("color", color);
 	glBindVertexArray(rect_vao);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, float scale, glm::vec4 color, bool fixed)
+//TODO : optimize this method
 {
 	shader.use();
 	shader.setInt("text", 0);
@@ -113,6 +114,7 @@ void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, flo
 }
 
 void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 position, float scale, glm::vec4 color, bool fixed)
+//TODO : optimize this method
 {
 	shader.use();
 	shader.setInt("text", 0);

@@ -66,8 +66,8 @@ PieceTable::~PieceTable()
 	}
 	delete head;
 	delete tail;
-	//clearstack(undostack);
-	//clearstack(redostack);
+	clearstack(undostack);
+	clearstack(redostack);
 }
 
 void PieceTable::clearstack(std::stack<SpanRange*> &s)
@@ -96,6 +96,30 @@ void PieceTable::swaprange(SpanRange *src, SpanRange *dest)
 		dest->last->next = src->last->next;
 	}
 }
+
+char PieceTable::get_char_at(size_t index)
+{
+	Span *sptr;
+	size_t offset = 0;
+	for(sptr = head->next; sptr->next; sptr = sptr->next){
+		if(offset <= index && index < offset + sptr->length){
+			size_t r_i = index - offset;
+			if(!sptr->buffer){
+				return file_buffer[r_i];
+			}
+			else{
+				return add_buffer[r_i];
+			}
+		}
+		offset += sptr->length;
+	}
+	return 'a';
+}
+
+
+
+		
+
 
 void PieceTable::insert(size_t index, const char *text, size_t size)
 {

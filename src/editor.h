@@ -36,6 +36,7 @@ public:
 	void insert(char character);
 	void backspace();
 	void enter();
+	size_t cursor_row();
 	void reline();
 	void remove();
 	void render(Renderer renderer);
