@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
         	lastFrame = currentFrame;
 		frames++;
 		if(currentFrame - previous >= 1){
-			std::cout << frames << std::endl;
+			//std::cout << frames << std::endl;
 			frames = 0;
 			previous = currentFrame;
 		}
@@ -228,4 +228,8 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 		editor.move_line_down();
 	if(key == GLFW_KEY_K && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
 		editor.move_line_up();
+	if(key == GLFW_KEY_X && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
+		editor.remove();
+	if(key == GLFW_KEY_BACKSPACE && editor.mode == MODE_INSERT && action == GLFW_PRESS)
+		editor.backspace();
 }

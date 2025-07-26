@@ -105,10 +105,10 @@ char PieceTable::get_char_at(size_t index)
 		if(offset <= index && index < offset + sptr->length){
 			size_t r_i = index - offset;
 			if(!sptr->buffer){
-				return file_buffer[r_i];
+				return file_buffer[sptr->start + r_i];
 			}
 			else{
-				return add_buffer[r_i];
+				return add_buffer[sptr->start + r_i];
 			}
 		}
 		offset += sptr->length;
@@ -212,7 +212,6 @@ std::string PieceTable::toString()
 	std::string output;
 	Span *sptr;
 	for(sptr = head->next; sptr->next;sptr = sptr->next){
-		std::cout << sptr->buffer << sptr->start << sptr->length<<std::endl;
 		if(!sptr->buffer){
 			for(size_t i = sptr->start; i < sptr->start + sptr->length; i++){
 				output += file_buffer[i];

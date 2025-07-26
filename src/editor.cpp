@@ -2,13 +2,15 @@
 
 Editor::Editor()
 {
-	cursor = 4;
+	cursor = 0;
 	mode = MODE_NORMAL;
 }
 
 void Editor::init(std::string text)
 {
 	sequence = new PieceTable(text);
+	sequence->erase(2,3);
+	std::cout << sequence->toString();
 	reline();
 }
 
@@ -73,6 +75,7 @@ void Editor::reline()
 	lines.clear();
 	Line line;
 	line.begin = 0;
+	size_t j = 0;
 	Span *sptr;
 	char c;
 	for(sptr = sequence->head->next; sptr->next; sptr = sptr->next){
@@ -84,14 +87,15 @@ void Editor::reline()
 				c = sequence->add_buffer[i];
 			}
 			if(c == '\n'){
-				line.end = i;
+				line.end = j;
 				lines.push_back(line);
-				line.begin = i + 1;
+				line.begin = j + 1;
 			}
+			j++;
 		}
 	}
-	//line.end = sequence->length;
-	//lines.push_back(line);
+	line.end = sequence->length;
+	lines.push_back(line);
 }
 
 size_t Editor::cursor_row()
@@ -108,8 +112,8 @@ size_t Editor::cursor_row()
 
 
 void Editor::render(Renderer renderer)
-
 {
+	std::cout << sequence->length << std::endl;
 	//get cursor values
 	char char_at_pos = sequence->get_char_at(cursor);
 	size_t row = cursor_row();
