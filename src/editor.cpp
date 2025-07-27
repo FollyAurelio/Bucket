@@ -9,8 +9,6 @@ Editor::Editor()
 void Editor::init(std::string text)
 {
 	sequence = new PieceTable(text);
-	sequence->erase(2,3);
-	std::cout << sequence->toString();
 	reline();
 }
 
@@ -29,6 +27,20 @@ void Editor::remove()
 {
 	if(cursor >= sequence->length) return;
 	sequence->erase(cursor, 1);
+	reline();
+}
+
+void Editor::insert(char character, size_t length)
+{
+	sequence->insert(cursor, &character, length);
+	cursor += length;
+	reline();
+}
+void Editor::enter()
+{
+	char newline = '\n';
+	sequence->insert(cursor, &newline, 1);
+	cursor += 1;
 	reline();
 }
 
@@ -113,7 +125,6 @@ size_t Editor::cursor_row()
 
 void Editor::render(Renderer renderer)
 {
-	std::cout << sequence->length << std::endl;
 	//get cursor values
 	char char_at_pos = sequence->get_char_at(cursor);
 	size_t row = cursor_row();

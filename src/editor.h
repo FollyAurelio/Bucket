@@ -42,6 +42,7 @@ public:
 	void enter();
 	size_t cursor_row();
 	void reline();
+	void insert(char character, size_t length);
 	void remove();
 	void render(Renderer renderer);
 };

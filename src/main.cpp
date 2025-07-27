@@ -72,11 +72,11 @@ int main(int argc, char *argv[])
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	renderer.init();
 	glfwSetFramebufferSizeCallback(window, sizeCallback);
+	glfwSetKeyCallback(window, keyboardCallback);
 	glfwSetCharModsCallback(window, characterCallback);
 	glfwSetScrollCallback(window, scrollCallback);
 	glfwSetCursorPosCallback(window, cursorCallback);
 	glfwSetMouseButtonCallback(window, mouseCallback);
-	glfwSetKeyCallback(window, keyboardCallback);
 	if(argc != 2){
 		std::cout << "ERROR::MUST PROVIDE EXACTLY ONE ARGUMENT" << std::endl;
 		return 1;
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
         	lastFrame = currentFrame;
 		frames++;
 		if(currentFrame - previous >= 1){
-			//std::cout << frames << std::endl;
+			std::cout << frames << std::endl;
 			frames = 0;
 			previous = currentFrame;
 		}
@@ -173,10 +173,9 @@ static void sizeCallback(GLFWwindow *window, int width, int height)
 
 void characterCallback(GLFWwindow* window, unsigned int keyCode, int modifierCode)
 {
-	//text += (char)keyCode;
-	std::cout << (char)keyCode <<std::endl;
-	std::cout << keyCode <<std::endl;
-	std::cout << modifierCode <<std::endl;
+	if(editor.mode == MODE_INSERT){
+		editor.insert(keyCode, 1);
+	}
 }
 
 static void scrollCallback(GLFWwindow* window, double xoffset, double yoffset)
@@ -207,29 +206,81 @@ static void mouseCallback(GLFWwindow* window, int button, int action, int mods)
 
 static void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		editor.mode = MODE_NORMAL;
-	if(key == GLFW_KEY_I && action == GLFW_PRESS)
-		editor.mode = MODE_INSERT;
-		//glfwSetWindowShouldClose(window, true);
-	/*if(key == GLFW_KEY_UP && action == GLFW_PRESS)
-		renderer.cameraPosition.y += glm::translate(renderer.camera, glm::vec3(0.0f, 3.0f, 0.0f));
-	if(key == GLFW_KEY_DOWN && action == GLFW_PRESS)
-		renderer.camera = glm::translate(renderer.camera, glm::vec3(0.0f, -3.0f, 0.0f));*/
-	if (key == GLFW_KEY_P && ((action == GLFW_REPEAT) || (action == GLFW_PRESS)))
-		renderer.cameraZoom += 0.1f; 
-	if (key == GLFW_KEY_A && action == GLFW_REPEAT)
-		renderer.cameraZoom -= 0.1f; 
-	if(key == GLFW_KEY_H && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
-		editor.move_char_left();
-	if(key == GLFW_KEY_L && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
-		editor.move_char_right();
-	if(key == GLFW_KEY_J && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
-		editor.move_line_down();
-	if(key == GLFW_KEY_K && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
-		editor.move_line_up();
-	if(key == GLFW_KEY_X && editor.mode == MODE_NORMAL && action == GLFW_PRESS)
-		editor.remove();
-	if(key == GLFW_KEY_BACKSPACE && editor.mode == MODE_INSERT && action == GLFW_PRESS)
-		editor.backspace();
+	switch(action)
+	{
+		case GLFW_PRESS:
+		case GLFW_REPEAT:
+			if(editor.mode == MODE_NORMAL){
+				switch(key)
+				{
+					case GLFW_KEY_LEFT_CONTROL:
+					editor.mode = MODE_INSERT;
+					break;
+
+					case GLFW_KEY_RIGHT_CONTROL:
+					editor.move_char_right();
+					editor.mode = MODE_INSERT;
+					break;
+
+
+					case GLFW_KEY_J:
+					editor.move_line_down();
+					break;
+					
+					case GLFW_KEY_L:
+					editor.move_char_right();
+					break;
+
+					case GLFW_KEY_K:
+					editor.move_line_up();
+					break;
+
+					case GLFW_KEY_H:
+					editor.move_char_left();
+					break;
+
+					case GLFW_KEY_X:
+					editor.remove();
+					break;
+
+					case GLFW_KEY_EQUAL:
+					renderer.cameraZoom += 0.1f; 
+					break;
+
+					case GLFW_KEY_MINUS:
+					renderer.cameraZoom -= 0.1f; 
+					break;
+case GLFW_KEY_UP:
+					renderer.cameraPosition.y += 3.0f;
+					break;
+
+					case GLFW_KEY_DOWN:
+					renderer.cameraPosition.y -= 3.0f;
+					break;
+
+					
+
+
+				}
+
+			}
+			if(editor.mode == MODE_INSERT){
+				switch(key)
+				{
+					case GLFW_KEY_ESCAPE:
+					editor.mode = MODE_NORMAL;
+					break;
+
+					case GLFW_KEY_BACKSPACE:
+					editor.backspace();
+					break;
+
+					case GLFW_KEY_ENTER:
+					editor.enter();
+					break;
+				}
+			}
+
+	}
+
 }
