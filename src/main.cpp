@@ -222,7 +222,6 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					editor.mode = MODE_INSERT;
 					break;
 
-
 					case GLFW_KEY_J:
 					editor.move_line_down();
 					break;
@@ -263,9 +262,13 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					editor.save();
 					break;
 
-					
+					case GLFW_KEY_U:
+					editor.undo();
+					break;
 
-
+					case GLFW_KEY_R:
+					editor.redo();
+					break;
 				}
 
 			}

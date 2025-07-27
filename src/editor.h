@@ -43,6 +43,8 @@ public:
 	void move_line_down();
 	void enter();
 	size_t cursor_row();
+	void undo();
+	void redo();
 	void reline();
 	void insert(char character, size_t length);
 	void remove();

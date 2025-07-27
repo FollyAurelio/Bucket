@@ -127,6 +127,15 @@ size_t Editor::cursor_row()
 	return total_lines - 1;
 }
 
+void Editor::undo()
+{
+	sequence->undo_redo(0);
+}
+
+void Editor::redo()
+{
+	sequence->undo_redo(1);
+}
 
 void Editor::render(Renderer renderer)
 {

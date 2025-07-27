@@ -206,6 +206,60 @@ void PieceTable::erase(size_t index, size_t size)
 	last_insert = -1;
 }
 
+void PieceTable::undo_redo(char action)
+{
+	std::stack<SpanRange*> src_stack;
+	std::stack<SpanRange*> dest_stack;
+	if(action == 0){
+		src_stack = undostack;
+		dest_stack = redostack;
+	}
+	else if(action == 1){
+		src_stack = redostack;
+		dest_stack = undostack;
+	}
+	else{
+		return;
+	}
+	if(src_stack.empty()){
+		return;
+	}
+	SpanRange *range = src_stack.top();
+	src_stack.pop();
+	dest_stack.push(range);
+	Span *first, *last;
+	if(range->boundary){
+		first = range->first->next;
+		last = range->last->prev;
+		//link the old range
+		range->first->next = range->last;
+		range->last->prev = range->first;
+		//Store the span range
+		range->first = first;
+		range->last = last;
+		range->boundary = false;
+	}
+	else{
+		first = range->first->prev;
+		last = range->last->next;
+		if(first->next == last){
+			first->next = range->first;
+			last->prev = range->last;
+			range->first = first;
+			range->last = last;
+			range->boundary = true;
+		}
+		else{
+			first = first->next;
+			last = last->prev;
+			first->prev->next = range->first;
+			last->next->prev = range->last;
+			range->first = first;
+			range->last = last;
+			range->boundary = false;
+		}
+	}
+}
 
 std::string PieceTable::toString()
 {

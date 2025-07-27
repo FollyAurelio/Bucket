@@ -44,6 +44,7 @@ public:
 	void insert(size_t index, const char *text, size_t size);
 	void erase(size_t index, size_t size);
 	void swaprange(SpanRange *src, SpanRange *dest);
+	void undo_redo(char action);
 	std::string toString();
 
 
