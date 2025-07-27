@@ -25,10 +25,30 @@ std::string loadFile(const char *filePath)
 	catch(std::ifstream::failure *e)
 	{
 		std::cout << "ERROR::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-
+		exit(1);
 	}
 	return content;
 }
+
+void writeFile(const char *filePath, const char *text)
+{
+	std::ofstream file;
+	file.exceptions (std::ofstream::failbit | std::ofstream::badbit);
+	try
+	{
+	
+		file.open(filePath);
+  		file << text;
+		file.close();
+	}
+	catch(std::ofstream::failure *e)
+	{
+		std::cout << "ERROR::FILE_NOT_SUCCESFULLY_WRITTEN" << std::endl;
+	}
+}
+
+
+
 
 Shader loadShader(const char *vertexPath, const char *fragmentPath)
 {

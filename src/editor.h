@@ -3,6 +3,7 @@
 #include "util.h"
 #include "renderer.h"
 #include "piece_table.h"
+#include "resource_manager.h"
 
 
 enum EditorMode
@@ -33,6 +34,7 @@ public:
 	Editor();
 	~Editor();
 	void init(std::string text);
+	void save();
 	void insert(char character);
 	void backspace();
 	void move_char_left();

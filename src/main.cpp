@@ -250,12 +250,17 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					case GLFW_KEY_MINUS:
 					renderer.cameraZoom -= 0.1f; 
 					break;
-case GLFW_KEY_UP:
+
+					case GLFW_KEY_UP:
 					renderer.cameraPosition.y += 3.0f;
 					break;
 
 					case GLFW_KEY_DOWN:
 					renderer.cameraPosition.y -= 3.0f;
+					break;
+
+					case GLFW_KEY_S:
+					editor.save();
 					break;
 
 					
@@ -276,7 +281,7 @@ case GLFW_KEY_UP:
 					break;
 
 					case GLFW_KEY_ENTER:
-					editor.enter();
+					editor.backspace();
 					break;
 				}
 			}

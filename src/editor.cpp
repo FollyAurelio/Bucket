@@ -12,6 +12,11 @@ void Editor::init(std::string text)
 	reline();
 }
 
+void Editor::save()
+{
+	writeFile(file_path.c_str(), sequence->toString().c_str());
+}
+
 void Editor::backspace()
 {
 	if(cursor == 0) return;
@@ -139,6 +144,8 @@ void Editor::render(Renderer renderer)
 
 	if(cursor_width == 0)
 		cursor_width = 1.0f;
+	if(char_at_pos == ' ' && mode == MODE_NORMAL)
+		cursor_width = renderer.font.characters[char_at_pos].advance >> 6;
 	float cursor_height = renderer.font.lineoffset;
 	glm::vec4 cursor_color = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
 	//render cursor
