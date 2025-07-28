@@ -20,6 +20,7 @@ class Sequence:
         self.redo_stack = Stack()
         self.length = len(self.file_buffer)
         self.last_insert = None
+        self.last_delete = None
         
     
     def insert(self, index, text):

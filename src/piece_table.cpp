@@ -124,6 +124,7 @@ char PieceTable::get_char_at(size_t index)
 void PieceTable::insert(size_t index, const char *text, size_t size)
 {
 	SpanRange *old_span = new SpanRange();
+	old_span->length = length;
 	SpanRange new_span;
 	for(size_t i = 0; i < size; i++){
 		add_buffer.push_back(text[i]);
@@ -168,6 +169,7 @@ void PieceTable::erase(size_t index, size_t size)
 {
 	Span *sptr;
 	SpanRange *old_span = new SpanRange();
+	old_span->length = length;
 	SpanRange new_span;
 	size_t offset = 0;
 	size_t temp_size = size;
@@ -226,6 +228,9 @@ void PieceTable::undo_redo(int action)
 		return;
 	}
 	SpanRange *range = src_stack->top();
+	size_t temp_length = length;
+	length = range->length;
+	range->length = temp_length;
 	src_stack->pop();
 	dest_stack->push(range);
 	Span *first, *last;

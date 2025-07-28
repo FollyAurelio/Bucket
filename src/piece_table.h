@@ -17,6 +17,7 @@ struct SpanRange
 {
 	Span *first = nullptr;
 	Span *last = nullptr;
+	size_t length;
 	void free();
 	bool boundary;
 	void append(Span *span);
