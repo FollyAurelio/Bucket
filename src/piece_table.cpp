@@ -206,27 +206,28 @@ void PieceTable::erase(size_t index, size_t size)
 	last_insert = -1;
 }
 
-void PieceTable::undo_redo(char action)
+void PieceTable::undo_redo(int action)
 {
-	std::stack<SpanRange*> src_stack;
-	std::stack<SpanRange*> dest_stack;
+	std::stack<SpanRange*> *src_stack;
+	std::stack<SpanRange*> *dest_stack;
 	if(action == 0){
-		src_stack = undostack;
-		dest_stack = redostack;
+		src_stack = &undostack;
+		dest_stack = &redostack;
 	}
 	else if(action == 1){
-		src_stack = redostack;
-		dest_stack = undostack;
+		src_stack = &redostack;
+		dest_stack = &undostack;
 	}
 	else{
 		return;
 	}
-	if(src_stack.empty()){
+	if(src_stack->empty()){
+		std::cout << "jj" << std::endl;
 		return;
 	}
-	SpanRange *range = src_stack.top();
-	src_stack.pop();
-	dest_stack.push(range);
+	SpanRange *range = src_stack->top();
+	src_stack->pop();
+	dest_stack->push(range);
 	Span *first, *last;
 	if(range->boundary){
 		first = range->first->next;

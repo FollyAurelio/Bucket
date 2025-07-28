@@ -284,7 +284,7 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					break;
 
 					case GLFW_KEY_ENTER:
-					editor.backspace();
+					editor.enter();
 					break;
 				}
 			}

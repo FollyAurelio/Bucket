@@ -51,7 +51,7 @@ void Editor::enter()
 
 void Editor::move_char_left()
 {
-	if(cursor > 0) cursor -= 1;
+	if(cursor > lines[cursor_row()].begin) cursor -= 1;
 }
 
 void Editor::move_line_up()
@@ -79,7 +79,7 @@ void Editor::move_line_down()
 
 void Editor::move_char_right()
 {
-	if(cursor < sequence->length) cursor += 1;
+	if(cursor < lines[cursor_row()].end) cursor += 1;
 }
 
 Editor::~Editor()
@@ -130,22 +130,32 @@ size_t Editor::cursor_row()
 void Editor::undo()
 {
 	sequence->undo_redo(0);
+	reline();
 }
 
 void Editor::redo()
 {
 	sequence->undo_redo(1);
+	reline();
 }
 
 void Editor::render(Renderer renderer)
 {
 	//get cursor values
 	char char_at_pos = sequence->get_char_at(cursor);
+	char c;
 	size_t row = cursor_row();
 	//size_t col = cursor - lines[row].begin;
 	unsigned int advance = 0;
 	for(size_t i = lines[row].begin; i < cursor; i++){
-		advance += renderer.font.characters[sequence->get_char_at(i)].advance >> 6;
+		c = sequence->get_char_at(i);
+		if(c == '	'){
+			advance += (renderer.font.characters[' '].advance >> 6) * 4;
+		}
+		else{
+
+			advance += renderer.font.characters[sequence->get_char_at(i)].advance >> 6;
+		}
 	}
 	float horizontal_offset = advance;
 	float vertical_offset = renderer.font.lineoffset * row;
@@ -155,6 +165,8 @@ void Editor::render(Renderer renderer)
 		cursor_width = 1.0f;
 	if(char_at_pos == ' ' && mode == MODE_NORMAL)
 		cursor_width = renderer.font.characters[char_at_pos].advance >> 6;
+	if(char_at_pos == '	' && mode == MODE_NORMAL)
+		cursor_width = (renderer.font.characters[' '].advance >> 6) * 4;
 	float cursor_height = renderer.font.lineoffset;
 	glm::vec4 cursor_color = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
 	//render cursor
