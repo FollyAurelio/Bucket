@@ -153,7 +153,6 @@ void Editor::render(Renderer renderer)
 			advance += (renderer.font.characters[' '].advance >> 6) * 4;
 		}
 		else{
-
 			advance += renderer.font.characters[sequence->get_char_at(i)].advance >> 6;
 		}
 	}

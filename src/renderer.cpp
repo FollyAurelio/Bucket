@@ -26,7 +26,7 @@ void Renderer::init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), 0);
 	glEnableVertexAttribArray(0);
-	font = loadFont("res/fonts/Antonio-Regular.ttf");
+	font = loadFont("res/fonts/times.ttf");
 
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
@@ -143,11 +143,11 @@ void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 pos
 				position.y += font.lineoffset * scale;
 				position.x = copyX;
 			}
-			else if(c == ' '){
+			else if(c == ' ' ){
 				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64
 			}
 			else if(c == '	'){
-				position.x += (ch.advance >> 6) * scale * 4;
+				position.x += (font.characters[' '].advance >> 6) * scale * 4;
 			}
 			else{
 				float xpos = position.x + ch.bearing.x * scale;
