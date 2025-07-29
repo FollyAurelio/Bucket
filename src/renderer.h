@@ -16,6 +16,12 @@ public:
 				0.0f, 1.0f,
 				};
 	unsigned int rect_indices[6] = {0,1,3,1,2,3};
+	float text_vertices[8] = {0.0f, 0.0f,
+				0.0f,1.0f,
+				1.0f, 0.0f,
+				1.0f,1.0f};
+				
+
 	Shader rect_shader = loadShader("res/shaders/basic.vs", "res/shaders/basic.fs");
 	Shader text_shader = loadShader("res/shaders/text.vs", "res/shaders/text.fs");
 	unsigned int rect_vbo;

@@ -23,10 +23,10 @@ void Renderer::init()
 	glGenVertexArrays(1, &text_vao);
 	glBindVertexArray(text_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, text_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), 0);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(text_vertices), text_vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
-	font = loadFont("res/fonts/times.ttf");
+	font = loadFont("res/fonts/Antonio-Regular.ttf");
 
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
@@ -78,6 +78,7 @@ void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, flo
 	shader.setMatrix4("projection", projection);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(text_vao);
+	glm::mat4 model;
 	std::string::const_iterator c;
 	float copyX = position.x;
 	for (c = text.begin(); c != text.end(); c++)
@@ -94,20 +95,11 @@ void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, flo
 		else{
 			float xpos = position.x + ch.bearing.x * scale;
 			float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
-			float w = ch.size.x * scale;
-			float h = ch.size.y * scale;
-			float vertices[6][4] = {
-			{ xpos, ypos + h, 0.0f, 1.0f },
-			{ xpos, ypos, 0.0f, 0.0f },
-			{ xpos + w, ypos, 1.0f, 0.0f },
-			{ xpos, ypos + h, 0.0f, 1.0f },
-			{ xpos + w, ypos, 1.0f, 0.0f },
-			{ xpos + w, ypos + h, 1.0f, 1.0f }
-			};
+			model = glm::translate(glm::mat4(1.0f),glm::vec3(xpos,ypos,0)) * glm::scale(glm::mat4(1.0f), glm::vec3(ch.size.x * scale, ch.size.y * scale, 0));
+			shader.setMatrix4("model", model);
 			glBindTexture(GL_TEXTURE_2D, ch.texture);
 			glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
-			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
+			glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
 			position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
 		}
 	}
@@ -124,6 +116,7 @@ void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 pos
 	else
 		shader.setMatrix4("view", camera);
 	shader.setMatrix4("projection", projection);
+	glm::mat4 model;
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(text_vao);
 	Span *sptr;
@@ -152,20 +145,11 @@ void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 pos
 			else{
 				float xpos = position.x + ch.bearing.x * scale;
 				float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
-				float w = ch.size.x * scale;
-				float h = ch.size.y * scale;
-				float vertices[6][4] = {
-				{ xpos, ypos + h, 0.0f, 1.0f },
-				{ xpos, ypos, 0.0f, 0.0f },
-				{ xpos + w, ypos, 1.0f, 0.0f },
-				{ xpos, ypos + h, 0.0f, 1.0f },
-				{ xpos + w, ypos, 1.0f, 0.0f },
-				{ xpos + w, ypos + h, 1.0f, 1.0f }
-				};
+				model = glm::translate(glm::mat4(1.0f),glm::vec3(xpos,ypos,0)) * glm::scale(glm::mat4(1.0f), glm::vec3(ch.size.x * scale, ch.size.y * scale, 0));
+				shader.setMatrix4("model", model);
 				glBindTexture(GL_TEXTURE_2D, ch.texture);
 				glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
-				glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-				glDrawArrays(GL_TRIANGLES, 0, 6);
+				glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
 				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
 			}
 		}
