@@ -122,6 +122,7 @@ void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 pos
 	Span *sptr;
 	float copyX = position.x;
 	char c;
+	
 	for(sptr = sequence->head->next; sptr->next; sptr = sptr->next){
 		for(size_t i = sptr->start; i < sptr->start + sptr->length; i++){
 			if(!sptr->buffer){

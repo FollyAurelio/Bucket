@@ -25,6 +25,7 @@ public:
 	std::vector<Line> lines;
 	EditorMode mode;
 	size_t cursor;
+	size_t cursor_col;
 	std::string data;
 	PieceTable *sequence;
 	size_t select_begin;

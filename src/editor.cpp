@@ -3,6 +3,7 @@
 Editor::Editor()
 {
 	cursor = 0;
+	cursor_col = 0;
 	mode = MODE_NORMAL;
 }
 
@@ -51,35 +52,46 @@ void Editor::enter()
 
 void Editor::move_char_left()
 {
-	if(cursor > lines[cursor_row()].begin) cursor -= 1;
+	if(cursor > lines[cursor_row()].begin) {
+		cursor -= 1;
+		cursor_col = cursor - lines[cursor_row()].begin;
+	}
+
 }
 
 void Editor::move_line_up()
 {
 	size_t row = cursor_row();
-	size_t col = cursor - lines[row].begin;
 	if(row > 0){
 		Line next_line = lines[row - 1];
 		size_t next_line_size = next_line.end - next_line.begin;
-		if(col > next_line_size) col = next_line_size;
-		cursor = next_line.begin + col;
+		if(cursor_col > next_line_size)
+			cursor = next_line.begin + next_line_size;
+		else
+			cursor = next_line.begin + cursor_col;
 	}
 }
 void Editor::move_line_down()
 {
 	size_t row = cursor_row();
-	size_t col = cursor - lines[row].begin;
 	if(row < lines.size() - 1){
 		Line next_line = lines[row + 1];
 		size_t next_line_size = next_line.end - next_line.begin;
-		if(col > next_line_size) col = next_line_size;
-		cursor = next_line.begin + col;
+		if(cursor_col > next_line_size)
+			cursor = next_line.begin + next_line_size;
+		else
+			cursor = next_line.begin + cursor_col;
+
 	}
 }
 
 void Editor::move_char_right()
 {
-	if(cursor < lines[cursor_row()].end) cursor += 1;
+	if(cursor < lines[cursor_row()].end){
+		cursor += 1;
+		cursor_col = cursor - lines[cursor_row()].begin;
+	}
+	
 }
 
 Editor::~Editor()
