@@ -30,6 +30,7 @@ public:
 	unsigned int text_vbo; 
 	unsigned int text_vao;
 	Font font;
+	glm::vec2 screen;
 	glm::vec2 cameraPosition = glm::vec2(0.0f, 0.0f);
 	float cameraZoom = 1.0f;
 	glm::mat4 camera;

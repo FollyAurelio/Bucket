@@ -3,6 +3,7 @@
 Renderer::Renderer(float windowWidth, float windowHeight)
 {	
 	projection = glm::ortho(0.0f, windowWidth, windowHeight, 0.0f, -1.0f, 1.0f);
+	screen = {windowWidth, windowHeight};
 		
 }	
 
@@ -26,7 +27,7 @@ void Renderer::init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(text_vertices), text_vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
-	font = loadFont("res/fonts/Antonio-Regular.ttf");
+	font = loadFont("res/fonts/JetBrainsMono-Regular.ttf");
 
 	camera = glm::mat4(1.0f);
 	inverseCamera = glm::mat4(1.0f);
@@ -39,7 +40,7 @@ void Renderer::init()
 void Renderer::setCamera()
 {
 	camera = glm::mat4(1.0f);
-	camera = glm::translate(camera, glm::vec3(cameraPosition.x * 100.0f, cameraPosition.y * font.lineoffset, 0.0f));
+	camera = glm::translate(camera, glm::vec3(cameraPosition.x * 100.0f , cameraPosition.y * font.lineoffset * cameraZoom, 0.0f));
 	camera = glm::scale(camera, glm::vec3(cameraZoom, cameraZoom, 1.0f));
 	inverseCamera = glm::inverse(camera);
 }

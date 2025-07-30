@@ -168,6 +168,7 @@ static void sizeCallback(GLFWwindow *window, int width, int height)
 
 	glViewport(0, 0, width, height);
 	renderer.projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
+	renderer.screen = {width, height};
 	
 }
 
@@ -251,12 +252,21 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					break;
 
 					case GLFW_KEY_UP:
-					renderer.cameraPosition.y += 3.0f;
+					renderer.cameraPosition.y += 1.0f;
 					break;
 
 					case GLFW_KEY_DOWN:
-					renderer.cameraPosition.y -= 3.0f;
+					renderer.cameraPosition.y -= 1.0f;
 					break;
+
+					case GLFW_KEY_RIGHT:
+					renderer.cameraPosition.x -= 1.0f;
+					break;
+
+					case GLFW_KEY_LEFT:
+					renderer.cameraPosition.x += 1.0f;
+					break;
+
 
 					case GLFW_KEY_S:
 					editor.save();
@@ -286,7 +296,13 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					case GLFW_KEY_ENTER:
 					editor.enter();
 					break;
+
+					case GLFW_KEY_TAB:
+					editor.insert('	', 1);
+					break;
+
 				}
+
 			}
 
 	}

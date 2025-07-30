@@ -151,7 +151,7 @@ void Editor::redo()
 	reline();
 }
 
-void Editor::render(Renderer renderer)
+void Editor::render(Renderer &renderer)
 {
 	//get cursor values
 	char char_at_pos = sequence->get_char_at(cursor);
@@ -191,7 +191,18 @@ void Editor::render(Renderer renderer)
 	}
 	//render text
 	renderer.drawEditorText(renderer.text_shader, sequence, glm::vec2(180.0f, 25.0f), 1.0f, glm::vec4(1.0f,1.0f,1.0f, 1.0f),false);
-	//render cursor
+	//set Camera
+	if(vertical_offset > renderer.screen.y - renderer.cameraPosition.y * renderer.font.lineoffset){
+		renderer.cameraPosition.y -= 1;
+	}
+	if(vertical_offset < - renderer.cameraPosition.y * renderer.font.lineoffset){
+		renderer.cameraPosition.y += 1;
+	}
+	if(horizontal_offset > renderer.screen.x - renderer.cameraPosition.x){
+		renderer.cameraPosition.x -= 1;
+	}
+	//renderer.cameraPosition.y = 1.0f - cursor_row();
+	//renderer.cameraPosition.x = 1.0f - advance;
 	
 }
 

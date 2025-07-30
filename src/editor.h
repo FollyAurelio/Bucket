@@ -49,7 +49,7 @@ public:
 	void reline();
 	void insert(char character, size_t length);
 	void remove();
-	void render(Renderer renderer);
+	void render(Renderer &renderer);
 };
 
 #endif
