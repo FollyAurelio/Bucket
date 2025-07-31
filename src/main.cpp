@@ -58,13 +58,13 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(0);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		glfwTerminate();
 		exit(1);
 	}
+	glfwSwapInterval(0);
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glEnable(GL_TEXTURE_2D);
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 	while(!glfwWindowShouldClose(window))
 	{	
 		float currentFrame = glfwGetTime();
-        	//dt = (currentFrame - lastFrame) * TARGET_FPS;
+        	dt = (currentFrame - lastFrame) * TARGET_FPS;
         	lastFrame = currentFrame;
 		frames++;
 		if(currentFrame - previous >= 1){
@@ -250,7 +250,7 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					case GLFW_KEY_MINUS:
 					renderer.cameraZoom -= 0.1f; 
 					break;
-
+					
 					case GLFW_KEY_UP:
 					renderer.cameraPosition.y += 1.0f;
 					break;
@@ -279,6 +279,11 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					case GLFW_KEY_R:
 					editor.redo();
 					break;
+
+					case GLFW_KEY_V:
+					editor.select_begin = editor.cursor;
+					editor.mode = MODE_SELECT;
+					break;
 				}
 
 			}
@@ -303,6 +308,45 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 
 				}
 
+			}
+			if(editor.mode == MODE_SELECT){
+				switch(key)
+				{
+					case GLFW_KEY_ESCAPE:
+					editor.mode = MODE_NORMAL;
+					break;
+
+					case GLFW_KEY_J:
+					editor.move_line_down();
+					break;
+					
+					case GLFW_KEY_L:
+					editor.move_char_right();
+					break;
+
+					case GLFW_KEY_K:
+					editor.move_line_up();
+					break;
+
+					case GLFW_KEY_H:
+					editor.move_char_left();
+					break;
+
+					case GLFW_KEY_X:
+					if(editor.cursor > editor.select_begin){
+						editor.sequence->erase(editor.select_begin, editor.cursor - editor.select_begin);
+						editor.cursor = editor.select_begin;
+					}
+					else{
+						editor.sequence->erase(editor.cursor, editor.select_begin - editor.cursor);
+					}
+					editor.reline();
+					editor.mode = MODE_NORMAL;
+					break;
+
+
+
+				}
 			}
 
 	}

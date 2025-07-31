@@ -151,6 +151,47 @@ void Editor::redo()
 	reline();
 }
 
+void Editor::draw_cursor(size_t cursor_position, Renderer renderer, glm::vec4 color)
+{
+	char char_at_pos = sequence->get_char_at(cursor_position);
+	char c;
+	size_t row;
+	size_t total_lines = lines.size();
+	for(size_t j = 0; j < total_lines;j++){
+		Line line = lines[j];
+		if(line.begin <= cursor_position && cursor_position <=line.end){
+			row = j;
+			break;
+		}
+	}
+	//size_t col = cursor - lines[row].begin;
+	unsigned int advance = 0;
+	for(size_t i = lines[row].begin; i < cursor_position; i++){
+		c = sequence->get_char_at(i);
+		if(c == '	'){
+			advance += (renderer.font.characters[' '].advance >> 6) * 4;
+		}
+		else{
+			advance += renderer.font.characters[sequence->get_char_at(i)].advance >> 6;
+		}
+	}
+	float horizontal_offset = advance;
+	float vertical_offset = renderer.font.lineoffset * row;
+	float cursor_width = mode == MODE_INSERT ?renderer.font.characters[char_at_pos].bearing.x : renderer.font.characters[char_at_pos].size.x + renderer.font.characters[char_at_pos].bearing.x;
+
+	if(cursor_width == 0)
+		cursor_width = 1.0f;
+	if(char_at_pos == ' ' && (mode == MODE_NORMAL || mode == MODE_SELECT))
+		cursor_width = renderer.font.characters[char_at_pos].advance >> 6;
+	if(char_at_pos == '	' && (mode == MODE_NORMAL || mode == MODE_SELECT))
+		cursor_width = (renderer.font.characters[' '].advance >> 6) * 4;
+	float cursor_height = renderer.font.lineoffset;
+	glm::vec4 cursor_color = color;
+	//render cursor
+	renderer.drawRectangle(renderer.rect_shader, glm::vec2(180.0f + horizontal_offset,12.5f + vertical_offset), glm::vec2(cursor_width, cursor_height), cursor_color , false);
+}
+
+
 void Editor::render(Renderer &renderer)
 {
 	//get cursor values
@@ -174,14 +215,29 @@ void Editor::render(Renderer &renderer)
 
 	if(cursor_width == 0)
 		cursor_width = 1.0f;
-	if(char_at_pos == ' ' && mode == MODE_NORMAL)
+	if(char_at_pos == ' ' && (mode == MODE_NORMAL || mode == MODE_SELECT))
 		cursor_width = renderer.font.characters[char_at_pos].advance >> 6;
-	if(char_at_pos == '	' && mode == MODE_NORMAL)
+	if(char_at_pos == '	' && (mode == MODE_NORMAL || mode == MODE_SELECT))
 		cursor_width = (renderer.font.characters[' '].advance >> 6) * 4;
 	float cursor_height = renderer.font.lineoffset;
 	glm::vec4 cursor_color = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
 	//render cursor
 	renderer.drawRectangle(renderer.rect_shader, glm::vec2(180.0f + horizontal_offset,12.5f + vertical_offset), glm::vec2(cursor_width, cursor_height), cursor_color , false);
+	//render selection
+	if(mode == MODE_SELECT){
+		if(select_begin < cursor){
+			for(size_t i = select_begin; i < cursor; i++){
+			draw_cursor(i, renderer, glm::vec4(1.0f, 1.0f, 0.0f, 0.5f));
+			}
+		}
+		else{
+			for(size_t i = select_begin; i > cursor; i--){
+			draw_cursor(i, renderer, glm::vec4(1.0f, 1.0f, 0.0f, 0.5f));
+			}
+		}
+
+	}
+	
 
 	//render line numbers
 	size_t total_lines = lines.size();
@@ -192,17 +248,17 @@ void Editor::render(Renderer &renderer)
 	//render text
 	renderer.drawEditorText(renderer.text_shader, sequence, glm::vec2(180.0f, 25.0f), 1.0f, glm::vec4(1.0f,1.0f,1.0f, 1.0f),false);
 	//set Camera
-	glm::vec4 cursorPos = renderer.camera * glm::vec4(horizontal_offset, vertical_offset, 0.0f, 1.0f);
+	glm::vec4 cursorPos = renderer.camera * glm::vec4(horizontal_offset + 180.0f, vertical_offset, 0.0f, 1.0f);
 	if(cursorPos.y > renderer.screen.y){
 		renderer.cameraPosition.y -= 1;
 	}
 	if(cursorPos.y < 0){
 		renderer.cameraPosition.y += 1;
 	}
-	if(cursorPos.x + 180.0f > renderer.screen.x){
+	if(cursorPos.x > renderer.screen.x){
 		renderer.cameraPosition.x -= 1;
 	}
-	if(cursorPos.x + 180.0f < 0){
+	if(cursorPos.x < 0){
 		renderer.cameraPosition.x += 1;
 	}
 	//renderer.cameraPosition.y = 1.0f - cursor_row();

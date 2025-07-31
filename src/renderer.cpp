@@ -152,6 +152,8 @@ void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 pos
 				glBindTexture(GL_TEXTURE_2D, ch.texture);
 				glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
 				glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
+				glBindTexture(GL_TEXTURE_2D, 0);
+				glBindBuffer(GL_ARRAY_BUFFER,0);
 				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
 			}
 		}
