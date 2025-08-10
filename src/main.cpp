@@ -1,4 +1,3 @@
-#include <iostream>
 #include "util.h"
 #include "resource_manager.h"
 #include "renderer.h"
@@ -32,7 +31,6 @@ static void mouseCallback(GLFWwindow* window, int button, int action, int mods);
 static void cursorCallback(GLFWwindow* window, double xpos, double ypos);
 static void mouseCallback(GLFWwindow* window, int button, int action, int mods);
 static void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-//void processInput()
 void processMouse();
 
 Renderer renderer((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
@@ -107,10 +105,6 @@ int main(int argc, char *argv[])
 		
 		editor.render(renderer);
 
-		//box.update();
-		//bo.update();
-		//box.render(renderer);
-		//bo.render(renderer);
 		glfwSwapBuffers(window);
 	}
 	glfwTerminate();
@@ -333,14 +327,7 @@ static void keyboardCallback(GLFWwindow* window, int key, int scancode, int acti
 					break;
 
 					case GLFW_KEY_X:
-					if(editor.cursor > editor.select_begin){
-						editor.sequence->erase(editor.select_begin, editor.cursor - editor.select_begin);
-						editor.cursor = editor.select_begin;
-					}
-					else{
-						editor.sequence->erase(editor.cursor, editor.select_begin - editor.cursor);
-					}
-					editor.reline();
+					editor.remove_selection();
 					editor.mode = MODE_NORMAL;
 					break;
 

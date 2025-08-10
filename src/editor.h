@@ -49,6 +49,7 @@ public:
 	void reline();
 	void insert(char character, size_t length);
 	void remove();
+	void remove_selection();
 	void draw_cursor(size_t cursor_position, Renderer renderer, glm::vec4 color);
 	void render(Renderer &renderer);
 };

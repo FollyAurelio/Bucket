@@ -36,6 +36,18 @@ void Editor::remove()
 	reline();
 }
 
+void Editor::remove_selection()
+{
+	if(cursor > select_begin){
+		sequence->erase(select_begin, cursor - select_begin);
+		cursor = select_begin;
+	}
+	else{
+		sequence->erase(cursor, select_begin - cursor);
+	}
+	reline();
+}
+
 void Editor::insert(char character, size_t length)
 {
 	sequence->insert(cursor, &character, length);

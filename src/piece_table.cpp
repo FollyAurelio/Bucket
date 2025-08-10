@@ -224,7 +224,6 @@ void PieceTable::undo_redo(int action)
 		return;
 	}
 	if(src_stack->empty()){
-		std::cout << "jj" << std::endl;
 		return;
 	}
 	SpanRange *range = src_stack->top();

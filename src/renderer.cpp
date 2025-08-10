@@ -132,6 +132,9 @@ void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 pos
 			else{
 				c = sequence->add_buffer[i];
 			}
+			if((int)c > 127){
+				c = '?';
+			}
 			Character ch = font.characters[c];
 			if(c == '\n')
 			{

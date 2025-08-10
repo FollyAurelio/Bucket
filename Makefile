@@ -1,9 +1,20 @@
+UNAME_S = $(shell uname -s)
+
+#change to CXX clang++ and CC to clang on OSX
 CXX = g++
 CC = gcc
 CXXFLAGS = -g
 CXXFLAGS += -Ilib/glfw/include -Ilib/glad/include -Ilib -Ilib/freetype/include -Wall
 LDFLAGS = lib/glad/src/glad.o lib/glfw/src/libglfw3.a lib/freetype/build/libfreetype.a
 
+# GLFW required frameworks on OSX
+ifeq ($(UNAME_S), Darwin)
+	LDFLAGS += -framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa
+endif
+
+ifeq ($(UNAME_S), Linux)
+	LDFLAGS += -ldl -lpthread
+endif
 SRC = $(wildcard src/**/*.cpp) $(wildcard src/*.cpp) 
 OBJ = $(SRC:.cpp=.o)
 BIN = bin
