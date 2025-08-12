@@ -1642,3 +1642,551 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Linux - 6.15.9-arch1-1 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /sbin/cc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/4.0.3-dirty/CompilerIdC/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_855e2/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr'
+        /sbin/make  -f CMakeFiles/cmTC_855e2.dir/build.make CMakeFiles/cmTC_855e2.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr'
+        Building C object CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o
+        /sbin/cc   -v -o CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/sbin/cc
+        Target: x86_64-pc-linux-gnu
+        Configured with: /build/gcc/src/gcc/configure --enable-languages=ada,c,c++,d,fortran,go,lto,m2,objc,obj-c++,rust,cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-werror
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.1.1 20250729 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_855e2.dir/'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_855e2.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccUwPbk4.s
+        GNU C23 (GCC) version 15.1.1 20250729 (x86_64-pc-linux-gnu)
+        	compiled by GNU C version 15.1.1 20250729, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../x86_64-pc-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include
+         /usr/local/include
+         /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include-fixed
+         /usr/include
+        End of search list.
+        Compiler executable checksum: 1787ea56368177f03c53ffbfd9c7a450
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_855e2.dir/'
+         as -v --64 -o CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o /tmp/ccUwPbk4.s
+        GNU assembler version 2.45.0 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.45.0
+        COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_855e2
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_855e2.dir/link.txt --verbose=1
+        Using built-in specs.
+        COLLECT_GCC=/sbin/cc
+        COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper
+        Target: x86_64-pc-linux-gnu
+        Configured with: /build/gcc/src/gcc/configure --enable-languages=ada,c,c++,d,fortran,go,lto,m2,objc,obj-c++,rust,cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-werror
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.1.1 20250729 (GCC) 
+        COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_855e2' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_855e2.'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIkHAza.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_855e2 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o
+        collect2 version 15.1.1 20250729
+        /sbin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIkHAza.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_855e2 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o
+        GNU ld (GNU Binutils) 2.45.0
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_855e2' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_855e2.'
+        /sbin/cc  -v -Wl,-v CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o -o cmTC_855e2
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:191 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include]
+          add: [/usr/local/include]
+          add: [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include-fixed]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include-fixed] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include-fixed]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include;/usr/local/include;/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include-fixed;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:227 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr']
+        ignore line: []
+        ignore line: [Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_855e2/fast]
+        ignore line: [make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr']
+        ignore line: [/sbin/make  -f CMakeFiles/cmTC_855e2.dir/build.make CMakeFiles/cmTC_855e2.dir/build]
+        ignore line: [make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-muJttr']
+        ignore line: [Building C object CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/sbin/cc   -v -o CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/sbin/cc]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: /build/gcc/src/gcc/configure --enable-languages=ada c c++ d fortran go lto m2 objc obj-c++ rust cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-werror]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.1.1 20250729 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_855e2.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_855e2.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccUwPbk4.s]
+        ignore line: [GNU C23 (GCC) version 15.1.1 20250729 (x86_64-pc-linux-gnu)]
+        ignore line: [	compiled by GNU C version 15.1.1 20250729  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.3.1  isl version isl-0.27-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include-fixed]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 1787ea56368177f03c53ffbfd9c7a450]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_855e2.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o /tmp/ccUwPbk4.s]
+        ignore line: [GNU assembler version 2.45.0 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.45.0]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_855e2]
+        ignore line: [/sbin/cmake -E cmake_link_script CMakeFiles/cmTC_855e2.dir/link.txt --verbose=1]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/sbin/cc]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Configured with: /build/gcc/src/gcc/configure --enable-languages=ada c c++ d fortran go lto m2 objc obj-c++ rust cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-libssp --disable-libstdcxx-pch --disable-werror]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.1.1 20250729 (GCC) ]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_855e2' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_855e2.']
+        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIkHAza.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_855e2 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccIkHAza.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_855e2] ==> ignore
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o]
+          arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1]
+          arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib]
+          arg [-L/lib/../lib] ==> dir [/lib/../lib]
+          arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+          arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../..]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o]
+          arg [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o]
+        ignore line: [collect2 version 15.1.1 20250729]
+        ignore line: [/sbin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIkHAza.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_855e2 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_855e2.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o]
+        linker tool for 'C': /sbin/ld
+        collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o] ==> [/usr/lib/Scrt1.o]
+        collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o] ==> [/usr/lib/crti.o]
+        collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o] ==> [/usr/lib/crtn.o]
+        collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1]
+        collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib] ==> [/usr/lib]
+        collapse library dir [/lib/../lib] ==> [/lib]
+        collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+        collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../..] ==> [/usr/lib]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/usr/lib/Scrt1.o;/usr/lib/crti.o;/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o;/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o;/usr/lib/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1;/usr/lib;/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:36 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:270 (cmake_determine_linker_id)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the C compiler's linker: "/sbin/ld" "-v"
+      GNU ld (GNU Binutils) 2.45.0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/usr/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "/usr/share/cmake/Modules/FindThreads.cmake:97 (check_c_source_compiles)"
+      - "/usr/share/cmake/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "CMakeLists.txt:60 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_2044a/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L'
+        /sbin/make  -f CMakeFiles/cmTC_2044a.dir/build.make CMakeFiles/cmTC_2044a.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L'
+        Building C object CMakeFiles/cmTC_2044a.dir/src.c.o
+        /sbin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_2044a.dir/src.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L/src.c
+        Linking C executable cmTC_2044a
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_2044a.dir/link.txt --verbose=1
+        /sbin/cc CMakeFiles/cmTC_2044a.dir/src.c.o -o cmTC_2044a
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-gtjC0L'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "src/CMakeLists.txt:69 (check_function_exists)"
+    checks:
+      - "Looking for memfd_create"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "HAVE_MEMFD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_c02f0/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7'
+        /sbin/make  -f CMakeFiles/cmTC_c02f0.dir/build.make CMakeFiles/cmTC_c02f0.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7'
+        Building C object CMakeFiles/cmTC_c02f0.dir/CheckFunctionExists.c.o
+        /sbin/cc   -DCHECK_FUNCTION_EXISTS=memfd_create -o CMakeFiles/cmTC_c02f0.dir/CheckFunctionExists.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7/CheckFunctionExists.c
+        Linking C executable cmTC_c02f0
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_c02f0.dir/link.txt --verbose=1
+        /sbin/cc  -DCHECK_FUNCTION_EXISTS=memfd_create CMakeFiles/cmTC_c02f0.dir/CheckFunctionExists.c.o -o cmTC_c02f0
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-sG57Q7'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckLibraryExists.cmake:112 (try_compile)"
+      - "/usr/share/cmake/Modules/FindX11.cmake:701 (check_library_exists)"
+      - "src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for XOpenDisplay in /usr/lib/libX11.so;/usr/lib/libXext.so"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "X11_LIB_X11_SOLO"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_36dd6/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg'
+        /sbin/make  -f CMakeFiles/cmTC_36dd6.dir/build.make CMakeFiles/cmTC_36dd6.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg'
+        Building C object CMakeFiles/cmTC_36dd6.dir/CheckFunctionExists.c.o
+        /sbin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay -o CMakeFiles/cmTC_36dd6.dir/CheckFunctionExists.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg/CheckFunctionExists.c
+        Linking C executable cmTC_36dd6
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_36dd6.dir/link.txt --verbose=1
+        /sbin/cc  -DCHECK_FUNCTION_EXISTS=XOpenDisplay CMakeFiles/cmTC_36dd6.dir/CheckFunctionExists.c.o -o cmTC_36dd6  /usr/lib/libX11.so /usr/lib/libXext.so
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-jjWscg'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "/usr/share/cmake/Modules/FindX11.cmake:716 (check_function_exists)"
+      - "src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for gethostbyname"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_GETHOSTBYNAME"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_5749b/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL'
+        /sbin/make  -f CMakeFiles/cmTC_5749b.dir/build.make CMakeFiles/cmTC_5749b.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL'
+        Building C object CMakeFiles/cmTC_5749b.dir/CheckFunctionExists.c.o
+        /sbin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname -o CMakeFiles/cmTC_5749b.dir/CheckFunctionExists.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL/CheckFunctionExists.c
+        Linking C executable cmTC_5749b
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_5749b.dir/link.txt --verbose=1
+        /sbin/cc  -DCHECK_FUNCTION_EXISTS=gethostbyname CMakeFiles/cmTC_5749b.dir/CheckFunctionExists.c.o -o cmTC_5749b
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-iDSSLL'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "/usr/share/cmake/Modules/FindX11.cmake:730 (check_function_exists)"
+      - "src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for connect"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_CONNECT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_75986/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw'
+        /sbin/make  -f CMakeFiles/cmTC_75986.dir/build.make CMakeFiles/cmTC_75986.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw'
+        Building C object CMakeFiles/cmTC_75986.dir/CheckFunctionExists.c.o
+        /sbin/cc   -DCHECK_FUNCTION_EXISTS=connect -o CMakeFiles/cmTC_75986.dir/CheckFunctionExists.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw/CheckFunctionExists.c
+        Linking C executable cmTC_75986
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_75986.dir/link.txt --verbose=1
+        /sbin/cc  -DCHECK_FUNCTION_EXISTS=connect CMakeFiles/cmTC_75986.dir/CheckFunctionExists.c.o -o cmTC_75986
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-l6Hvdw'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "/usr/share/cmake/Modules/FindX11.cmake:739 (check_function_exists)"
+      - "src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for remove"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_REMOVE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_a3178/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y'
+        /sbin/make  -f CMakeFiles/cmTC_a3178.dir/build.make CMakeFiles/cmTC_a3178.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y'
+        Building C object CMakeFiles/cmTC_a3178.dir/CheckFunctionExists.c.o
+        /sbin/cc   -DCHECK_FUNCTION_EXISTS=remove -o CMakeFiles/cmTC_a3178.dir/CheckFunctionExists.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y/CheckFunctionExists.c
+        Linking C executable cmTC_a3178
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_a3178.dir/link.txt --verbose=1
+        /sbin/cc  -DCHECK_FUNCTION_EXISTS=remove CMakeFiles/cmTC_a3178.dir/CheckFunctionExists.c.o -o cmTC_a3178
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-Vdhc3y'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "/usr/share/cmake/Modules/FindX11.cmake:748 (check_function_exists)"
+      - "src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for shmat"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_SHMAT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_ed588/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT'
+        /sbin/make  -f CMakeFiles/cmTC_ed588.dir/build.make CMakeFiles/cmTC_ed588.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT'
+        Building C object CMakeFiles/cmTC_ed588.dir/CheckFunctionExists.c.o
+        /sbin/cc   -DCHECK_FUNCTION_EXISTS=shmat -o CMakeFiles/cmTC_ed588.dir/CheckFunctionExists.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT/CheckFunctionExists.c
+        Linking C executable cmTC_ed588
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_ed588.dir/link.txt --verbose=1
+        /sbin/cc  -DCHECK_FUNCTION_EXISTS=shmat CMakeFiles/cmTC_ed588.dir/CheckFunctionExists.c.o -o cmTC_ed588
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-w2YgKT'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CheckLibraryExists.cmake:112 (try_compile)"
+      - "/usr/share/cmake/Modules/FindX11.cmake:758 (check_library_exists)"
+      - "src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for IceConnectionNumber in ICE"
+    directories:
+      source: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5"
+      binary: "/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/pancake/Documents/Bucket/lib/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_LIB_ICE_HAS_ICECONNECTIONNUMBER"
+      cached: true
+      stdout: |
+        Change Dir: '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5'
+        
+        Run Build Command(s): /sbin/cmake -E env VERBOSE=1 /sbin/make -f Makefile cmTC_3f093/fast
+        make[1]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5'
+        /sbin/make  -f CMakeFiles/cmTC_3f093.dir/build.make CMakeFiles/cmTC_3f093.dir/build
+        make[2]: Entering directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5'
+        Building C object CMakeFiles/cmTC_3f093.dir/CheckFunctionExists.c.o
+        /sbin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -o CMakeFiles/cmTC_3f093.dir/CheckFunctionExists.c.o -c /home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5/CheckFunctionExists.c
+        Linking C executable cmTC_3f093
+        /sbin/cmake -E cmake_link_script CMakeFiles/cmTC_3f093.dir/link.txt --verbose=1
+        /sbin/cc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber CMakeFiles/cmTC_3f093.dir/CheckFunctionExists.c.o -o cmTC_3f093  -lICE
+        make[2]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5'
+        make[1]: Leaving directory '/home/pancake/Documents/Bucket/lib/glfw/CMakeFiles/CMakeScratch/TryCompile-QXU3v5'
+        
+      exitCode: 0
+...
