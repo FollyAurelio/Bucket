@@ -47,12 +47,14 @@ src/CMakeFiles/glfw.dir/context.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -158,6 +160,7 @@ src/CMakeFiles/glfw.dir/context.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -243,12 +246,14 @@ src/CMakeFiles/glfw.dir/egl_context.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -353,6 +358,7 @@ src/CMakeFiles/glfw.dir/egl_context.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -437,12 +443,14 @@ src/CMakeFiles/glfw.dir/glx_context.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -547,6 +555,7 @@ src/CMakeFiles/glfw.dir/glx_context.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -631,12 +640,14 @@ src/CMakeFiles/glfw.dir/init.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -741,6 +752,7 @@ src/CMakeFiles/glfw.dir/init.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -826,12 +838,14 @@ src/CMakeFiles/glfw.dir/input.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -936,6 +950,7 @@ src/CMakeFiles/glfw.dir/input.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -1023,6 +1038,7 @@ src/CMakeFiles/glfw.dir/linux_joystick.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/errno.h
@@ -1030,6 +1046,7 @@ src/CMakeFiles/glfw.dir/linux_joystick.c.o
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -1147,6 +1164,7 @@ src/CMakeFiles/glfw.dir/linux_joystick.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -1233,12 +1251,14 @@ src/CMakeFiles/glfw.dir/monitor.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -1347,6 +1367,7 @@ src/CMakeFiles/glfw.dir/monitor.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -1434,12 +1455,14 @@ src/CMakeFiles/glfw.dir/null_init.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -1543,6 +1566,7 @@ src/CMakeFiles/glfw.dir/null_init.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -1626,12 +1650,14 @@ src/CMakeFiles/glfw.dir/null_joystick.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -1732,6 +1758,7 @@ src/CMakeFiles/glfw.dir/null_joystick.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -1813,12 +1840,14 @@ src/CMakeFiles/glfw.dir/null_monitor.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -1922,6 +1951,7 @@ src/CMakeFiles/glfw.dir/null_monitor.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -2006,12 +2036,14 @@ src/CMakeFiles/glfw.dir/null_window.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -2115,6 +2147,7 @@ src/CMakeFiles/glfw.dir/null_window.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -2197,12 +2230,14 @@ src/CMakeFiles/glfw.dir/osmesa_context.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -2307,6 +2342,7 @@ src/CMakeFiles/glfw.dir/osmesa_context.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -2391,12 +2427,14 @@ src/CMakeFiles/glfw.dir/platform.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -2500,6 +2538,7 @@ src/CMakeFiles/glfw.dir/platform.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -2583,12 +2622,14 @@ src/CMakeFiles/glfw.dir/posix_module.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -2691,6 +2732,7 @@ src/CMakeFiles/glfw.dir/posix_module.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -2773,6 +2815,7 @@ src/CMakeFiles/glfw.dir/posix_poll.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/errno.h
@@ -2780,6 +2823,7 @@ src/CMakeFiles/glfw.dir/posix_poll.c.o
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -2889,6 +2933,7 @@ src/CMakeFiles/glfw.dir/posix_poll.c.o
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
  /usr/include/linux/sched/types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -2969,12 +3014,14 @@ src/CMakeFiles/glfw.dir/posix_thread.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -3076,6 +3123,7 @@ src/CMakeFiles/glfw.dir/posix_thread.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -3158,12 +3206,14 @@ src/CMakeFiles/glfw.dir/posix_time.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -3264,6 +3314,7 @@ src/CMakeFiles/glfw.dir/posix_time.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -3345,12 +3396,14 @@ src/CMakeFiles/glfw.dir/vulkan.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -3455,6 +3508,7 @@ src/CMakeFiles/glfw.dir/vulkan.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -3539,12 +3593,14 @@ src/CMakeFiles/glfw.dir/window.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -3649,6 +3705,7 @@ src/CMakeFiles/glfw.dir/window.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -3754,6 +3811,7 @@ src/CMakeFiles/glfw.dir/wl_init.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/errno.h
@@ -3761,6 +3819,7 @@ src/CMakeFiles/glfw.dir/wl_init.c.o
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -3878,6 +3937,7 @@ src/CMakeFiles/glfw.dir/wl_init.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -3971,6 +4031,7 @@ src/CMakeFiles/glfw.dir/wl_monitor.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/errno.h
@@ -3978,6 +4039,7 @@ src/CMakeFiles/glfw.dir/wl_monitor.c.o
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -4084,6 +4146,7 @@ src/CMakeFiles/glfw.dir/wl_monitor.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -4181,6 +4244,7 @@ src/CMakeFiles/glfw.dir/wl_window.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/errno.h
@@ -4188,6 +4252,7 @@ src/CMakeFiles/glfw.dir/wl_window.c.o
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -4314,6 +4379,7 @@ src/CMakeFiles/glfw.dir/wl_window.c.o
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
  /usr/include/linux/sched/types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -4404,6 +4470,7 @@ src/CMakeFiles/glfw.dir/x11_init.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/errno.h
@@ -4411,6 +4478,7 @@ src/CMakeFiles/glfw.dir/x11_init.c.o
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -4528,6 +4596,7 @@ src/CMakeFiles/glfw.dir/x11_init.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/locale.h
@@ -4615,12 +4684,14 @@ src/CMakeFiles/glfw.dir/x11_monitor.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -4728,6 +4799,7 @@ src/CMakeFiles/glfw.dir/x11_monitor.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -4818,6 +4890,7 @@ src/CMakeFiles/glfw.dir/x11_window.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/errno.h
@@ -4825,6 +4898,7 @@ src/CMakeFiles/glfw.dir/x11_window.c.o
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -4936,6 +5010,7 @@ src/CMakeFiles/glfw.dir/x11_window.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h
@@ -5021,12 +5096,14 @@ src/CMakeFiles/glfw.dir/xkb_unicode.c.o
  /usr/include/asm-generic/ioctl.h
  /usr/include/asm-generic/ioctls.h
  /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/sockios.h
  /usr/include/asm-generic/types.h
  /usr/include/asm/bitsperlong.h
  /usr/include/asm/ioctl.h
  /usr/include/asm/ioctls.h
  /usr/include/asm/posix_types.h
  /usr/include/asm/posix_types_64.h
+ /usr/include/asm/sockios.h
  /usr/include/asm/types.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
@@ -5127,6 +5204,7 @@ src/CMakeFiles/glfw.dir/xkb_unicode.c.o
  /usr/include/linux/ioctl.h
  /usr/include/linux/limits.h
  /usr/include/linux/posix_types.h
+ /usr/include/linux/sockios.h
  /usr/include/linux/stddef.h
  /usr/include/linux/types.h
  /usr/include/math.h

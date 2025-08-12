@@ -60,4 +60,4 @@ dkms.conf
 *.zip
 *.js
 __pycache__/
-CMakeCache.txt
+*/CMakeCache.txt
