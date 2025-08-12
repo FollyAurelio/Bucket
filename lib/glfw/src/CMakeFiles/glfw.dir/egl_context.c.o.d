@@ -88,13 +88,15 @@ src/CMakeFiles/glfw.dir/egl_context.c.o: \
  /usr/include/sys/ioctl.h /usr/include/bits/ioctls.h \
  /usr/include/asm/ioctls.h /usr/include/asm-generic/ioctls.h \
  /usr/include/linux/ioctl.h /usr/include/asm/ioctl.h \
- /usr/include/asm-generic/ioctl.h /usr/include/bits/ioctl-types.h \
- /usr/include/sys/ttydefaults.h /usr/include/linux/types.h \
- /usr/include/asm/types.h /usr/include/asm-generic/types.h \
- /usr/include/asm-generic/int-ll64.h /usr/include/asm/bitsperlong.h \
- /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
- /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
- /usr/include/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h \
+ /usr/include/asm-generic/ioctl.h /usr/include/linux/sockios.h \
+ /usr/include/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h \
+ /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/bits/ioctl-types.h /usr/include/sys/ttydefaults.h \
+ /usr/include/linux/types.h /usr/include/asm/types.h \
+ /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
+ /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
+ /usr/include/asm/posix_types.h /usr/include/asm/posix_types_64.h \
+ /usr/include/asm-generic/posix_types.h \
  /usr/include/linux/input-event-codes.h /usr/include/linux/limits.h \
  /usr/include/regex.h \
  /home/pancake/Documents/Bucket/lib/glfw/src/posix_thread.h \
