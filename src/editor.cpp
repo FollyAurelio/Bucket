@@ -1,10 +1,17 @@
 #include "editor.h"
+#include "piece_table.h"
+#include <cctype>
 
 Editor::Editor()
 {
 	cursor = 0;
 	cursor_col = 0;
 	mode = MODE_NORMAL;
+}
+
+bool isWord(char character)
+{
+	return std::isalnum(character) || character == '_';
 }
 
 void Editor::init(std::string text)
@@ -105,6 +112,45 @@ void Editor::move_char_right()
 	}
 	
 }
+
+void Editor::move_word_right()
+{
+	if(cursor >= sequence->length)
+	{return;}
+	if(isWord(sequence->get_char_at(cursor)))
+	{
+		do{
+		cursor++;
+		}while(isWord(sequence->get_char_at(cursor)) && cursor < sequence->length);
+	}
+	else
+	{
+		do{
+		cursor++;
+		}while(!isWord(sequence->get_char_at(cursor)) && cursor < sequence->length);
+	}
+	cursor_col = cursor - lines[cursor_row()].begin;
+}
+
+void Editor::move_word_left()
+{
+	if(cursor < 0)
+	{return;}
+	if(isWord(sequence->get_char_at(cursor)))
+	{
+		do{
+		cursor--;
+		}while(isWord(sequence->get_char_at(cursor)) && cursor > 0);
+	}
+	else
+	{
+		do{
+		cursor--;
+		}while(!isWord(sequence->get_char_at(cursor)) && cursor > 0);
+	}
+	cursor_col = cursor - lines[cursor_row()].begin;
+}
+		
 
 Editor::~Editor()
 {

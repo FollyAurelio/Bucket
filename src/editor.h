@@ -42,6 +42,8 @@ public:
 	void move_char_right();
 	void move_line_up();
 	void move_line_down();
+	void move_word_right();
+	void move_word_left();
 	void enter();
 	size_t cursor_row();
 	void undo();
@@ -50,6 +52,9 @@ public:
 	void insert(char character, size_t length);
 	void remove();
 	void remove_selection();
+	void remove_word_right();
+	void remove_word_left();
+	void remove_line();
 	void draw_cursor(size_t cursor_position, Renderer renderer, glm::vec4 color);
 	void render(Renderer &renderer);
 };
