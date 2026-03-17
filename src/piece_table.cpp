@@ -1,7 +1,6 @@
 #include "piece_table.h"
 
-Span::Span(bool buffer, size_t start, size_t length)
-{
+Span::Span(bool buffer, size_t start, size_t length) {
 	this->buffer = buffer;
 	this->start = start;
 	this->length = length;
@@ -9,40 +8,38 @@ Span::Span(bool buffer, size_t start, size_t length)
 	this->prev = nullptr;
 }
 
-//We don't want a destructor for spanranges, as some of them are stack allocated to help with some functions, and thus the destructor would free the spans inside of them when they went out of scope (memory management is complicated)
-void SpanRange::free()
-{
-	if(!boundary){
+// We don't want a destructor for spanranges, as some of them are stack
+// allocated to help with some functions, and thus the destructor would free the
+// spans inside of them when they went out of scope (memory management is
+// complicated)
+void SpanRange::free() {
+	if (!boundary) {
 		Span *sptr, *next, *term;
-		for(sptr = first, term = last->next; sptr && sptr != term; sptr = next){
+		for (sptr = first, term = last->next; sptr && sptr != term;
+			 sptr = next) {
 			next = sptr->next;
 			delete sptr;
 		}
 	}
 }
 
-void SpanRange::append(Span *span)
-{
-	if(!first){
+void SpanRange::append(Span *span) {
+	if (!first) {
 		first = span;
-	}
-	else if(first){
+	} else if (first) {
 		last->next = span;
-		span->prev  = last;
+		span->prev = last;
 	}
 	last = span;
 }
 
-void SpanRange::span_boundary(Span *before, Span *after)
-{
+void SpanRange::span_boundary(Span *before, Span *after) {
 	first = before;
 	last = after;
 	boundary = true;
 }
 
-
-PieceTable::PieceTable(std::string s)
-{
+PieceTable::PieceTable(std::string s) {
 	last_insert = -1;
 	head = new Span(0, 0, 0);
 	tail = new Span(0, 0, 1);
@@ -57,10 +54,9 @@ PieceTable::PieceTable(std::string s)
 	tail->prev = f;
 }
 
-PieceTable::~PieceTable()
-{
+PieceTable::~PieceTable() {
 	Span *sptr, *tmp;
-	for(sptr = head->next; sptr->next; sptr = tmp){
+	for (sptr = head->next; sptr->next; sptr = tmp) {
 		tmp = sptr->next;
 		delete sptr;
 	}
@@ -70,10 +66,9 @@ PieceTable::~PieceTable()
 	clearstack(redostack);
 }
 
-void PieceTable::clearstack(std::stack<SpanRange*> &s)
-{
-	while(!s.empty()){
-		//pop doesn't return the value for whatever reason (shit language)
+void PieceTable::clearstack(std::stack<SpanRange *> &s) {
+	while (!s.empty()) {
+		// pop doesn't return the value for whatever reason (shit language)
 		SpanRange *range = s.top();
 		s.pop();
 		range->free();
@@ -81,15 +76,13 @@ void PieceTable::clearstack(std::stack<SpanRange*> &s)
 	}
 }
 
-void PieceTable::swaprange(SpanRange *src, SpanRange *dest)
-{
-	if(src->boundary){
+void PieceTable::swaprange(SpanRange *src, SpanRange *dest) {
+	if (src->boundary) {
 		src->first->next = dest->first;
 		dest->first->prev = src->first;
 		src->last->prev = dest->first;
 		dest->first->next = src->last;
-	}
-	else{
+	} else {
 		dest->first->prev = src->first->prev;
 		src->first->prev->next = dest->first;
 		src->last->next->prev = dest->last;
@@ -97,17 +90,15 @@ void PieceTable::swaprange(SpanRange *src, SpanRange *dest)
 	}
 }
 
-char PieceTable::get_char_at(size_t index)
-{
+char PieceTable::get_char_at(size_t index) {
 	Span *sptr;
 	size_t offset = 0;
-	for(sptr = head->next; sptr->next; sptr = sptr->next){
-		if(offset <= index && index < offset + sptr->length){
+	for (sptr = head->next; sptr->next; sptr = sptr->next) {
+		if (offset <= index && index < offset + sptr->length) {
 			size_t r_i = index - offset;
-			if(!sptr->buffer){
+			if (!sptr->buffer) {
 				return file_buffer[sptr->start + r_i];
-			}
-			else{
+			} else {
 				return add_buffer[sptr->start + r_i];
 			}
 		}
@@ -116,70 +107,62 @@ char PieceTable::get_char_at(size_t index)
 	return 'a';
 }
 
-
-
-		
-
-
-void PieceTable::insert(size_t index, const char *text, size_t size)
-{
+void PieceTable::insert(size_t index, const char *text, size_t size) {
 	SpanRange *old_span = new SpanRange();
 	old_span->length = length;
 	SpanRange new_span;
-	for(size_t i = 0; i < size; i++){
+	for (size_t i = 0; i < size; i++) {
 		add_buffer.push_back(text[i]);
 	}
 	size_t offset = 0;
 	Span *sptr;
-	for(sptr = head->next; sptr; sptr = sptr->next){
-		if(offset <= index && index < offset + sptr->length){
-			if(offset == index){
-				if(last_insert == index){
+	for (sptr = head->next; sptr; sptr = sptr->next) {
+		if (offset <= index && index < offset + sptr->length) {
+			if (offset == index) {
+				if (last_insert == index) {
 					sptr->prev->length += size;
-				}
-				else{
+				} else {
 					old_span->span_boundary(sptr->prev, sptr);
-					new_span.append(new Span(true, add_buffer.size() - size, size));
+					new_span.append(
+						new Span(true, add_buffer.size() - size, size));
 					swaprange(old_span, &new_span);
 					undostack.push(old_span);
-
 				}
-			}
-			else{
+			} else {
 				size_t r_i = index - offset;
 				old_span->append(sptr);
 				new_span.append(new Span(sptr->buffer, sptr->start, r_i));
 				new_span.append(new Span(true, add_buffer.size() - size, size));
-				new_span.append(new Span(sptr->buffer, r_i + sptr->start, sptr->length - r_i));
+				new_span.append(new Span(sptr->buffer, r_i + sptr->start,
+										 sptr->length - r_i));
 				swaprange(old_span, &new_span);
 				undostack.push(old_span);
 			}
 			length += size;
 			last_insert = index + size;
 			return;
-		}
-		else{
+		} else {
 			offset += sptr->length;
 		}
 	}
 }
 
-
-void PieceTable::erase(size_t index, size_t size)
-{
+void PieceTable::erase(size_t index, size_t size) {
 	Span *sptr;
 	SpanRange *old_span = new SpanRange();
 	old_span->length = length;
 	SpanRange new_span;
 	size_t offset = 0;
 	size_t temp_size = size;
-	for(sptr = head->next;sptr->next; sptr = sptr->next){
-		if(offset <= index && index < offset + sptr->length){
+	for (sptr = head->next; sptr->next; sptr = sptr->next) {
+		if (offset <= index && index < offset + sptr->length) {
 			size_t r_i = index - offset;
-			if(r_i != 0){
+			if (r_i != 0) {
 				new_span.append(new Span(sptr->buffer, sptr->start, r_i));
-				if(r_i + size < sptr->length){
-					new_span.append(new Span(sptr->buffer, sptr->start + r_i + size, sptr->length - r_i - size));
+				if (r_i + size < sptr->length) {
+					new_span.append(new Span(sptr->buffer,
+											 sptr->start + r_i + size,
+											 sptr->length - r_i - size));
 				}
 				size -= std::min(size, sptr->length - r_i);
 				old_span->append(sptr);
@@ -189,17 +172,17 @@ void PieceTable::erase(size_t index, size_t size)
 		}
 		offset += sptr->length;
 	}
-	for(; sptr->next && size > 0; sptr = sptr->next){
-		if(size < sptr->length){
-			new_span.append(new Span(sptr->buffer, sptr->start + size, sptr->length - size));
+	for (; sptr->next && size > 0; sptr = sptr->next) {
+		if (size < sptr->length) {
+			new_span.append(new Span(sptr->buffer, sptr->start + size,
+									 sptr->length - size));
 		}
 		size -= std::min(size, sptr->length);
 		old_span->append(sptr);
 	}
-	if(new_span.first){
+	if (new_span.first) {
 		swaprange(old_span, &new_span);
-	}
-	else{
+	} else {
 		old_span->first->prev->next = old_span->last->next;
 		old_span->last->next->prev = old_span->first->prev;
 	}
@@ -208,22 +191,19 @@ void PieceTable::erase(size_t index, size_t size)
 	last_insert = -1;
 }
 
-void PieceTable::undo_redo(int action)
-{
-	std::stack<SpanRange*> *src_stack;
-	std::stack<SpanRange*> *dest_stack;
-	if(action == 0){
+void PieceTable::undo_redo(int action) {
+	std::stack<SpanRange *> *src_stack;
+	std::stack<SpanRange *> *dest_stack;
+	if (action == 0) {
 		src_stack = &undostack;
 		dest_stack = &redostack;
-	}
-	else if(action == 1){
+	} else if (action == 1) {
 		src_stack = &redostack;
 		dest_stack = &undostack;
-	}
-	else{
+	} else {
 		return;
 	}
-	if(src_stack->empty()){
+	if (src_stack->empty()) {
 		return;
 	}
 	SpanRange *range = src_stack->top();
@@ -233,28 +213,26 @@ void PieceTable::undo_redo(int action)
 	src_stack->pop();
 	dest_stack->push(range);
 	Span *first, *last;
-	if(range->boundary){
+	if (range->boundary) {
 		first = range->first->next;
 		last = range->last->prev;
-		//link the old range
+		// link the old range
 		range->first->next = range->last;
 		range->last->prev = range->first;
-		//Store the span range
+		// Store the span range
 		range->first = first;
 		range->last = last;
 		range->boundary = false;
-	}
-	else{
+	} else {
 		first = range->first->prev;
 		last = range->last->next;
-		if(first->next == last){
+		if (first->next == last) {
 			first->next = range->first;
 			last->prev = range->last;
 			range->first = first;
 			range->last = last;
 			range->boundary = true;
-		}
-		else{
+		} else {
 			first = first->next;
 			last = last->prev;
 			first->prev->next = range->first;
@@ -266,22 +244,19 @@ void PieceTable::undo_redo(int action)
 	}
 }
 
-std::string PieceTable::toString()
-{
+std::string PieceTable::toString() {
 	std::string output;
 	Span *sptr;
-	for(sptr = head->next; sptr->next;sptr = sptr->next){
-		if(!sptr->buffer){
-			for(size_t i = sptr->start; i < sptr->start + sptr->length; i++){
+	for (sptr = head->next; sptr->next; sptr = sptr->next) {
+		if (!sptr->buffer) {
+			for (size_t i = sptr->start; i < sptr->start + sptr->length; i++) {
 				output += file_buffer[i];
 			}
-		}
-		else{
-			for(size_t i = sptr->start; i < sptr->start + sptr->length; i++){
+		} else {
+			for (size_t i = sptr->start; i < sptr->start + sptr->length; i++) {
 				output += add_buffer[i];
 			}
 		}
 	}
 	return output;
 }
-

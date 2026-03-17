@@ -107,58 +107,97 @@ void Renderer::drawText(Shader shader, std::string text, glm::vec2 position, flo
 }
 
 void Renderer::drawEditorText(Shader shader, PieceTable *sequence, glm::vec2 position, float scale, glm::vec4 color, bool fixed)
-//TODO : optimize this method
 {
-	shader.use();
-	shader.setInt("text", 0);
-	shader.setVector4("textColor", color);
-	if (fixed)
-		shader.setMatrix4("view", no_camera);
-	else
-		shader.setMatrix4("view", camera);
-	shader.setMatrix4("projection", projection);
-	glm::mat4 model;
-	glActiveTexture(GL_TEXTURE0);
-	glBindVertexArray(text_vao);
-	Span *sptr;
-	float copyX = position.x;
-	char c;
-	
-	for(sptr = sequence->head->next; sptr->next; sptr = sptr->next){
-		for(size_t i = sptr->start; i < sptr->start + sptr->length; i++){
-			if(!sptr->buffer){
-				c = sequence->file_buffer[i];
-			}
-			else{
-				c = sequence->add_buffer[i];
-			}
-			if((int)c > 127){
-				c = '?';
-			}
-			Character ch = font.characters[c];
-			if(c == '\n')
-			{
-				position.y += font.lineoffset * scale;
-				position.x = copyX;
-			}
-			else if(c == ' ' ){
-				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64
-			}
-			else if(c == '	'){
-				position.x += (font.characters[' '].advance >> 6) * scale * 4;
-			}
-			else{
-				float xpos = position.x + ch.bearing.x * scale;
-				float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
-				model = glm::translate(glm::mat4(1.0f),glm::vec3(xpos,ypos,0)) * glm::scale(glm::mat4(1.0f), glm::vec3(ch.size.x * scale, ch.size.y * scale, 0));
-				shader.setMatrix4("model", model);
-				glBindTexture(GL_TEXTURE_2D, ch.texture);
-				glBindBuffer(GL_ARRAY_BUFFER,text_vbo);
-				glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
-				glBindTexture(GL_TEXTURE_2D, 0);
-				glBindBuffer(GL_ARRAY_BUFFER,0);
-				position.x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
-			}
-		}
-	}
+    shader.use();
+    shader.setInt("text", 0);
+    shader.setVector4("textColor", color);
+    glm::mat4 activeView = fixed ? no_camera : camera;
+    shader.setMatrix4("view", activeView);
+    shader.setMatrix4("projection", projection);
+
+    // Compute visible world-space bounds
+    auto screenToWorld = [&](glm::vec2 s) -> glm::vec2 {
+        glm::vec4 w = inverseCamera * glm::vec4(s.x, s.y, 0.0f, 1.0f);
+        return glm::vec2(w.x, w.y);
+    };
+
+    glm::vec2 viewMin, viewMax;
+    if (fixed) {
+        viewMin = { 0.0f, 0.0f };
+        viewMax = { (float)screen.x, (float)screen.y };
+    } else {
+        viewMin = screenToWorld({ 0.0f, 0.0f });
+        viewMax = screenToWorld({ (float)screen.x, (float)screen.y });
+    }
+
+    glm::mat4 model;
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(text_vao);
+
+    Span *sptr;
+    float copyX = position.x;
+    char c;
+
+    for (sptr = sequence->head->next; sptr->next; sptr = sptr->next) {
+        for (size_t i = sptr->start; i < sptr->start + sptr->length; i++) {
+            c = sptr->buffer ? sequence->add_buffer[i] : sequence->file_buffer[i];
+            if ((int)c > 127) c = '?';
+
+            Character ch = font.characters[c];
+
+            if (c == '\n') {
+                position.y += font.lineoffset * scale;
+                position.x = copyX;
+
+                // Y increases downward — past bottom means we're done
+                if (position.y > viewMax.y + font.lineoffset * scale)
+                    return;
+            }
+            else if (c == ' ') {
+                position.x += (ch.advance >> 6) * scale;
+            }
+            else if (c == '\t') {
+                position.x += (font.characters[' '].advance >> 6) * scale * 4;
+            }
+            else {
+                float xpos = position.x + ch.bearing.x * scale;
+                float ypos = position.y + (font.characters['H'].bearing.y - ch.bearing.y) * scale;
+                float charW = ch.size.x * scale;
+                float charH = ch.size.y * scale;
+
+                // Above viewport
+                if (ypos + charH < viewMin.y) {
+                    position.x += (ch.advance >> 6) * scale;
+                    continue;
+                }
+                // Below viewport
+                if (ypos > viewMax.y) {
+                    position.x += (ch.advance >> 6) * scale;
+                    continue;
+                }
+                // Left of viewport
+                if (xpos + charW < viewMin.x) {
+                    position.x += (ch.advance >> 6) * scale;
+                    continue;
+                }
+                // Right of viewport
+                if (xpos > viewMax.x) {
+                    position.x += (ch.advance >> 6) * scale;
+                    continue;
+                }
+
+                model = glm::translate(glm::mat4(1.0f), glm::vec3(xpos, ypos, 0))
+                      * glm::scale(glm::mat4(1.0f), glm::vec3(charW, charH, 0));
+
+                shader.setMatrix4("model", model);
+                glBindTexture(GL_TEXTURE_2D, ch.texture);
+                glBindBuffer(GL_ARRAY_BUFFER, text_vbo);
+                glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
+                glBindTexture(GL_TEXTURE_2D, 0);
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+                position.x += (ch.advance >> 6) * scale;
+            }
+        }
+    }
 }
