@@ -43,6 +43,50 @@ void Editor::remove()
 	reline();
 }
 
+void Editor::remove_word_right()
+{
+	size_t bound = cursor;
+	if(bound >= sequence->length-1)
+	{return;}
+	if(isWord(sequence->get_char_at(bound)))
+	{
+		do{
+		bound++;
+		}while(isWord(sequence->get_char_at(bound)) && bound <= sequence->length-1);
+	}
+	else
+	{
+		do{
+		bound++;
+		}while(!isWord(sequence->get_char_at(bound)) && bound <= sequence->length-1);
+	}
+	sequence->erase(cursor, bound - cursor);
+	reline();
+}
+
+void Editor::remove_word_left()
+{
+	size_t bound = cursor;
+	if(bound <= 0)
+	{return;}
+	if(isWord(sequence->get_char_at(bound)))
+	{
+		do{
+		bound--;
+		}while(isWord(sequence->get_char_at(bound)) && bound > 0);
+	}
+	else
+	{
+		do{
+		bound--;
+		}while(!isWord(sequence->get_char_at(bound)) && bound > 0);
+	}
+	sequence->erase(bound, cursor - bound);
+	cursor = bound;
+	reline();
+}
+
+
 void Editor::remove_selection()
 {
 	if(cursor > select_begin){
@@ -115,26 +159,26 @@ void Editor::move_char_right()
 
 void Editor::move_word_right()
 {
-	if(cursor >= sequence->length)
+	if(cursor >= sequence->length-1)
 	{return;}
 	if(isWord(sequence->get_char_at(cursor)))
 	{
 		do{
 		cursor++;
-		}while(isWord(sequence->get_char_at(cursor)) && cursor < sequence->length);
+		}while(isWord(sequence->get_char_at(cursor)) && cursor <= sequence->length-1);
 	}
 	else
 	{
 		do{
 		cursor++;
-		}while(!isWord(sequence->get_char_at(cursor)) && cursor < sequence->length);
+		}while(!isWord(sequence->get_char_at(cursor)) && cursor <= sequence->length-1);
 	}
 	cursor_col = cursor - lines[cursor_row()].begin;
 }
 
 void Editor::move_word_left()
 {
-	if(cursor < 0)
+	if(cursor <= 0)
 	{return;}
 	if(isWord(sequence->get_char_at(cursor)))
 	{

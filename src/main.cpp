@@ -221,6 +221,14 @@ static void keyboardCallback(GLFWwindow *window, int key, int scancode,
 				editor.move_word_left();
 				break;
 
+			case GLFW_KEY_M:
+				editor.remove_word_right();
+				break;
+
+			case GLFW_KEY_N:
+				editor.remove_word_left();
+				break;
+
 
 			case GLFW_KEY_X:
 				editor.remove();
