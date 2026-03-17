@@ -234,6 +234,11 @@ static void keyboardCallback(GLFWwindow *window, int key, int scancode,
 				editor.remove();
 				break;
 
+			case GLFW_KEY_D:
+				editor.remove_line();
+				break;
+
+
 			case GLFW_KEY_EQUAL:
 				renderer.cameraZoom += 0.1f;
 				break;

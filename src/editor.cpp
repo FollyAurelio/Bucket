@@ -82,10 +82,16 @@ void Editor::remove_word_left()
 		}while(!isWord(sequence->get_char_at(bound)) && bound > 0);
 	}
 	sequence->erase(bound, cursor - bound);
-	cursor = bound;
+	cursor  = bound;
 	reline();
 }
 
+void Editor::remove_line()
+{
+	size_t row = cursor_row();
+	sequence->erase(lines[row].begin, 1+lines[row].end - lines[row].begin);
+	reline();
+}
 
 void Editor::remove_selection()
 {
